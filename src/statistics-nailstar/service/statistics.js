@@ -139,7 +139,7 @@ function users(req, res, next){
         infos: []
     };
 
-    async.series([_queryRegister, _queryWechat, _queryUmeng], function(err){
+    async.parallel([_queryRegister, _queryWechat, _queryUmeng, _queryDownload], function(err){
 
         if(err){
             console.log(err);
@@ -239,6 +239,7 @@ function users(req, res, next){
             title: "过去7天平均日使用时长"
         };
 
+
         obj.infos.push(install);
         obj.infos.push(weekA);
         obj.infos.push(MonthA);
@@ -275,6 +276,40 @@ function users(req, res, next){
             }finally{
                 callback(null);
             }
+        });
+    }
+
+    function _queryDownload(callback){
+        var temp = {
+            title: "视频下载数"
+        };
+        obj.infos.push(temp);
+
+        var sql = "select count(1) as total from accounts";
+
+        dbPool.getConnection(function(err, connection) {
+
+            if (err) {
+                console.log(err);
+                temp.value = "查询失败";
+                callback(null);
+                return;
+            }
+
+            connection.query(sql, function(err, rows) {
+
+                if(err){
+                    console.log(err);
+                    connection.release();
+                    temp.value = "查询失败";
+                    callback(null);
+                    return;
+                }
+
+                temp.value = rows[0].total;
+                connection.release();
+                callback(null);
+            });
         });
     }
 }
