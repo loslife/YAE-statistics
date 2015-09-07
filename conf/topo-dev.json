@@ -1,0 +1,44 @@
+{
+    "env": "dev",
+    "cluster": [
+        {
+            "name": "baseService",
+            "ip": "127.0.0.1",
+            "port": 5005,
+            "protocol": "http",
+            "baseurl": "http://10.171.203.219:8080/svc",
+            "workerno": 1,
+            "applications": [
+                "framework",
+                "statistics-nailstar"
+            ]
+        }
+    ],
+    "dataServer": {
+        "mysql": {
+            "ip": "yilosdev.mysql.rds.aliyuncs.com",
+            "port": 3306,
+            "user": "yilos_dev",
+            "password": "yilos_dev",
+            "dbName": "nailstar"
+        },
+        "mongodb": {
+            "ip": "127.0.0.1",
+            "port": "2222",
+            "connectionurl": "127.0.0.1:2222",
+            "user": "",
+            "password": ""
+        }
+    },
+    "clientAccess": {
+        "staticurl": "http://127.0.0.1:5002",
+        "authurl": "http://127.0.0.1:5000/svc",
+        "serviceurl": "http://127.0.0.1:5002/svc",
+        "uploadurl": "http://127.0.0.1:5002/svc/file-upload",
+        "wxserviceurl": "http://127.0.0.1:5002/svc"
+    },
+    "connector":{
+        "nail_pc_url":"http://www.yilos.com"
+    },
+    "ip-whitelist": ["127.0.0.1", "localhost", "www.yilos.com", "10.171.203.219", "121.40.75.73"]
+}

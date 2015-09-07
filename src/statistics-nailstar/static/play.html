@@ -1,0 +1,43 @@
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="dakaPlayCtrl">
+
+    <div class="col" style="width: 100%;">
+
+        <div class="row-row">
+            <div class="cell">
+                <div class="cell-inner">
+                    <div class="wrapper-md pb-0">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <label>总播放数：{{totalCount}}</label>
+                            </div>
+                            <div class="table-responsive ngGrid">
+                                <table class="table table-striped m-b-none">
+                                    <thead>
+                                    <tr>
+                                        <th>日期</th>
+                                        <th>当日播放数</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="info in details">
+                                        <td>{{info.date}}</td>
+                                        <td>{{info.count}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

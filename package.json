@@ -1,0 +1,22 @@
+{
+  "name": "statistics",
+  "version": "1.0.0",
+  "dependencies": {
+    "async": "^1.4.2",
+    "mysql": "2.1.0",
+    "request": "2.25.0",
+    "underscore": "1.4.4",
+    "wechat-toolkit": "~0.2.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-mkdir": "*",
+    "grunt-contrib-htmlmin": "~0.1.3"
+  }
+}
