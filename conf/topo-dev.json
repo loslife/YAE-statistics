@@ -21,13 +21,6 @@
             "user": "yilos_dev",
             "password": "yilos_dev",
             "dbName": "nailstar"
-        },
-        "mongodb": {
-            "ip": "127.0.0.1",
-            "port": "2222",
-            "connectionurl": "127.0.0.1:2222",
-            "user": "",
-            "password": ""
         }
     },
     "clientAccess": {
