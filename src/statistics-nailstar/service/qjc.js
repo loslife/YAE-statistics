@@ -19,7 +19,7 @@ function qjcPicCount(req, res, next) {
 
     var order = req.query["order"] || 10;
 
-    var sql = "select FROM_UNIXTIME( a.create_date/1000, '%Y-%m-%d' ) 'date',count(a.id) 'count' " +
+    var sql = "select FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) 'date',count(a.id) 'count' " +
         "from candidates a " +
         "where FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) " +
         "between date_format(date_add(now(), interval -" + order + " day), '%Y%m%d') " +
@@ -36,6 +36,7 @@ function qjcPicCount(req, res, next) {
             }
             var data = {details: result};
             doResponse(req, res, data);
+            connection.release();
         });
 
     });
@@ -46,7 +47,7 @@ function qjcVoteCount(req, res, next) {
 
     var order = req.query["order"] || 10;
 
-    var sql = "select FROM_UNIXTIME( a.create_date/1000, '%Y-%m-%d' ) 'date',sum(a.vote_num) 'count' " +
+    var sql = "select FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) 'date',sum(a.vote_num) 'count' " +
         "from candidates a " +
         "where FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) " +
         "between date_format(date_add(now(), interval -" + order + " day), '%Y%m%d') " +
@@ -63,6 +64,7 @@ function qjcVoteCount(req, res, next) {
             }
             var data = {details: result};
             doResponse(req, res, data);
+            connection.release();
         });
 
     });
