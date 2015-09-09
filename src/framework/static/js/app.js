@@ -79,6 +79,16 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+                    .state('app.dakaqjc', {
+                        url: '/dakaqjc',
+                        templateUrl: '/statistics-nailstar/qjc.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/qjc.js']);
+                                }]
+                        }
+                    })
             }
         ]
     )

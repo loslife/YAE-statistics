@@ -37,6 +37,22 @@
             "auth": false,
             "impl": "statistics.users",
             "comment": "美甲大咖用户数"
+        },
+        {
+            "name": "qjc",
+            "path": "/dakatongji/qjcPicCount",
+            "method": "get",
+            "auth": false,
+            "impl": "qjc.qjcPicCount",
+            "comment": "求教程每期上传图片数量统计接口"
+        },
+        {
+            "name": "qjc",
+            "path": "/dakatongji/qjcVoteCount",
+            "method": "get",
+            "auth": false,
+            "impl": "qjc.qjcVoteCount",
+            "comment": "求教程每期投票总数统计接口"
         }
     ],
     "ejsviews": [

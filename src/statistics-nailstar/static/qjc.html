@@ -1,0 +1,65 @@
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="dakaQjcCtrl">
+
+    <div class="col" style="width: 100%;">
+
+        <tabset class="tab-container">
+            <tab>
+                <tab-heading>投票数量统计</tab-heading>
+                <div class="panel wrapper">
+                    <label class="i-switch bg-warning pull-right" ng-init="showVoteSpline=true">
+                        <input type="checkbox" ng-model="showVoteSpline">
+                        <i></i>
+                    </label>
+                    <h4 class="font-thin m-t-none m-b text-muted"></h4>
+                    <div ui-jq="plot" ui-refresh="showVoteSpline" ui-options="
+                      [
+                        { data: {{vote_result}}, label:'上传图片数量', points: { show: true, radius: 1}, splines: { show: showVoteSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+                      ],
+                      {
+                        colors: ['{{app.color.info}}', '{{app.color.primary}}'],
+                        series: { shadowSize: 3 },
+                        xaxis:{ font: { color: '#a1a7ac' } },
+                        yaxis:{ font: { color: '#a1a7ac' } },
+                        grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
+                        tooltip: true,
+                        tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
+                      }
+                    " style="height:246px;width: 100%" >
+                        .</div>
+                </div>
+            </tab>
+            <tab>
+                <tab-heading>上传图片数量统计</tab-heading>
+                <div class="panel wrapper">
+                    <label class="i-switch bg-warning pull-right" ng-init="showPicSpline=true">
+                        <input type="checkbox" ng-model="showPicSpline">
+                        <i></i>
+                    </label>
+                    <h4 class="font-thin m-t-none m-b text-muted"></h4>
+                    <div ui-jq="plot" ui-refresh="showPicSpline" ui-options="
+                      [
+                        { data: {{pic_result}}, label:'上传图片数量', points: { show: true, radius: 1}, splines: { show: showPicSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+                      ],
+                      {
+                        colors: ['{{app.color.info}}', '{{app.color.primary}}'],
+                        series: { shadowSize: 3 },
+                        xaxis:{ font: { color: '#a1a7ac' } },
+                        yaxis:{ font: { color: '#a1a7ac' } },
+                        grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
+                        tooltip: true,
+                        tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
+                      }
+                    " style="height:246px;width: 100%" >
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+
+    </div>
+
+</div>
