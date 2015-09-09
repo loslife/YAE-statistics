@@ -64,8 +64,8 @@ response:
                 count: 20
             },
             {
-                date: "2015-08-27",
-                count: 100
+                no: "149",
+                count: 35
             },
             ...
         ]
@@ -84,12 +84,12 @@ response:
     {
         details: [
             {
-                date: "2015-08-26",
+                no: "150",
                 count: 20
             },
             {
-                date: "2015-08-27",
-                count: 100
+                no: "149",
+                count: 66
             },
             ...
         ]

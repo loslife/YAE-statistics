@@ -17,26 +17,31 @@ exports.qjcVoteCount = qjcVoteCount;
 //求教程每期上传图片数量统计接口
 function qjcPicCount(req, res, next) {
 
-    var order = req.query["order"] || 10;
+    var num = parseInt(req.query["num"]) || 10;
 
-    var sql = "select FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) 'date',count(a.id) 'count' " +
-        "from candidates a " +
-        "where FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) " +
-        "between date_format(date_add(now(), interval -" + order + " day), '%Y%m%d') " +
-        "and date_format(now(), '%Y%m%d') group by date";
+    var sql = "select b.id 'no', sum(a.vote_num) 'count' " +
+        "from candidates a join activities b ON a.activity_id = b.id " +
+        "group by b.id order by b.id desc limit 0 , ?";
 
     dbPool.getConnection(function (err, connection) {
 
         if (err) {
-            return next(err);
+            next(err);
+            if(connection){
+                connection.release();
+            }
+            return;
         }
-        connection.query(sql, {}, function (err, result) {
+        connection.query(sql, [num], function (err, result) {
+
+            if(connection){
+                connection.release();
+            }
             if (err) {
                 return next(err);
             }
             var data = {details: result};
             doResponse(req, res, data);
-            connection.release();
         });
 
     });
@@ -45,26 +50,30 @@ function qjcPicCount(req, res, next) {
 //求教程每期投票总数统计接口
 function qjcVoteCount(req, res, next) {
 
-    var order = req.query["order"] || 10;
+    var num = parseInt(req.query["num"]) || 10;
 
-    var sql = "select FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) 'date',sum(a.vote_num) 'count' " +
-        "from candidates a " +
-        "where FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) " +
-        "between date_format(date_add(now(), interval -" + order + " day), '%Y%m%d') " +
-        "and date_format(now(), '%Y%m%d') group by date";
+    var sql = "select b.id 'no', count(a.id) 'count' " +
+        "from candidates a join activities b ON a.activity_id = b.id " +
+        "group by b.id order by b.id desc limit 0 , ?";
 
     dbPool.getConnection(function (err, connection) {
 
         if (err) {
-            return next(err);
+            next(err);
+            if(connection){
+                connection.release();
+            }
+            return;
         }
-        connection.query(sql, {}, function (err, result) {
+        connection.query(sql, [num], function (err, result) {
+            if(connection){
+                connection.release();
+            }
             if (err) {
                 return next(err);
             }
             var data = {details: result};
             doResponse(req, res, data);
-            connection.release();
         });
 
     });
