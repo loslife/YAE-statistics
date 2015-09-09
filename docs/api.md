@@ -18,13 +18,31 @@ response:
         totalCount: 12000,
         details: [
             {
-                date: "2015-08-26",
+                day: "20150826",
                 count: 20
-            },
+            }
+            ...
+        ]
+    }
+    
+    {
+        totalCount: 12000,
+        details: [
             {
-                date: "2015-08-27",
-                count: 100
-            },
+                week: "201508",
+                count: 20
+            }
+            ...
+        ]
+    }
+    
+    {
+        totalCount: 12000,
+        details: [
+            {
+                month: "201508",
+                count: 20
+            }
             ...
         ]
     }
@@ -42,12 +60,12 @@ response:
     {
         details: [
             {
-                date: "2015-08-26",
+                no: "150",
                 count: 20
             },
             {
-                date: "2015-08-27",
-                count: 100
+                no: "149",
+                count: 35
             },
             ...
         ]
@@ -66,12 +84,12 @@ response:
     {
         details: [
             {
-                date: "2015-08-26",
+                no: "150",
                 count: 20
             },
             {
-                date: "2015-08-27",
-                count: 100
+                no: "149",
+                count: 66
             },
             ...
         ]

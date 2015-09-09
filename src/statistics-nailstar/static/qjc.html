@@ -11,6 +11,8 @@
             <tab>
                 <tab-heading>投票数量统计</tab-heading>
                 <div class="panel wrapper">
+                    <input class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="width:50px;
+                    height: 24px; margin-top: 1px; padding: 0 4px;" ng-model="course.recentVote">
                     <label class="i-switch bg-warning pull-right" ng-init="showVoteSpline=true">
                         <input type="checkbox" ng-model="showVoteSpline">
                         <i></i>
@@ -36,6 +38,8 @@
             <tab>
                 <tab-heading>上传图片数量统计</tab-heading>
                 <div class="panel wrapper">
+                    <input class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="width:50px;
+                    height: 24px; margin-top: 1px; padding: 0 4px;" ng-model="course.recentPhoto">
                     <label class="i-switch bg-warning pull-right" ng-init="showPicSpline=true">
                         <input type="checkbox" ng-model="showPicSpline">
                         <i></i>
