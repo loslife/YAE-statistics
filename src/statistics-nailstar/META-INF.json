@@ -24,11 +24,19 @@
         },
         {
             "name": "play",
-            "path": "/dakatongji/play",
+            "path": "/dakatongji/getplayByCate",
             "method": "get",
             "auth": false,
-            "impl": "statistics.play",
+            "impl": "play.getplayByCate",
             "comment": "美甲大咖播放数"
+        },
+        {
+            "name": "getCategories",
+            "path": "/dakatongji/getCategories",
+            "method": "get",
+            "auth": false,
+            "impl": "play.getCategories",
+            "comment": "获取分类信息"
         },
         {
             "name": "users",
