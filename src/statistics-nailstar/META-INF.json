@@ -61,6 +61,14 @@
             "auth": false,
             "impl": "qjc.qjcVoteCount",
             "comment": "求教程每期投票总数统计接口"
+        },
+        {
+            "name": "getNewestActivity",
+            "path": "/dakatongji/getNewestActivity",
+            "method": "get",
+            "auth": false,
+            "impl": "qjc.getNewestActivity",
+            "comment": "获取最新活动期数"
         }
     ],
     "ejsviews": [

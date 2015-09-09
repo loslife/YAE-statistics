@@ -11,8 +11,34 @@ var databaseParams = {
 
 var dbPool = mysql.createPool(databaseParams);
 
+exports.getNewestActivity = getNewestActivity;
 exports.qjcPicCount = qjcPicCount;
 exports.qjcVoteCount = qjcVoteCount;
+
+//获取最新活动期数
+function getNewestActivity(req, res, next){
+    var sql = "select max(id) 'no' from activities";
+    dbPool.getConnection(function (err, connection) {
+
+        if (err) {
+            next(err);
+            if (connection) {
+                connection.release();
+            }
+            return;
+        }
+        connection.query(sql, function (err, row) {
+            if (err) {
+                next(err);
+                if (connection) {
+                    connection.release();
+                }
+                return;
+            }
+            doResponse(req, res, row[0]);
+        });
+    });
+}
 
 //求教程每期上传图片数量统计接口
 function qjcPicCount(req, res, next) {

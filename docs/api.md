@@ -94,6 +94,16 @@ response:
             ...
         ]
     }
+    
+## 求教程每期投票总数统计接口
+
+url: /svc/dakatongji/getNewestActivity
+
+response:
+    
+    {
+        no: 21
+    }
 
 ## 各项指数统计接口
 
