@@ -1,16 +1,16 @@
 ## 播放统计接口
 
-url: /svc/dakatongji/play
+url: /svc/dakatongji/getplayByCate
 
 query: 
 
-* 无分类播放次数 cat=0
-* 按视频分类播放次数 cat=1
-* 按主题分类播放次数 cat=2
+* 系列id: cate=id
 
 * 日: order=0
 * 周: order=1
 * 月: order=2
+
+* 查询数量: num=10
 
 response:
 
