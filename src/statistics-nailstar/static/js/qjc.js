@@ -76,7 +76,7 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
     }
 
     (function init(){
-
+        initVote();
     })();
     function initPic(){
 
