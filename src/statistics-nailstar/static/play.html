@@ -7,36 +7,67 @@
 
     <div class="col" style="width: 100%;">
 
-        <div class="row-row">
-            <div class="cell">
-                <div class="cell-inner">
-                    <div class="wrapper-md pb-0">
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <label>总播放数：{{totalCount}}</label>
-                            </div>
-                            <div class="table-responsive ngGrid">
-                                <table class="table table-striped m-b-none">
-                                    <thead>
-                                    <tr>
-                                        <th>日期</th>
-                                        <th>当日播放数</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="info in details">
-                                        <td>{{info.date}}</td>
-                                        <td>{{info.count}}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+        <tabset class="tab-container">
+            <tab>
+                <tab-heading>分期播放统计</tab-heading>
+            </tab>
+            <tab>
+                <tab-heading>系列播放统计</tab-heading>
+                <div class="row">
+                    <div class="btn-group dropdown col-md-4">
+                        <button class="btn btn-default dropdown-toggle">请选择分类<span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="cate in cates">
+                                <a ng-click="changeCate(cate.id)">{{cate.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="radio col-md-2">
+                        <label class="i-checks">
+                            <input type="radio" name="order" ng-model="CateParams.order" value="0">
+                            <i></i>
+                            日
+                        </label>
+                    </div>
+                    <div class="radio col-md-2">
+                        <label class="i-checks">
+                            <input type="radio" name="order" ng-model="CateParams.order" value="1">
+                            <i></i>
+                            周
+                        </label>
+                    </div>
+                    <div class="radio col-md-2">
+                        <label class="i-checks">
+                            <input type="radio" name="order" ng-model="CateParams.order" value="2">
+                            <i></i>
+                            月
+                        </label>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="panel wrapper">
+                    <label class="i-switch bg-warning pull-right">
+                        <input type="checkbox" ng-model="CateParams.showSpline">
+                        <i></i>
+                    </label>
+                    <h4 class="font-thin m-t-none m-b text-muted"></h4>
+                    <div ui-jq="plot" ui-refresh="CateParams.refresh" ui-options="
+                      [
+                        { data: {{vote_result}}, label:'上传图片数量', points: { show: true, radius: 1}, splines: { show: CateParams.showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+                      ],
+                      {
+                        colors: ['{{app.color.info}}', '{{app.color.primary}}'],
+                        series: { shadowSize: 3 },
+                        xaxis:{ mode: 'time',tickFormatter: myTickFormatter },
+                        yaxis:{ font: { color: '#a1a7ac' } },
+                        grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
+                        tooltip: true,
+                        tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
+                      }
+                    " style="height:246px;width: 100%" >
+                    </div>
+                </div>
+            </tab>
+        </tabset>
 
     </div>
 
