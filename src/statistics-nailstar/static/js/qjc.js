@@ -11,7 +11,7 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
     $scope.photo = {
         recentPhoto: 10,
         showPicSpline: true
-    }
+    };
 
     $scope.qjcVoteCount = function (recentVote){
 
@@ -32,7 +32,6 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         });
     };
 
-    $scope.qjcVoteCount($scope.vote.recentVote);
 
     $scope.$watch('vote',function(newVal,oldVal){
         if(newVal !== oldVal && newVal.recentVote !== oldVal.recentVote){
@@ -61,7 +60,6 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         });
     };
 
-    $scope.qjcPicCount($scope.photo.recentPhoto);
 
     $scope.$watch('photo',function(newVal,oldVal){
         if(newVal !== oldVal && newVal.recentPhoto !== oldVal.recentPhoto){
@@ -77,30 +75,61 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         $scope.refresh = Math.random();
     }
 
-    $scope.qjcVoteCount($scope.vote.recentVote);
+    (function init(){
 
-    $scope.getNewestActivity = function(recentVote){
-        $http.get("/svc/dakatongji/getNewestActivity?num=" + recentVote).success(function(data) {
+    })();
+    function initPic(){
 
-            var details = data.result.details;
-            var length = details.length;
-            if(recentVote !== length){
-                for(var i=0; i<recentVote; i++){
-                    if(details[i].no == 21){
-                        details[i].count == 0;
-                    }
-                }
-            }
+    }
+    //获取最新活动期数
+    function initVote(){
+        $http.get("/svc/dakatongji/getNewestActivity").success(function(data) {
 
-            $scope.vote_result = _.map(details, function(element){
-                return [element.no, element.count];
+            $scope.no = data.result.no;
+            $http.get("/svc/dakatongji/qjcVoteCount?num=" + $scope.vote.recentVote).success(function(data) {
+
+                var details = data.result.details;
+                $scope.vote_result = _formatData(details, $scope.no, $scope.vote.recentVote);
+                resetRefresh();
+                console.log($scope.vote_result);
+
+            }).error(function(data, status) {
+
+                console.log("qjcVoteCount in error");
+
             });
-            console.log($scope.vote_result);
 
         }).error(function(data, status) {
 
             console.log("qjcVoteCount in error");
 
+        });
+    }
+
+
+    //数据格式化
+    function _formatData(details, no, num){
+        var length = details.length;
+        if(num == length){
+            return _.map(details, function(el){
+                return [el.no, el.count];
+            });
+        }
+        for(var i=0; i<num; i++){
+            var flag = true;
+            for(var j=0; j<details.length; j++){
+                var detail = details[j];
+                if(detail.no === (no - i)){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                details.splice(i, 0, {no: no - i,count: 0});
+            }
+        }
+        return _.map(details, function(el){
+            return [el.no, el.count];
         });
     }
 
