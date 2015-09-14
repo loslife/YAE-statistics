@@ -32,7 +32,9 @@ function getCategories(req, res, next) {
 
         connection.query(sql, {}, function (err, data) {
 
-            connection.release();
+            if(connection){
+                connection.release();
+            }
             if (err) {
                 return next(err);
             }
