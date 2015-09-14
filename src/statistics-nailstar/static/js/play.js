@@ -40,6 +40,7 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', function ($root
         function getCatePlayData(id, order, num){
             if(playDataCache[id + "_" + order]){
                 $scope.cate_result = playDataCache[id + "_" + order];
+                resetRefresh();
                 return;
             }
             var url = "/svc/dakatongji/getplayByCate?cate=" + id + "&order=" + order + "&num=" + num;
@@ -179,6 +180,7 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', function ($root
         function getNoPlayData(num){
             if(playDataCache[num]){
                 $scope.no_result = playDataCache[num];
+                resetRefresh();
                 return;
             }
             var url = "/svc/dakatongji/getplayByNo?num=" + num;
