@@ -161,15 +161,18 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', function ($root
         $scope.noParams = {
             num: 10,//初始数据数量
             refresh: null,
-            showSpline: true
+            showSpline: true,
+            changeNum: function(){
+                getNoPlayData($scope.noParams.num);
+            }
         };
         $scope.no_result = [];
 
         //监听参数变化
         $scope.$watch('noParams', function(newVal, oldVal){
-            if (newVal && (newVal !== oldVal) && (newVal.num !== oldVal.num)) {
-                getNoPlayData(newVal.num);
-            }
+            //if (newVal && (newVal !== oldVal) && (newVal.num !== oldVal.num)) {
+            //    getNoPlayData(newVal.num);
+            //}
             if((newVal !== oldVal) && newVal && newVal.showSpline !== oldVal.showSpline){
                 resetRefresh();
             }

@@ -12,10 +12,11 @@
             <!-- no -->
             <tab>
                 <tab-heading>分期播放统计</tab-heading>
-                <div class="row">
-                    <input class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" ng-model="noParams.num">
-                </div>
                 <div class="panel wrapper">
+                    <span>期数：</span>
+                    <input class="ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="width:50px;
+                    height: 100%; margin-top: 1px; padding: 0 4px;" ng-model="noParams.num"/>
+                    <button type="button" class="btn btn-default" style="height: 100%" ng-click="noParams.changeNum()">Go!</button>
                     <label class="i-switch bg-warning pull-right">
                         <input type="checkbox" ng-model="noParams.showSpline">
                         <i></i>
@@ -34,7 +35,7 @@
                         tooltip: true,
                         tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
                       }
-                    " style="height:246px;width: 100%" >
+                    " style="height:400px;width: 100%" >
                     </div>
                 </div>
             </tab>
