@@ -1,18 +1,24 @@
 app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
 
+    (function init(){
+        initVote();
+        initPic();
+    })();
+
     $scope.pic_result = [];
     $scope.vote_result = [];
 
+    //默认参数
     $scope.vote = {
         recentVote: 10,
         showVoteSpline: true
     };
-
     $scope.photo = {
         recentPhoto: 10,
         showPicSpline: true
     };
 
+    //获取投票参数
     $scope.qjcVoteCount = function (recentVote){
 
         $http.get("/svc/dakatongji/qjcVoteCount?num=" + recentVote).success(function(data) {
@@ -32,6 +38,7 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         });
     };
 
+    //监听投票参数变化
     $scope.$watch('vote',function(newVal,oldVal){
         if(newVal !== oldVal && newVal.recentVote !== oldVal.recentVote){
             $scope.qjcVoteCount($scope.vote.recentVote);
@@ -41,13 +48,14 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         }
     },true);
 
+    //获取上传图片参数
     $scope.qjcPicCount = function (recentPhoto){
         $http.get("/svc/dakatongji/qjcPicCount?num=" + recentPhoto).success(function(data) {
 
             var details = data.result.details;
 
             $scope.pic_result = _.map(details, function(element){
-                return [element.no, element.count];
+              return [element.no, element.count];
             });
             resetRefreshPic();
             console.log($scope.pic_result);
@@ -59,6 +67,7 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         });
     };
 
+    //监听上传图片参数变化
     $scope.$watch('photo',function(newVal,oldVal){
         if(newVal !== oldVal && newVal.recentPhoto !== oldVal.recentPhoto){
             $scope.qjcPicCount($scope.photo.recentPhoto);
@@ -67,11 +76,6 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
             resetRefreshPic();
         }
     },true);
-
-    (function init(){
-        initVote();
-        initPic();
-    })();
 
     //获取投票最新活动期数
     function initVote(){
@@ -147,10 +151,10 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         });
     }
 
+    //产生随机数用于监听
     function resetRefresh(){
         $scope.refresh = Math.random();
     }
-
     function resetRefreshPic(){
         $scope.refreshPic = Math.random();
     }
