@@ -125,6 +125,7 @@ var app = angular.module('app', [
                 'js/jquery/charts/flot/jquery.flot.tooltip.min.js',
                 'js/jquery/charts/flot/jquery.flot.spline.js',
                 'js/jquery/charts/flot/jquery.flot.time.min.js',
+                'js/jquery/charts/flot/jquery.flot.categories.js',
                 'js/jquery/charts/flot/jquery.flot.orderBars.js',
                 'js/jquery/charts/flot/jquery.flot.pie.min.js'],
             slimScroll:     ['js/jquery/slimscroll/jquery.slimscroll.min.js'],

@@ -6,7 +6,6 @@
   app.hideFooter = true;" ng-controller="dakaQjcCtrl">
 
     <div class="col" style="width: 100%;">
-
         <tabset class="tab-container">
             <tab>
                 <tab-heading>投票数量统计</tab-heading>
@@ -20,19 +19,19 @@
                     <h4 class="font-thin m-t-none m-b text-muted"></h4>
                     <div ui-jq="plot" ui-refresh="refresh" ui-options="
                       [
-                        { data: {{vote_result}}, label:'上传图片数量', points: { show: true, radius: 3}, splines: { show: vote.showVoteSpline, tension: 0.4, lineWidth: 1,fill: 0} },
+                        { data: {{vote_result}}, label:'投票数量', points: { show: true, radius: 3,symbol: 'circle'}, splines: { show: vote.showVoteSpline, tension: 0.4, lineWidth: 1,fill: 0} },
                       ],
                       {
                         colors: ['{{app.color.info}}', '{{app.color.primary}}'],
                         series: { shadowSize: 3 },
-                        xaxis:{ font: { color: '#507b9b' } },
-                        yaxis:{ font: { color: '#507b9b' },ticks: 10,min: 0},
+                        xaxis:{ font: { color: '#507b9b' },minTickSize: 1,tickDecimals: 0,autoscaleMargin:0.01},
+                        yaxis:{ font: { color: '#507b9b' },ticks:10,min:0},
                         grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#1c2b36' },
                         tooltip: true,
                         tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
                       }
-                    " style="height:246px;width: 100%" >
-                        </div>
+                    " style="height:246px;width: 60%" >
+                    </div>
                 </div>
             </tab>
             <tab>
@@ -45,25 +44,23 @@
                         <i></i>
                     </label>
                     <h4 class="font-thin m-t-none m-b text-muted"></h4>
-                    <div ui-jq="plot" ui-refresh="refresh" ui-options="
+                    <div ui-jq="plot" ui-refresh="refreshPic" ui-options="
                       [
-                        { data: {{pic_result}}, label:'上传图片数量', points: { show: true, radius: 3}, splines: { show: photo.showPicSpline, tension: 0.4, lineWidth: 1} },
+                        { data: {{pic_result}}, label:'上传图片数量', points: { show: true, radius: 3}, splines: { show: photo.showPicSpline, tension: 0.4, lineWidth: 1,fill: 0} },
                       ],
                       {
                         colors: ['{{app.color.info}}', '{{app.color.primary}}'],
                         series: { shadowSize: 3 },
-                        xaxis:{ font: { color: '#507b9b' } },
-                        yaxis:{ font: { color: '#507b9b' } },
+                        xaxis:{ font: { color: '#507b9b' },minTickSize: 1,tickDecimals: 0 },
+                        yaxis:{ font: { color: '#507b9b' },ticks: 10},
                         grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#1c2b36' },
                         tooltip: true,
                         tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
                       }
                     " style="height:246px;width: 100%" >
-                        </div>
-                </div>
+                    </div>
+               </div>
             </tab>
         </tabset>
-
     </div>
-
 </div>

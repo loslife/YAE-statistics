@@ -13,6 +13,7 @@ var dbPool = mysql.createPool(databaseParams);
 
 exports.getCategories = getCategories;
 exports.getplayByCate = getplayByCate;
+exports.getplayByNo = getplayByNo;
 
 //获取⾸⻚列表接口
 function getCategories(req, res, next) {
@@ -42,7 +43,7 @@ function getCategories(req, res, next) {
 
 }
 
-//美甲大咖播放数
+//美甲大咖系列播放数
 function getplayByCate(req, res, next) {
 
     var cate = req.query["cate"];
@@ -52,10 +53,6 @@ function getplayByCate(req, res, next) {
 
     var order = req.query["order"] || 0;
     var num = parseInt(req.query["num"]) || 10;
-
-    var sql1 = "select count(1) as total " +
-        "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id " +
-        "where a.action_type = 1 and b.category_id = ?";
 
     var sqls = getSqlsByOrder(order, num);
 
@@ -107,6 +104,66 @@ function getplayByCate(req, res, next) {
                 }
 
                 obj.details = rows;
+                nextStep();
+            });
+        }
+
+    });
+}
+
+//美甲大咖分期播放数
+function getplayByNo(req, res, next){
+
+    var num = parseInt(req.query["num"]) || 10;
+
+    var sql1 = "select sum(count) 'count' from (select count(a.id) 'count' " +
+        "from topics a join topic_actions b on a.id = b.topic_id group by a.id " +
+        "order by a.create_date desc limit 1,?) a";
+    var sql2 = "select a.title 'title',count(a.id) 'count' " +
+        "from topics a join topic_actions b on a.id = b.topic_id group by a.id " +
+        "order by a.create_date desc limit 1,?";
+
+    dbPool.getConnection(function (err, connection) {
+
+        if (err) {
+            console.log(err);
+            next(err);
+            if (connection) {
+                connection.release();
+            }
+            return;
+        }
+
+        var obj = {
+            totalCount: 0,
+            details: []
+        };
+
+        async.parallel([_queryTotal, _queryPlayByNo], function(err, result){
+            if(connection){
+                connection.release();
+            }
+            if(err){
+                return next(err);
+            }
+            doResponse(req, res, obj);
+        });
+
+        function _queryTotal(nextStep){
+            connection.query(sql1, [num], function (err, data) {
+                if (err) {
+                    return nextStep(err);
+                }
+                obj.totalCount = data[0].count;
+                nextStep();
+            });
+        }
+        function _queryPlayByNo(nextStep){
+            connection.query(sql2, [num], function (err, data) {
+                if (err) {
+                    return nextStep(err);
+                }
+                obj.details = data;
                 nextStep();
             });
         }

@@ -1,7 +1,7 @@
 app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
 
-    //$scope.pic_result = [];
-    //$scope.vote_result = [];
+    $scope.pic_result = [];
+    $scope.vote_result = [];
 
     $scope.vote = {
         recentVote: 10,
@@ -32,7 +32,6 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         });
     };
 
-
     $scope.$watch('vote',function(newVal,oldVal){
         if(newVal !== oldVal && newVal.recentVote !== oldVal.recentVote){
             $scope.qjcVoteCount($scope.vote.recentVote);
@@ -50,7 +49,7 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
             $scope.pic_result = _.map(details, function(element){
                 return [element.no, element.count];
             });
-            resetRefresh();
+            resetRefreshPic();
             console.log($scope.pic_result);
 
         }).error(function(data, status) {
@@ -60,28 +59,21 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         });
     };
 
-
     $scope.$watch('photo',function(newVal,oldVal){
         if(newVal !== oldVal && newVal.recentPhoto !== oldVal.recentPhoto){
             $scope.qjcPicCount($scope.photo.recentPhoto);
         }
         if(newVal !== oldVal && newVal.showPicSpline !== oldVal.showPicSpline){
-            resetRefresh();
+            resetRefreshPic();
         }
     },true);
 
-
-    function resetRefresh(){
-        $scope.refresh = Math.random();
-    }
-
     (function init(){
         initVote();
+        initPic();
     })();
-    function initPic(){
 
-    }
-    //获取最新活动期数
+    //获取投票最新活动期数
     function initVote(){
         $http.get("/svc/dakatongji/getNewestActivity").success(function(data) {
 
@@ -106,8 +98,30 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         });
     }
 
+    //获取上传图片最新活动期数
+    function initPic(){
+        $http.get("/svc/dakatongji/getNewestActivity").success(function(data) {
+            $scope.no = data.result.no;
+            $http.get("/svc/dakatongji/qjcPicCount?num=" + $scope.photo.recentPhoto).success(function(data) {
 
-    //数据格式化
+                var details = data.result.details;
+                $scope.pic_result = _formatData(details, $scope.no, $scope.photo.recentPhoto);
+                resetRefreshPic();
+                console.log($scope.pic_result);
+
+            }).error(function(data, status) {
+
+                console.log("qjcPicCount in error");
+
+            });
+        }).error(function(data, status) {
+
+            console.log("qjcPicCount in error");
+
+        });
+    }
+
+    //判断所选期数的数据是否为空
     function _formatData(details, no, num){
         var length = details.length;
         if(num == length){
@@ -131,6 +145,14 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         return _.map(details, function(el){
             return [el.no, el.count];
         });
+    }
+
+    function resetRefresh(){
+        $scope.refresh = Math.random();
+    }
+
+    function resetRefreshPic(){
+        $scope.refreshPic = Math.random();
     }
 
 }]);

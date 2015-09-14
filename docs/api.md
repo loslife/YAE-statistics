@@ -1,4 +1,4 @@
-## 播放统计接口
+## 系列播放统计接口
 
 url: /svc/dakatongji/getplayByCate
 
@@ -41,6 +41,27 @@ response:
         details: [
             {
                 month: "201508",
+                count: 20
+            }
+            ...
+        ]
+    }
+    
+## 分期播放统计接口
+
+url: /svc/dakatongji/getplayByNo
+
+query: 
+
+* 查询数量: num=10
+
+response:
+
+    {
+        totalCount: 12000,
+        details: [
+            {
+                title: "121",
                 count: 20
             }
             ...
