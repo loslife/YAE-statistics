@@ -28,11 +28,11 @@ function getNewestActivity(req, res, next){
             return;
         }
         connection.query(sql, function (err, row) {
+            if (connection) {
+                connection.release();
+            }
             if (err) {
                 next(err);
-                if (connection) {
-                    connection.release();
-                }
                 return;
             }
             doResponse(req, res, row[0]);
