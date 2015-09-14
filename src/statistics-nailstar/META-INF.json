@@ -28,7 +28,15 @@
             "method": "get",
             "auth": false,
             "impl": "play.getplayByCate",
-            "comment": "美甲大咖播放数"
+            "comment": "美甲大咖系列播放数"
+        },
+        {
+            "name": "play",
+            "path": "/dakatongji/getplayByNo",
+            "method": "get",
+            "auth": false,
+            "impl": "play.getplayByNo",
+            "comment": "美甲大咖分期播放数"
         },
         {
             "name": "getCategories",
