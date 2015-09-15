@@ -19,18 +19,18 @@
                     <h4 class="font-thin m-t-none m-b text-muted"></h4>
                     <div ui-jq="plot" ui-refresh="refresh" ui-options="
                       [
-                        { data: {{vote_result}}, label:'投票数量', points: { show: true, radius: 3,symbol: 'circle'}, splines: { show: vote.showVoteSpline, tension: 0.4, lineWidth: 1,fill: 0} },
+                        { data: {{vote_result}}, label:'投票数量', points: { show: true, radius: 1}, splines: { show: vote.showVoteSpline, tension: 0.4, lineWidth: 1,fill: 0} },
                       ],
                       {
                         colors: ['{{app.color.info}}', '{{app.color.primary}}'],
                         series: { shadowSize: 3 },
-                        xaxis:{ font: { color: '#507b9b' },minTickSize: 1,tickDecimals: 0},
-                        yaxis:{ font: { color: '#507b9b' },ticks:10,min:0},
+                        xaxis:{ font: { color: '#507b9b' },minTickSize: 1,tickDecimals: 0 ,axisLabel: '视频最近期数',axisLabelPadding: 5},
+                        yaxis:{ font: { color: '#507b9b' },ticks:10,min:0,axisLabel: '投票数量',axisLabelPadding: 5},
                         grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#1c2b36' },
                         tooltip: true,
                         tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
                       }
-                    " style="height:246px;width: 60%" >
+                    " style="height:246px;width: 100%" >
                     </div>
                 </div>
             </tab>
@@ -51,8 +51,8 @@
                       {
                         colors: ['{{app.color.info}}', '{{app.color.primary}}'],
                         series: { shadowSize: 3 },
-                        xaxis:{ font: { color: '#507b9b' },minTickSize: 1,tickDecimals: 0 },
-                        yaxis:{ font: { color: '#507b9b' },ticks: 10},
+                        xaxis:{ font: { color: '#507b9b' },minTickSize: 1,tickDecimals: 0,axisLabel: '视频最近期数'},
+                        yaxis:{ font: { color: '#507b9b' },ticks: 10,axisLabel: '上传图片数'},
                         grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#1c2b36' },
                         tooltip: true,
                         tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
