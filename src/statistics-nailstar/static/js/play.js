@@ -16,11 +16,6 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', function ($root
         };
         $scope.cate_result = [];
 
-        //修改分类数据
-        $scope.changeCate = function(id){
-            $scope.CateParams.cateId = id;
-        };
-
         //监听参数变化
         $scope.$watch('CateParams', function(newVal, oldVal){
             if (newVal && (newVal !== oldVal) &&
@@ -127,6 +122,9 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', function ($root
             }
         }
 
+        $scope.kind = { isopen: false };
+        $scope.selectKind = '请选择一个分类';
+
         //获取分类数据
         function getCates(){
             var url = "/svc/dakatongji/getCategories";
@@ -136,6 +134,14 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', function ($root
                 console.log("getCategories in error");
             });
         }
+
+        //修改分类数据
+        $scope.changeCate = function(id,name){
+            $scope.CateParams.cateId = id;
+            $scope.selectKind = name;
+            $scope.kind.isopen = !$scope.kind.isopen;
+        };
+
         function resetRefresh(){
             $scope.CateParams.refresh = Math.random();
         }

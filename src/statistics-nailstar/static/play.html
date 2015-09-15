@@ -15,8 +15,8 @@
                 <div class="panel wrapper">
                     <span>期数：</span>
                     <input class="ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="width:50px;
-                    height: 100%; margin-top: 1px; padding: 0 4px;" ng-model="noParams.num"/>
-                    <button type="button" class="btn btn-default" style="height: 100%" ng-click="noParams.changeNum()">Go!</button>
+                    height: 100%; margin-top: 1px; padding: 3px 4px;" ng-model="noParams.num"/>
+                    <button type="button" class="btn btn-default btn-sm" style="height: 100%;margin-top: -3px" ng-click="noParams.changeNum()">Go!</button>
                     <label class="i-switch bg-warning pull-right">
                         <input type="checkbox" ng-model="noParams.showSpline">
                         <i></i>
@@ -24,13 +24,13 @@
                     <h4 class="font-thin m-t-none m-b text-muted"></h4>
                     <div ui-jq="plot" ui-refresh="noParams.refresh" ui-options="
                       [
-                        { data: {{no_result}}, label:'分期播放数量', points: { show: true, radius: 1}, splines: { show: noParams.showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+                        { data: {{no_result}}, label:'分期播放数量', points: { show: true, radius: 1}, splines: { show: noParams.showSpline, tension: 0.4, lineWidth: 1,fill: 0.8} },
                       ],
                       {
                         colors: ['{{app.color.info}}', '{{app.color.primary}}'],
                         series: { shadowSize: 3 },
-                        xaxis:{ mode: 'categories', tickLength: 0 },
-                        yaxis:{ font: { color: '#a1a7ac' } },
+                        xaxis:{ mode: 'categories', tickLength: 0,axisLabel: '视频期数'},
+                        yaxis:{ font: { color: '#a1a7ac' },axisLabel: '播放数'},
                         grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
                         tooltip: true,
                         tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
@@ -43,12 +43,14 @@
             <!-- cates -->
             <tab>
                 <tab-heading>系列播放统计</tab-heading>
-                <div class="row">
-                    <div class="btn-group dropdown col-md-1">
-                        <button class="btn btn-default dropdown-toggle">请选择分类<span class="caret"></span></button>
-                        <ul class="dropdown-menu">
+                <div style="margin-left: 35px;">
+                    <div class="btn-group dropdown" style="border: 1px solid #a1a7ac;border-radius: 2px; padding: 1px 2px;margin-bottom: 2px;margin-right: 10px" is-open="kind.isopen">
+                        <a href class="dropdown-toggle" data-toggle="dropdown">
+                            {{selectKind}} <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInDown">
                             <li ng-repeat="cate in cates">
-                                <a ng-click="changeCate(cate.id)">{{cate.name}}</a>
+                                <a ng-click="changeCate(cate.id,cate.name)">{{cate.name}}</a>
                             </li>
                         </ul>
                     </div>
@@ -80,13 +82,13 @@
                     <h4 class="font-thin m-t-none m-b text-muted"></h4>
                     <div ui-jq="plot" ui-refresh="CateParams.refresh" ui-options="
                       [
-                        { data: {{cate_result}}, label:'系列播放数量', points: { show: true, radius: 1}, splines: { show: CateParams.showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+                        { data: {{cate_result}}, label:'系列播放数量', points: { show: true, radius: 1}, splines: { show: CateParams.showSpline, tension: 0.4, lineWidth: 1,fill: 0.8} },
                       ],
                       {
                         colors: ['{{app.color.info}}', '{{app.color.primary}}'],
                         series: { shadowSize: 3 },
-                        xaxis:{ mode: 'time',tickFormatter: myTickFormatter },
-                        yaxis:{ font: { color: '#a1a7ac' } },
+                        xaxis:{ mode: 'time',tickFormatter: myTickFormatter,axisLabel: '视频期数',axisLabelPadding: 5},
+                        yaxis:{ font: { color: '#a1a7ac' } ,axisLabel: '系列播放数'},
                         grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
                         tooltip: true,
                         tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
