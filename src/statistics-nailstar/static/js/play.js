@@ -16,11 +16,6 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', 'utilsService',
         };
         $scope.cate_result = [];
 
-        //修改分类数据
-        $scope.changeCate = function(id){
-            $scope.CateParams.cateId = id;
-        };
-
         //监听参数变化
         $scope.$watch('CateParams', function(newVal, oldVal){
             if (newVal && (newVal !== oldVal) &&
@@ -67,6 +62,16 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', 'utilsService',
         function resetRefresh(){
             $scope.CateParams.refresh = Math.random();
         }
+
+        $scope.kind = { isopen: false };
+        $scope.selectKind = '请选择一个分类';
+
+        //修改分类数据
+        $scope.changeCate = function(id,name){
+            $scope.CateParams.cateId = id;
+            $scope.selectKind = name;
+            $scope.kind.isopen = !$scope.kind.isopen;
+        };
 
         $scope.myTickFormatter = function(val, axis){
             switch($scope.CateParams.order){
