@@ -1,4 +1,4 @@
-app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
+app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init(){
         initVote();
@@ -25,9 +25,7 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
 
             var details = data.result.details;
 
-            $scope.vote_result = _.map(details, function(element){
-                return [element.no, element.count];
-            });
+            $scope.vote_result = utilsService.formatData(details, $scope.no, $scope.vote.recentVote);
             resetRefresh();
             console.log($scope.vote_result);
 
@@ -54,9 +52,7 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
 
             var details = data.result.details;
 
-            $scope.pic_result = _.map(details, function(element){
-              return [element.no, element.count];
-            });
+            $scope.pic_result = utilsService.formatData(details, $scope.no, $scope.photo.recentPhoto);
             resetRefreshPic();
             console.log($scope.pic_result);
 
@@ -85,7 +81,7 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
             $http.get("/svc/dakatongji/qjcVoteCount?num=" + $scope.vote.recentVote).success(function(data) {
 
                 var details = data.result.details;
-                $scope.vote_result = _formatData(details, $scope.no, $scope.vote.recentVote);
+                $scope.vote_result = utilsService.formatData(details, $scope.no, $scope.vote.recentVote);
                 resetRefresh();
                 console.log($scope.vote_result);
 
@@ -109,7 +105,7 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
             $http.get("/svc/dakatongji/qjcPicCount?num=" + $scope.photo.recentPhoto).success(function(data) {
 
                 var details = data.result.details;
-                $scope.pic_result = _formatData(details, $scope.no, $scope.photo.recentPhoto);
+                $scope.pic_result = utilsService.formatData(details, $scope.no, $scope.photo.recentPhoto);
                 resetRefreshPic();
                 console.log($scope.pic_result);
 
@@ -125,31 +121,7 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         });
     }
 
-    //判断所选期数的数据是否为空
-    function _formatData(details, no, num){
-        var length = details.length;
-        if(num == length){
-            return _.map(details, function(el){
-                return [el.no, el.count];
-            });
-        }
-        for(var i=0; i<num; i++){
-            var flag = true;
-            for(var j=0; j<details.length; j++){
-                var detail = details[j];
-                if(detail.no === (no - i)){
-                    flag = false;
-                    break;
-                }
-            }
-            if(flag){
-                details.splice(i, 0, {no: no - i,count: 0});
-            }
-        }
-        return _.map(details, function(el){
-            return [el.no, el.count];
-        });
-    }
+
 
     //产生随机数用于监听
     function resetRefresh(){
