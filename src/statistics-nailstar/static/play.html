@@ -24,7 +24,7 @@
                     <h4 class="font-thin m-t-none m-b text-muted"></h4>
                     <div ui-jq="plot" ui-refresh="noParams.refresh" ui-options="
                       [
-                        { data: {{no_result}}, label:'播放数量', points: { show: true, radius: 1}, splines: { show: noParams.showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+                        { data: {{no_result}}, label:'分期播放数量', points: { show: true, radius: 1}, splines: { show: noParams.showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
                       ],
                       {
                         colors: ['{{app.color.info}}', '{{app.color.primary}}'],
@@ -44,7 +44,7 @@
             <tab>
                 <tab-heading>系列播放统计</tab-heading>
                 <div class="row">
-                    <div class="btn-group dropdown col-md-4">
+                    <div class="btn-group dropdown col-md-1">
                         <button class="btn btn-default dropdown-toggle">请选择分类<span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             <li ng-repeat="cate in cates">
@@ -52,24 +52,22 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="radio col-md-2">
-                        <label class="i-checks">
-                            <input type="radio" name="order" ng-model="CateParams.order" value="0">
-                            <i></i>
+                    <span>维度：</span>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="optionsRadios" ng-model="CateParams.order" value="0">
                             日
                         </label>
                     </div>
-                    <div class="radio col-md-2">
-                        <label class="i-checks">
-                            <input type="radio" name="order" ng-model="CateParams.order" value="1">
-                            <i></i>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="optionsRadios" ng-model="CateParams.order" value="1">
                             周
                         </label>
                     </div>
-                    <div class="radio col-md-2">
-                        <label class="i-checks">
-                            <input type="radio" name="order" ng-model="CateParams.order" value="2">
-                            <i></i>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="optionsRadios" ng-model="CateParams.order" value="2">
                             月
                         </label>
                     </div>
@@ -82,7 +80,7 @@
                     <h4 class="font-thin m-t-none m-b text-muted"></h4>
                     <div ui-jq="plot" ui-refresh="CateParams.refresh" ui-options="
                       [
-                        { data: {{cate_result}}, label:'上传图片数量', points: { show: true, radius: 1}, splines: { show: CateParams.showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+                        { data: {{cate_result}}, label:'系列播放数量', points: { show: true, radius: 1}, splines: { show: CateParams.showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
                       ],
                       {
                         colors: ['{{app.color.info}}', '{{app.color.primary}}'],
@@ -93,7 +91,7 @@
                         tooltip: true,
                         tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
                       }
-                    " style="height:246px;width: 100%" >
+                    " style="height:400px;width: 100%" >
                     </div>
                 </div>
             </tab>
