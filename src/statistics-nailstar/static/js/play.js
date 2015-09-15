@@ -145,7 +145,7 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', function ($root
                 case "0" :
                     return moment(val).format("YYYYMMDD");
                 case "1" :
-                    return moment(val).format("YYYY") + moment(val).week();
+                    return moment(val).format("YYYY") + "第" + moment(val).week() + "周";
                 case "2" :
                     return moment(val).format("YYYYMM");
                 default :
