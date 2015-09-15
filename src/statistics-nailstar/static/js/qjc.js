@@ -1,15 +1,11 @@
-app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
-
-    //$scope.pic_result = [];
-    //$scope.vote_result = [];
+app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     $http.get("/svc/dakatongji/qjcPicCount?order=60").success(function(data) {
 
         var details = data.result.details;
 
-        $scope.pic_result = _.map(details, function(element){
-            return [element.date, element.count];
-        });
+        $scope.pic_result = utilsService.formatData(details);
+
         console.log($scope.pic_result);
 
     }).error(function(data, status) {
@@ -22,9 +18,8 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
 
         var details = data.result.details;
 
-        $scope.vote_result = _.map(details, function(element){
-            return [element.date, element.count];
-        });
+        $scope.vote_result = utilsService.formatData(details);
+
         console.log($scope.vote_result);
 
     }).error(function(data, status) {
@@ -32,9 +27,5 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', function ($rootS
         console.log("qjcVoteCount in error");
 
     });
-
-    //$scope.test = function(){
-    //    alert(455);
-    //}
 
 }]);
