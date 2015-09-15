@@ -55,6 +55,10 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', 'utilsService',
             var url = "/svc/dakatongji/getCategories";
             $http.get(url).success(function(data) {
                 $scope.cates = data.result.cates;
+                if($scope.cates[0].id){
+                    $scope.CateParams.cateId = $scope.cates[0].id;
+                    $scope.selectKind = $scope.cates[0].name;
+                }
             }).error(function(data, status) {
                 console.log("getCategories in error");
             });
