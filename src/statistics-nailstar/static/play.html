@@ -44,10 +44,10 @@
             <tab>
                 <tab-heading>系列播放统计</tab-heading>
                 <div style="margin-left: 35px;">
-                    <div class="btn-group dropdown" style="border: 1px solid #a1a7ac;border-radius: 2px; padding: 1px 2px;margin-bottom: 2px;margin-right: 10px" is-open="kind.isopen">
-                        <a href class="dropdown-toggle" data-toggle="dropdown">
+                    <div class="btn-group dropdown" style="margin-bottom: 2px;" is-open="kind.isopen">
+                        <button href class="dropdown-toggle" data-toggle="dropdown">
                             {{selectKind}} <b class="caret"></b>
-                        </a>
+                        </button>
                         <ul class="dropdown-menu animated fadeInDown">
                             <li ng-repeat="cate in cates">
                                 <a ng-click="changeCate(cate.id,cate.name)">{{cate.name}}</a>
