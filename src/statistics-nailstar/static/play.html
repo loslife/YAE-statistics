@@ -29,8 +29,9 @@
                       {
                         colors: ['{{app.color.info}}', '{{app.color.primary}}'],
                         series: { shadowSize: 3 },
-                        xaxis:{ mode: 'categories', tickLength: 0 },
-                        yaxis:{ font: { color: '#a1a7ac' } },
+                        pan: {interactive: true},
+                        xaxis:{ mode: 'categories', tickLength: 0},
+                        yaxis:{ font: { color: '#a1a7ac' }, panRange: false },
                         grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
                         tooltip: true,
                         tooltipOpts: { content: '%x : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } }
