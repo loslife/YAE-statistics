@@ -20,7 +20,7 @@
                     <h4 class="font-thin m-t-none m-b text-muted"></h4>
                     <div ui-jq="plot" ui-refresh="refresh" ui-options="
                       [
-                        { data: {{vote_result}}, label:'投票数量', points: { show: true, radius: 1}, splines: { show: vote.showVoteSpline, tension: 0.4, lineWidth: 1,fill: 0} },
+                        { data: {{vote_result}}, label:'投票数量', points: { show: true, radius: 3,symbol: 'circle',fillColor: '#23B7E5'}, splines: { show: vote.showVoteSpline, tension: 0.4, lineWidth: 2,fill: 0} },
                       ],
                       {
                         colors: ['{{app.color.info}}', '{{app.color.primary}}'],
