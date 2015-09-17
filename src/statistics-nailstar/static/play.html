@@ -15,7 +15,7 @@
                 <div class="panel wrapper">
                     <span>展示期数：</span>
                     <input class="ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="width:50px;
-                    height: 100%; margin-top: 1px; padding: 3px 4px;" ng-model="noParams.num"/>
+                    height: 100%; margin-top: 1px; padding: 3px 4px;" ng-model="noParams.num" ng-keydown="noParams.keyDown()"/>
                     <button type="button" class="btn btn-default btn-sm" style="height: 100%;margin-top: -3px" ng-click="noParams.changeNum()">Go!</button>
                     <label class="i-switch bg-warning pull-right">
                         <input type="checkbox" ng-model="noParams.showSpline">
