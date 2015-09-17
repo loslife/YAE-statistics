@@ -39,6 +39,9 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', 'utilsService', 
     //监听投票参数变化
     $scope.$watch('vote',function(newVal,oldVal){
         if(newVal !== oldVal && newVal.recentVote !== oldVal.recentVote){
+            if(!newVal.recentVote || newVal.recentVote < 1 || newVal.recentVote > $scope.no){
+                return;
+            }
             $scope.qjcVoteCount($scope.vote.recentVote);
         }
         if(newVal !== oldVal && newVal.showVoteSpline !== oldVal.showVoteSpline){
