@@ -18,7 +18,8 @@ var app = angular.module('app', [
         'app.services',
         'app.directives',
         'app.controllers',
-        'app.utilsService'
+        'app.utilsService',
+        'ui.echarts'
     ])
         .run(
         [          '$rootScope', '$state', '$stateParams',
@@ -82,11 +83,11 @@ var app = angular.module('app', [
                     })
                     .state('app.dakaqjc', {
                         url: '/dakaqjc',
-                        templateUrl: '/statistics-nailstar/qjc.html',
+                        templateUrl: '/statistics-nailstar/test.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/qjc.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/test.js']);
                                 }]
                         }
                     })
