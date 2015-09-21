@@ -11,30 +11,93 @@
                 <tab-heading>投票数量统计</tab-heading>
                 <div class="panel wrapper">
                     展示期数：
-                    <input class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="{{no}}" type="number" style="width:50px;
-                    height: 24px; margin-top: 1px; padding: 0 4px;" ng-model="vote.recentVote">
-                    <label class="i-switch bg-warning pull-right">
-                        <input type="checkbox" ng-model="vote.showVoteSpline">
-                        <i></i>
-                    </label>
                     <h4 class="font-thin m-t-none m-b text-muted"></h4>
-                    <div ui-jq="plot" ui-refresh="refresh" ui-options="
-                      [
-                        { data: {{vote_result}}, label:'投票数量', points: { show: true, radius: 3,symbol: 'circle',fillColor: '#23B7E5'}, splines: { show: vote.showVoteSpline, tension: 0.4, lineWidth: 2,fill: 0} },
-                      ],
-                      {
-                        colors: ['{{app.color.info}}', '{{app.color.primary}}'],
-                        series: { shadowSize: 3 },
-                        xaxis:{ font: { color: '#507b9b' },minTickSize: 1,tickDecimals: 0 ,axisLabel: '求教程期数'},
-                        yaxis:{ font: { color: '#507b9b' },ticks:10,min:0,axisLabel: '投票数量',position: 'left'},
-                        grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
-                        tooltip: true,
-                        legend: {position:'ne'},
-                        tooltipOpts: { content: '第%x期 : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } },
-                        canvas: true
-                      }
-                    " style="height:400px;width: 100%" >
-                    </div>
+                    <div e-chart ui-options="{
+                        color: ['#23B7E5'],
+                        title:{
+                            text:'视频投票数',
+                            subtext:'数据来自——易乐斯',
+                            x : 'center',
+                        },
+                        tooltip: {
+                            show: true,
+                            trigger: 'axis',
+                            enterable: true,
+                        },
+                        toolbox:{
+                            show : true,
+                            feature : {
+                                mark : {show: true},
+                                dataView : {show: true, readOnly: true},
+                                magicType : {show: true, type: ['line', 'bar']},
+                                restore : {show: true},
+                                saveAsImage : {show: true}
+                            }
+                        },
+                        dataZoom:{
+                            show:true,
+                            realtime:true,
+                            start: 10,
+                            end: 90,
+                            handleColor:'#008acd',
+                            dataBackgroundColor:'#efefff',
+                        },
+                        legend: {
+                            data:['投票数'],
+                            x : 'left',
+                        },
+                        xAxis : [
+                            {
+                                name : '视频期数',
+                                type : 'category',
+                                data : vote_result_x,
+                                nameTextStyle : {fontSize:15},
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                name : '投票数',
+                                type : 'value',
+                                nameTextStyle : {fontSize:15},
+                            }
+                        ],
+                        series : [
+                            {
+                                name:'投票数',
+                                smooth: false,
+                                type:'line',
+                                data:vote_result_Y,
+                                itemStyle:{
+                                    normal: {
+                                        lineStyle: {
+                                            width: 2,
+                                            color: '#23B7E5',
+                                            shadowColor : 'rgba(0,0,0,0.5)',
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 8,
+                                            shadowOffsetY: 8,
+                                        },
+                                        areaStyle:{type:'default'},
+                                        barBorderRadius: 4,
+                                        label: {show: true},
+                                    },
+                                    emphasis:{
+                                        label: {show: true},
+                                    },
+                                },
+                                markPoint:{
+                                    data:[
+                                        {type:'max',name:'最大值'},
+                                        {type:'min',name:'最小值'},
+                                    ],
+                                },
+                                markLine:{
+                                    data:[
+                                        {type:'average',name:'平均值'}
+                                    ],
+                                },
+                            },
+                        ],}" ui-refresh="refresh" style="height: 400px;width: 100%;"></div>
                 </div>
             </tab>
             <tab>

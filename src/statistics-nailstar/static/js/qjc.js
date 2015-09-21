@@ -18,15 +18,23 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', 'utilsService', 
         showPicSpline: true
     };
 
+    $scope.refresh = Math.random();
+    function refreshCanvas() {
+        $scope.refresh = Math.random();
+    }
+
     //获取投票参数
     $scope.qjcVoteCount = function (recentVote){
 
         $http.get("/svc/dakatongji/qjcVoteCount?num=" + recentVote).success(function(data) {
 
             var details = data.result.details;
+            var vote_result_x = myformatDataX(details);
+            var vote_result_Y = myformatDataY(details);
+            $scope.vote_result_x = vote_result_x;
+            $scope.vote_result_y = vote_result_y;
 
-            $scope.vote_result = utilsService.formatData(details, $scope.no, $scope.vote.recentVote);
-            resetRefresh();
+            refreshCanvas();
             console.log($scope.vote_result);
 
         }).error(function(data, status) {
@@ -124,7 +132,17 @@ app.controller('dakaQjcCtrl', ['$rootScope', '$scope', '$http', 'utilsService', 
         });
     }
 
+    function myformatDataX(details){
+        return _.map(details, function(el){
+            return el.no;
+        }).reverse();
+    }
 
+    function myformatDataY(details){
+        return _.map(details, function(el){
+            return el.count;
+        }).reverse();
+    }
 
     //产生随机数用于监听
     function resetRefresh(){
