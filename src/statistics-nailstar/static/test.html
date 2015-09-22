@@ -1,0 +1,37 @@
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="dakaTestCtrl">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <button ng-click="changData()">click me</button>
+            <div e-chart ui-options="{
+            tooltip: {show: true},
+            legend: {
+                data: ['销量']
+                },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: {{data2}}
+                }
+            ],
+            yAxis: [
+                {
+                type: 'value'
+                }
+            ],
+            series: [
+                {
+                'name': '销量',
+                'type': 'bar',
+                'data': {{data}}
+                }
+            ]}" ui-refresh="refresh" style="height: 400px;width: 100%;"></div>
+        </div>
+    </div>
+</div>

@@ -5,14 +5,46 @@
   app.hideAside = false;
   app.hideFooter = true;" ng-controller="dakaQjcCtrl">
 
-    <div class="col" style="width: 100%;">
+    <!--<div class="col">
         <tabset class="tab-container">
             <tab>
                 <tab-heading>投票数量统计</tab-heading>
-                <div class="panel wrapper">
-                    展示期数：
-                    <h4 class="font-thin m-t-none m-b text-muted"></h4>
-                    <div e-chart ui-options="{
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button ng-click="changData()">click me</button>
+                        <div e-chart ui-options="{
+                            tooltip: {show: true},
+                            legend: {
+                                data: ['销量']
+                                },
+                            xAxis: [
+                                {
+                                    type: 'category',
+                                    data: {{data2}}
+                                }
+                            ],
+                            yAxis: [
+                                {
+                                type: 'value'
+                                }
+                            ],
+                            series: [
+                                {
+                                'name': '销量',
+                                'type': 'bar',
+                                'data': {{data}}
+                                }
+                            ]}" ui-refresh="refresh" style="height: 400px;width: 100%;"></div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>-->
+    <tabset class="tab-container">
+                <div class="col-xs-12">
+                    <input class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="width:50px;
+            height: 24px; margin-top: 1px; padding: 0 4px;" ng-model="vote.recentVote">
+                        <div e-chart ui-options="{
                         color: ['#23B7E5'],
                         title:{
                             text:'视频投票数',
@@ -50,7 +82,7 @@
                             {
                                 name : '视频期数',
                                 type : 'category',
-                                data : vote_result_x,
+                                data : {{vote_result_x}},
                                 nameTextStyle : {fontSize:15},
                             }
                         ],
@@ -64,9 +96,9 @@
                         series : [
                             {
                                 name:'投票数',
-                                smooth: false,
+                                smooth: true,
                                 type:'line',
-                                data:vote_result_Y,
+                                data:{{vote_result_y}},
                                 itemStyle:{
                                     normal: {
                                         lineStyle: {
@@ -77,7 +109,6 @@
                                             shadowOffsetX: 8,
                                             shadowOffsetY: 8,
                                         },
-                                        areaStyle:{type:'default'},
                                         barBorderRadius: 4,
                                         label: {show: true},
                                     },
@@ -97,38 +128,9 @@
                                     ],
                                 },
                             },
-                        ],}" ui-refresh="refresh" style="height: 400px;width: 100%;"></div>
+                        ]
+                }" ui-refresh="refresh" style="height: 400px;" class="col-xs-12"></div>
                 </div>
-            </tab>
-            <tab>
-                <tab-heading>上传图片数量统计</tab-heading>
-                <div class="panel wrapper">
-                    展示期数：
-                    <input class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="{{no}}" type="number" style="width:50px;
-                    height: 24px; margin-top: 1px; padding: 0 4px;" ng-model="photo.recentPhoto">
-                    <label class="i-switch bg-warning pull-right">
-                        <input type="checkbox" ng-model="photo.showPicSpline">
-                        <i></i>
-                    </label>
-                    <h4 class="font-thin m-t-none m-b text-muted"></h4>
-                    <div ui-jq="plot" ui-refresh="refreshPic" ui-options="
-                      [
-                        { data: {{pic_result}}, label:'上传图片数量', points: { show: true, radius: 3}, splines: { show: photo.showPicSpline, tension: 0.4, lineWidth: 1,fill: 0} },
-                      ],
-                      {
-                        colors: ['{{app.color.info}}', '{{app.color.primary}}'],
-                        series: { shadowSize: 3 },
-                        xaxis:{ font: { color: '#507b9b' },minTickSize: 1,tickDecimals: 0,axisLabel: '求教程期数'},
-                        yaxis:{ font: { color: '#507b9b' },ticks: 10,min: 0,axisLabel: '上传图片数量',position: 'left'},
-                        grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#1c2b36' },
-                        tooltip: true,
-                        tooltipOpts: { content: '第%x期 : %y',  defaultTheme: false, shifts: { x: 10, y: -25 } },
-                        canvas: true
-                      }
-                    " style="height:400px;width: 100%" >
-                    </div>
-               </div>
-            </tab>
-        </tabset>
-    </div>
+
+    </tabset>
 </div>

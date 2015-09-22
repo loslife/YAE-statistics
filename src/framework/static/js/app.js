@@ -91,6 +91,16 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+                    .state('app.dakatest', {
+                        url: '/dakatest',
+                        templateUrl: '/statistics-nailstar/test.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/test.js']);
+                                }]
+                        }
+                    })
             }
         ]
     )
