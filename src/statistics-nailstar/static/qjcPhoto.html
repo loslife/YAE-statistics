@@ -1,0 +1,101 @@
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="dakaQjcPhotoCtrl">
+
+    <span style="margin-left: 35px">视频期数:</span>
+    <input class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="width:50px;
+            height: 24px; margin-top: 14px; padding: 0 4px; margin-left: 15px" ng-model="photo.recentPhoto">
+    <tabset class="tab-container">
+        <div class="col-xs-12">
+            <div e-chart ui-options="{
+            color: ['#23B7E5'],
+            title:{
+                text:'上传图片数',
+                subtext:'数据来自——美甲大咖',
+                x : 'center',
+            },
+            tooltip: {
+                show: true,
+                trigger: 'axis',
+                enterable: true,
+            },
+            toolbox:{
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: true},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            dataZoom:{
+                show:true,
+                realtime:true,
+                start: 10,
+                end: 90,
+                handleColor:'#008acd',
+                dataBackgroundColor:'#efefff',
+            },
+            legend: {
+                data:['上传图片数'],
+                x : 'left',
+            },
+            xAxis : [
+                {
+                    name : '视频期数',
+                    type : 'category',
+                    data : {{photo_result_x}},
+                    nameTextStyle : {fontSize:15},
+                }
+            ],
+            yAxis : [
+                {
+                    name : '上传图片数',
+                    type : 'value',
+                    nameTextStyle : {fontSize:15},
+                }
+            ],
+            series : [
+                {
+                    name:'上传图片数',
+                    smooth: true,
+                    type:'line',
+                    data:{{photo_result_y}},
+                    itemStyle:{
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                color: '#23B7E5',
+                                shadowColor : 'rgba(0,0,0,0.5)',
+                                shadowBlur: 10,
+                                shadowOffsetX: 8,
+                                shadowOffsetY: 8,
+                            },
+                            barBorderRadius: 4,
+                            label: {show: true},
+                        },
+                        emphasis:{
+                            label: {show: true},
+                        },
+                    },
+                    markPoint:{
+                        data:[
+                            {type:'max',name:'最大值'},
+                            {type:'min',name:'最小值'},
+                        ],
+                    },
+                    markLine:{
+                        data:[
+                            {type:'average',name:'平均值'}
+                        ],
+                    },
+                },
+            ]
+    }" ui-refresh="refresh" style="height: 400px;" class="col-xs-12"></div>
+        </div>
+    </tabset>
+</div>

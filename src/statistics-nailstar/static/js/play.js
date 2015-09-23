@@ -1,17 +1,19 @@
 app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init(){
-        initCates();
         initNo();
     })();
+
+    $scope.refresh = Math.random();
+    function refreshCanvas() {
+        $scope.refresh = Math.random();
+    }
 
     //分期播放统计
     function initNo(){
         //默认参数
         $scope.noParams = {
-            num: 10,//初始数据数量
-            refresh: null,
-            showSpline: true,
+            num: 20,//初始数据数量
             changeNum: function(){
                 getNoPlayData($scope.noParams.num);
             },
@@ -21,40 +23,32 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', 'utilsService',
                 }
             }
         };
-        $scope.no_result = [];
+        $scope.play_result_x = [0,0,0,0,0];
+        $scope.play_result_y = [0,0,0,0,0];
 
-        //监听参数变化
-        $scope.$watch('noParams', function(newVal, oldVal){
-            //if (newVal && (newVal !== oldVal) && (newVal.num !== oldVal.num)) {
-            //    getNoPlayData(newVal.num);
-            //}
-            if((newVal !== oldVal) && newVal && newVal.showSpline !== oldVal.showSpline){
-                resetRefresh();
-            }
-        }, true);
-
-        var playDataCache = {};
+        var playDataCacheX = {};
+        var playDataCacheY = {};
         //获取播放数据
         function getNoPlayData(num){
-            if(playDataCache[num]){
-                $scope.no_result = playDataCache[num];
-                resetRefresh();
+            if(playDataCacheX[num]){
+                $scope.play_result_x = playDataCacheX[num];
+                $scope.play_result_y = playDataCacheY[num];
+                refreshCanvas();
                 return;
             }
             var url = "/svc/dakatongji/getplayByNo?num=" + num;
             $http.get(url).success(function(data) {
-                var rs = utilsService.formatDataByNo(data.result.details);
+                var rs = utilsService.formatDataByNoX(data.result.details);
+                var ls = utilsService.formatDataByNoY(data.result.details);
                 console.log(rs);
-                playDataCache[num] = rs;
-                $scope.no_result = rs;
-                resetRefresh();
+                playDataCacheX[num] = rs;
+                playDataCacheY[num] = ls;
+                $scope.play_result_x = rs;
+                $scope.play_result_y = ls;
+                refreshCanvas();
             }).error(function(data, status) {
                 console.log("getplayByCate in error");
             });
-        }
-
-        function resetRefresh(){
-            $scope.noParams.refresh = Math.random();
         }
 
         getNoPlayData($scope.noParams.num);

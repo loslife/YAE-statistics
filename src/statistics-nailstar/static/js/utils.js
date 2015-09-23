@@ -3,12 +3,12 @@ angular.module('app.utilsService', [])
 
         var service = {};
 
-        service.formatData = function(details, no, num){
+        service.formatDataX = function(details, no, num){
             var length = details.length;
             if(num == length){
                 return _.map(details, function(el){
-                    return [el.no, el.count];
-                });
+                    return el.no;
+                }).reverse();
             }
             for(var i=0; i<num; i++){
                 var flag = true;
@@ -24,8 +24,33 @@ angular.module('app.utilsService', [])
                 }
             }
             return _.map(details, function(el){
-                return [el.no, el.count];
-            });
+                return el.no;
+            }).reverse();
+        };
+
+        service.formatDataY = function(details, no, num){
+            var length = details.length;
+            if(num == length){
+                return _.map(details, function(el){
+                    return el.count;
+                }).reverse();
+            }
+            for(var i=0; i<num; i++){
+                var flag = true;
+                for(var j=0; j<details.length; j++){
+                    var detail = details[j];
+                    if(detail.no === (no - i)){
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag){
+                    details.splice(i, 0, {no: no - i,count: 0});
+                }
+            }
+            return _.map(details, function(el){
+                return el.count;
+            }).reverse();
         };
 
         service.formatDataByOrderAndNum = function(details, order, num){
@@ -99,9 +124,15 @@ angular.module('app.utilsService', [])
             }
         };
 
-        service.formatDataByNo = function _formatData(details){
+        service.formatDataByNoX = function _formatDataX(details){
             return _.map(details, function(el){
-                return [el.title, el.count];
+                return el.title;
+            }).reverse();
+        };
+
+        service.formatDataByNoY = function _formatDataX(details){
+            return _.map(details, function(el){
+                return el.count;
             }).reverse();
         };
 
