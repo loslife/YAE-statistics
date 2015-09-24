@@ -9,10 +9,10 @@ app.controller('dakaQjcPhotoCtrl', ['$rootScope', '$scope', '$http', 'utilsServi
         recentPhoto: 20,
     };
 
-    $scope.refresh = Math.random();
-    function refreshCanvas() {
-        $scope.refresh = Math.random();
-    }
+    //$scope.refresh = Math.random();
+    //function refreshCanvas() {
+    //    $scope.refresh = Math.random();
+    //}
 
     //格式化X轴数据
     function myformatDataX(details) {
@@ -40,7 +40,7 @@ app.controller('dakaQjcPhotoCtrl', ['$rootScope', '$scope', '$http', 'utilsServi
             $scope.photo_result_x = photo_result_x;
             $scope.photo_result_y = photo_result_y;
 
-            refreshCanvas();
+            //refreshCanvas();
 
         }).error(function (data, status) {
 
@@ -73,7 +73,7 @@ app.controller('dakaQjcPhotoCtrl', ['$rootScope', '$scope', '$http', 'utilsServi
                 $scope.photo_result_x = photo_result_x;
                 $scope.photo_result_y = photo_result_y;
 
-                refreshCanvas();
+                //refreshCanvas();
 
             }).error(function (data, status) {
                 console.log("qjcPicCount in error");

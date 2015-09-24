@@ -8,7 +8,7 @@ angular.module('ui.echarts', []).directive('eChart', [function () {
 
         //监听options变化
         if (attrs.uiOptions) {
-            $scope.$watch(attrs.uiOptions, function () {
+            attrs.$observe('uiOptions', function () {
                 var options = $scope.$eval(attrs.uiOptions);
                 if (angular.isObject(options)) {
                     myChart.setOption(options);
@@ -16,14 +16,14 @@ angular.module('ui.echarts', []).directive('eChart', [function () {
             }, true);
         }
 
-        if (attrs.uiRefresh) {
-            $scope.$watch(attrs.uiRefresh, function () {
-                var options = $scope.$eval(attrs.uiOptions);
-                if (angular.isObject(options)) {
-                    myChart.setOption(options);
-                }
-            });
-        }
+        //if (attrs.uiRefresh) {
+        //    $scope.$watch(attrs.uiRefresh, function () {
+        //        var options = $scope.$eval(attrs.uiOptions);
+        //        if (angular.isObject(options)) {
+        //            myChart.setOption(options);
+        //        }
+        //    });
+        //}
 
     }
 
