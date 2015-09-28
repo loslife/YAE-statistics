@@ -11,7 +11,7 @@ angular.module('ui.echarts', []).directive('eChart', [function () {
             attrs.$observe('uiOptions', function () {
                 var options = $scope.$eval(attrs.uiOptions);
                 if (angular.isObject(options)) {
-                    myChart.setOption(options);
+                    myChart.setOption(options, true);
                 }
             }, true);
         }

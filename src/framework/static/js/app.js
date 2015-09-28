@@ -61,13 +61,23 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
-                    .state('app.dakaplay', {
-                        url: '/dakaplay',
-                        templateUrl: '/statistics-nailstar/play.html',
+                    .state('app.dakavideostage', {
+                        url: '/dakavideostage',
+                        templateUrl: '/statistics-nailstar/videoStage.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/play.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/videoStage.js']);
+                                }]
+                        }
+                    })
+                    .state('app.dakavideoseries', {
+                        url: '/dakavideoseries',
+                        templateUrl: '/statistics-nailstar/videoSeries.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/videoSeries.js']);
                                 }]
                         }
                     })

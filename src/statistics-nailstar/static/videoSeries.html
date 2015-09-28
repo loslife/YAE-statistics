@@ -1,0 +1,143 @@
+<div class="hbox hbox-auto-xs bg-light col-md-8 " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="dakaPlayCtrl">
+
+    <div style="margin-left: 35px; margin-top: 20px;">
+        <div>
+            <span>选择系列：</span>
+            <div class="btn-group dropdown" style="margin-bottom: 2px;" is-open="kind.isopen">
+                <button href class="dropdown-toggle" data-toggle="dropdown">
+                    {{selectKind}} <b class="caret"></b>
+                </button>
+                <ul class="dropdown-menu animated fadeInDown">
+                    <li ng-repeat="cate in cates">
+                        <a ng-click="changeCate(cate.id,cate.name)">{{cate.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <span>选择维度：</span>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" name="optionsRadios" ng-model="CateParams.order" value="0">
+                    日
+                </label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" name="optionsRadios" ng-model="CateParams.order" value="1">
+                    周
+                </label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" name="optionsRadios" ng-model="CateParams.order" value="2">
+                    月
+                </label>
+            </div>
+        </div>
+    </div>
+    <tabset>
+        <div class="col-xs-12">
+            <div e-chart ui-options="{
+                color: ['#23B7E5'],
+                title:{
+                    text:'系列播放统计',
+                    subtext:'数据来自——美甲大咖',
+                    x : 'center',
+                },
+                tooltip: {
+                    show: true,
+                    trigger: 'axis',
+                    enterable: true,
+                },
+                toolbox:{
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: true},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                dataZoom:{
+                    show:true,
+                    realtime:true,
+                    start: 10,
+                    end: 90,
+                    handleColor:'#008acd',
+                    dataBackgroundColor:'#efefff',
+                },
+                legend: {
+                    data:['播放数'],
+                    x : 'left',
+                },
+                grid: {
+                    y: 80,
+                    y2: 160,
+                },
+                xAxis : [
+                    {
+                        name : '视频系列',
+                        type : 'category',
+                        data : {{cate_result_x}},
+                        nameTextStyle : {fontSize:15},
+                        axisLabel:{
+                            show: true,
+                            rotate: 35,
+                        }
+                    },
+                ],
+                yAxis : [
+                    {
+                        name : '播放数',
+                        type : 'value',
+                        nameTextStyle : {fontSize:15},
+                    }
+                ],
+                series : [
+                    {
+                        name:'播放数',
+                        smooth: true,
+                        type:'line',
+                        data:{{cate_result_y}},
+                        itemStyle:{
+                            normal: {
+                                lineStyle: {
+                                    width: 2,
+                                    color: '#23B7E5',
+                                    shadowColor : 'rgba(0,0,0,0.5)',
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 8,
+                                    shadowOffsetY: 8,
+                                },
+                                barBorderRadius: 4,
+                                label: {show: true},
+                                areaStyle: {type: 'default'},
+                            },
+                            emphasis:{
+                                label: {show: true},
+                            },
+                        },
+                        markPoint:{
+                            data:[
+                                {type:'max',name:'最大值'},
+                                {type:'min',name:'最小值'},
+                            ],
+                        },
+                        markLine:{
+                            data:[
+                                {type:'average',name:'平均值'}
+                            ],
+                        },
+                    },
+                ]
+        }" style="height: 500px;" class="col-xs-12"></div>
+        </div>
+    </tabset>
+</div>
