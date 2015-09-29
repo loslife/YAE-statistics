@@ -22,6 +22,36 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', 'utilsService',
         var playDataCacheX = {};
         var playDataCacheY = {};
 
+        function tickFormatter(rs){
+            var array = [];
+            for(var i = 0; i < rs.length; i++){
+                array.push(getFormatFunction()(rs[i]));
+            }
+
+            function getFormatFunction(){
+                switch($scope.CateParams.order){
+                    case "0" :
+                        return function(val){
+                            return moment(val).format("YYYYMMDD");
+                        };
+                    case "1" :
+                        return function(val){
+                            return moment(val).format("YYYY") + "第" + moment(val).week() + "周"
+                        };
+                    case "2" :
+                        return function(val){
+                            return moment(val).format("YYYYMM")
+                        };
+                    default :
+                        return function(val){
+                            return moment(val).format("YYYYMMDD")
+                        };
+                }
+            }
+
+            return array;
+        }
+
         //获取播放数据
         function getCatePlayData(id, order, num){
             if(playDataCacheX[id + "_" + order]){
@@ -29,21 +59,35 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', 'utilsService',
                 $scope.cate_result_y = playDataCacheY[id + "_" + order];
                 return;
             }
+
             var url = "/svc/dakatongji/getplayByCate?cate=" + id + "&order=" + order + "&num=" + num;
             $http.get(url).success(function(data) {
                 var rs = utilsService.formatDataByOrderAndNumX(data.result.details, order, num);
                 var ls = utilsService.formatDataByOrderAndNumY(data.result.details, order, num);
+
+                var rs = tickFormatter(rs);
                 playDataCacheX[id + "_" + order] = rs;
-                playDataCacheY[id + "_" + order] = ls;
                 $scope.cate_result_x = rs;
+
+                playDataCacheY[id + "_" + order] = ls;
                 $scope.cate_result_y = ls;
-                //console.log(rs);
+
+                console.log(rs);
+                console.log(ls);
             }).error(function(data, status) {
                 console.log("getplayByCate in error");
             });
         }
 
-        getCatePlayData($scope.CateParams.cateId, $scope.CateParams.order, $scope.CateParams.num);
+        //监听视频参数变化
+        $scope.$watch('CateParams', function (newVal, oldVal) {
+            if (newVal !== oldVal && newVal.cateId !== oldVal.cateId || newVal.order !== oldVal.order) {
+                if (!newVal.cateId || !newVal.order || newVal.num > $scope.no) {
+                    return;
+                }
+                getCatePlayData($scope.CateParams.cateId, $scope.CateParams.order, $scope.CateParams.num);
+            }
+        }, true);
 
         //获取分类数据
         function getCates(){
@@ -60,27 +104,13 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', 'utilsService',
         }
         getCates();
 
-        $scope.kind = { isopen: false };
         $scope.selectKind = '请选择一个分类';
 
         //修改分类数据
         $scope.changeCate = function(id,name){
             $scope.CateParams.cateId = id;
             $scope.selectKind = name;
-            $scope.kind.isopen = !$scope.kind.isopen;
         };
 
-        $scope.myTickFormatter = function(val, axis){
-            switch($scope.CateParams.order){
-                case "0" :
-                    return moment(val).format("YYYYMMDD");
-                case "1" :
-                    return moment(val).format("YYYY") + "第" + moment(val).week() + "周";
-                case "2" :
-                    return moment(val).format("YYYYMM");
-                default :
-                    return moment(val).format("YYYYMMDD");
-            }
-        };
     }
 }]);
