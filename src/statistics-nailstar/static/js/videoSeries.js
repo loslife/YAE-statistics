@@ -1,4 +1,4 @@
-app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init(){
         initCates();
@@ -24,8 +24,9 @@ app.controller('dakaPlayCtrl', ['$rootScope', '$scope', '$http', 'utilsService',
 
         function tickFormatter(rs){
             var array = [];
+            var formatFunction = getFormatFunction();
             for(var i = 0; i < rs.length; i++){
-                array.push(getFormatFunction()(rs[i]));
+                array.push(formatFunction(rs[i]));
             }
 
             function getFormatFunction(){
