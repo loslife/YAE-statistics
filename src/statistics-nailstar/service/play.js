@@ -184,7 +184,7 @@ function getSqlsByOrder(order, num){
     var sql_total_by_week = "select count(1) as total " +
         "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id " +
         "where a.action_type = 1 and b.category_id = ? and FROM_UNIXTIME( a.create_date/1000, '%Y%u' ) " +
-        "between date_format(date_add(now(), interval -" + num + " day), '%Y%u') and date_format(now(), '%Y%u') ";
+        "between date_format(date_add(now(), interval -" + num + " week), '%Y%u') and date_format(now(), '%Y%u') ";
 
     var sql_total_by_month = "select count(1) as total " +
         "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id " +
@@ -202,7 +202,7 @@ function getSqlsByOrder(order, num){
         "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id " +
         "where a.action_type = 1 and b.category_id = ? " +
         "and FROM_UNIXTIME( a.create_date/1000, '%Y%u' ) " +
-        "between date_format(date_add(now(), interval -" + num + " day), '%Y%u') and date_format(now(), '%Y%u') " +
+        "between date_format(date_add(now(), interval -" + num + " week), '%Y%u') and date_format(now(), '%Y%u') " +
         "group by week order by week desc";
 
     var sql_order_by_month = "select from_unixtime(a.create_date/1000, '%Y%m') as 'month', count(a.id) as 'count' " +
