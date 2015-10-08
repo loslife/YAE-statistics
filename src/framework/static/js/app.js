@@ -51,13 +51,13 @@ var app = angular.module('app', [
                         url: '/app',
                         templateUrl: 'tpl/app.html'
                     })
-                    .state('app.dakacomments', {
-                        url: '/dakacomments',
-                        templateUrl: '/statistics-nailstar/comments.html',
+                    .state('app.dakacommentsTimes', {
+                        url: '/dakacommentsTimes',
+                        templateUrl: '/statistics-nailstar/commentsTimes.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/comments.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/commentsTimes.js']);
                                 }]
                         }
                     })
