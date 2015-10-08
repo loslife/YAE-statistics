@@ -11,47 +11,11 @@ var databaseParams = {
 
 var dbPool = mysql.createPool(databaseParams);
 
-exports.getCategories = getCategories;
-exports.getplayByCate = getplayByCate;
-exports.getplayByNo = getplayByNo;
+exports.getCommentsByTime = getCommentsByTime;
+exports.getCommentsByNo = getCommentsByNo;
 
-//获取⾸⻚列表接口
-function getCategories(req, res, next) {
-
-    var sql = "select id,name from topic_categories order by serial_number";
-    dbPool.getConnection(function (err, connection) {
-
-        if (err) {
-            console.log(err);
-            next(err);
-            if(connection){
-                connection.release();
-            }
-            return;
-        }
-
-        connection.query(sql, {}, function (err, data) {
-
-            if(connection){
-                connection.release();
-            }
-            if (err) {
-                return next(err);
-            }
-            doResponse(req, res, {cates: data});
-        });
-
-    });
-
-}
-
-//美甲大咖系列播放数
-function getplayByCate(req, res, next) {
-
-    var cate = req.query["cate"];
-    if(!cate){
-        next("缺失参数cate");
-    }
+//美甲大咖分时评论数量
+function getCommentsByTime(req, res, next) {
 
     var order = req.query["order"] || 0;
     var num = parseInt(req.query["num"]) || 10;
@@ -85,7 +49,7 @@ function getplayByCate(req, res, next) {
         });
 
         function _queryTotal(nextStep){
-            connection.query(sqls[0], [cate], function (err, rows) {
+            connection.query(sqls[0], function (err, rows) {
 
                 if (err) {
                     console.log(err);
@@ -97,7 +61,7 @@ function getplayByCate(req, res, next) {
             });
         }
         function _queryDetails(nextStep){
-            connection.query(sqls[1], [cate], function (err, rows) {
+            connection.query(sqls[1], function (err, rows) {
 
                 if (err) {
                     console.log(err);
@@ -113,16 +77,16 @@ function getplayByCate(req, res, next) {
     });
 }
 
-//美甲大咖分期播放数
-function getplayByNo(req, res, next){
+//美甲大咖分期评论数量
+function getCommentsByNo(req, res, next){
 
     var num = parseInt(req.query["num"]) || 10;
 
     var sql1 = "select sum(count) 'count' from (select count(a.id) 'count' " +
-        "from topics a join topic_actions b on a.id = b.topic_id group by a.id " +
+        "from topics a join comments b on a.id = b.topic_id group by a.id " +
         "order by a.create_date desc limit 1,?) a";
     var sql2 = "select a.title 'title',count(a.id) 'count' " +
-        "from topics a join topic_actions b on a.id = b.topic_id group by a.id " +
+        "from topics a join comments b on a.id = b.topic_id group by a.id " +
         "order by a.create_date desc limit 1,?";
 
     dbPool.getConnection(function (err, connection) {
@@ -177,38 +141,35 @@ function getplayByNo(req, res, next){
 function getSqlsByOrder(order, num){
 
     var sql_total_by_day = "select count(1) as total " +
-        "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id " +
-        "where a.action_type = 1 and b.category_id = ? and FROM_UNIXTIME( a.create_date/1000, '%Y%m%d') " +
+        "from comments a " +
+        "where FROM_UNIXTIME( a.create_date/1000, '%Y%m%d') " +
         "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') ";
 
     var sql_total_by_week = "select count(1) as total " +
-        "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id " +
-        "where a.action_type = 1 and b.category_id = ? and FROM_UNIXTIME( a.create_date/1000, '%Y%u' ) " +
+        "from comments a " +
+        "where FROM_UNIXTIME( a.create_date/1000, '%Y%u') " +
         "between date_format(date_add(now(), interval -" + num + " week), '%Y%u') and date_format(now(), '%Y%u') ";
 
     var sql_total_by_month = "select count(1) as total " +
-        "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id " +
-        "where a.action_type = 1 and b.category_id = ? and FROM_UNIXTIME( a.create_date/1000, '%Y%m' ) " +
+        "from comments a " +
+        "where FROM_UNIXTIME( a.create_date/1000, '%Y%m%d') " +
         "between date_format(date_add(now(), interval -" + num + " month), '%Y%m') and date_format(now(), '%Y%m') ";
 
     var sql_order_by_day = "select from_unixtime(a.create_date/1000, '%Y%m%d') as 'day', count(a.id) as 'count' " +
-        "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id " +
-        "where a.action_type = 1 and b.category_id = ? " +
-        "and FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) " +
+        "from comments a " +
+        "where FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) " +
         "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
         "group by day order by day desc";
 
     var sql_order_by_week = "select from_unixtime(a.create_date/1000, '%Y%u') as 'week', count(a.id) as 'count' " +
-        "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id " +
-        "where a.action_type = 1 and b.category_id = ? " +
-        "and FROM_UNIXTIME( a.create_date/1000, '%Y%u' ) " +
+        "from comments a " +
+        "where FROM_UNIXTIME( a.create_date/1000, '%Y%u' ) " +
         "between date_format(date_add(now(), interval -" + num + " week), '%Y%u') and date_format(now(), '%Y%u') " +
         "group by week order by week desc";
 
     var sql_order_by_month = "select from_unixtime(a.create_date/1000, '%Y%m') as 'month', count(a.id) as 'count' " +
-        "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id " +
-        "where a.action_type = 1 and b.category_id = ? " +
-        "and FROM_UNIXTIME( a.create_date/1000, '%Y%m' ) " +
+        "from comments a " +
+        "where FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) " +
         "between date_format(date_add(now(), interval -" + num + " month), '%Y%m') and date_format(now(), '%Y%m') " +
         "group by month order by month desc";
 
