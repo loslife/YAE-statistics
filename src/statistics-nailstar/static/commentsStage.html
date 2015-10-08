@@ -1,41 +1,21 @@
-<div class="hbox hbox-auto-xs bg-light " ng-init="
+<div class="hbox hbox-auto-xs bg-light col-md-8 " ng-init="
   app.settings.asideFixed = true;
   app.settings.asideDock = false;
   app.settings.container = false;
   app.hideAside = false;
-  app.hideFooter = true;" ng-controller="dakaCommentsCtrl">
+  app.hideFooter = true;" ng-controller="dakaPlayStage">
 
-
-    <label style="margin-left: 62px;margin-top: 16px;">时间：</label><input class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="width:50px;
-            height: 24px; padding: 0 4px;" ng-model="CommentsParams.num"><br/>
-    <div style="margin-left: 35px;">
-        <div>
-            <span>选择维度：</span>
-            <div class="radio-inline">
-                <label>
-                    <input type="radio" name="optionsRadios" ng-model="CommentsParams.order" value="0">
-                    日
-                </label>
-            </div>
-            <div class="radio-inline">
-                <label>
-                    <input type="radio" name="optionsRadios" ng-model="CommentsParams.order" value="1">
-                    周
-                </label>
-            </div>
-            <div class="radio-inline">
-                <label>
-                    <input type="radio" name="optionsRadios" ng-model="CommentsParams.order" value="2">
-                    月
-                </label>
-            </div>
-        </div>
+    <div style="margin-top: 20px">
+        <span style="margin-left: 35px">展示期数:</span>
+        <input class="ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="width:50px;
+                height: 90%; margin-top: 1px; padding: 3px 4px;" ng-model="noParams.num" ng-keydown="noParams.keyDown()"/>
+        <button type="button" class="btn btn-default btn-sm" style="height: 90%;margin-top: -3px" ng-click="noParams.changeNum()">Go!</button>
     </div>
     <div class="col-xs-12">
         <div e-chart ui-options="{
                 color: ['#23B7E5'],
                 title:{
-                    text:'视频评论统计',
+                    text:'分期视频评论统计',
                     subtext:'数据来自——美甲大咖',
                     x : 'center',
                 },
@@ -63,18 +43,18 @@
                     dataBackgroundColor:'#efefff',
                 },
                 legend: {
-                    data:['视频评论数'],
+                    data:['评论数'],
                     x : 'left',
                 },
                 grid: {
                     y: 80,
-                    y2: 100,
+                    y2: 160,
                 },
                 xAxis : [
                     {
-                        name : '时间',
+                        name : '视频期数',
                         type : 'category',
-                        data : {{comments_result_x}},
+                        data : {{play_result_x}},
                         nameTextStyle : {fontSize:15},
                         axisLabel:{
                             show: true,
@@ -84,17 +64,17 @@
                 ],
                 yAxis : [
                     {
-                        name : '视频评论数',
+                        name : '评论数',
                         type : 'value',
                         nameTextStyle : {fontSize:15},
                     }
                 ],
                 series : [
                     {
-                        name:'视频评论数',
+                        name:'评论数',
                         smooth: true,
                         type:'line',
-                        data:{{comments_result_y}},
+                        data:{{play_result_y}},
                         itemStyle:{
                             normal: {
                                 lineStyle: {
@@ -107,6 +87,7 @@
                                 },
                                 barBorderRadius: 4,
                                 label: {show: true},
+                                areaStyle: {type: 'default'},
                             },
                             emphasis:{
                                 label: {show: true},

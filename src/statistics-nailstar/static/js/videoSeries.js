@@ -11,8 +11,8 @@ app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService
             cateId: null,//初始分类id
             order: "0",//初始维度
             num: 10,//初始数据数量
-            refresh: null,
-            showSpline: true,
+            //refresh: null,
+            //showSpline: true,
         };
 
         $scope.cate_result_x = [0,0,0,0,0];

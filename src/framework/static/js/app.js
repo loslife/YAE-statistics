@@ -61,6 +61,16 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+                    .state('app.dakacommentsStage', {
+                        url: '/dakacommentsStage',
+                        templateUrl: '/statistics-nailstar/commentsStage.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/commentsStage.js']);
+                                }]
+                        }
+                    })
                     .state('app.dakavideostage', {
                         url: '/dakavideostage',
                         templateUrl: '/statistics-nailstar/videoStage.html',
