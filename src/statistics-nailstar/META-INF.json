@@ -77,6 +77,22 @@
             "auth": false,
             "impl": "qjc.getNewestActivity",
             "comment": "获取最新活动期数"
+        },
+        {
+            "name": "comments",
+            "path": "/dakatongji/getCommentsByTime",
+            "method": "get",
+            "auth": false,
+            "impl": "comments.getCommentsByTime",
+            "comment": "美甲大咖分时评论数量"
+        },
+        {
+            "name": "comments",
+            "path": "/dakatongji/getCommentsByNo",
+            "method": "get",
+            "auth": false,
+            "impl": "comments.getCommentsByNo",
+            "comment": "美甲大咖分期评论数量"
         }
     ],
     "ejsviews": [
