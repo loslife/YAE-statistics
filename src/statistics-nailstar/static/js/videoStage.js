@@ -21,8 +21,10 @@ app.controller('dakaPlayStage', ['$rootScope', '$scope', '$http', 'utilsService'
         $scope.play_result_x = [0,0,0,0,0];
         $scope.play_result_y = [0,0,0,0,0];
 
+        //数据缓存
         var playDataCacheX = {};
         var playDataCacheY = {};
+
         //获取播放数据
         function getNoPlayData(num){
             if(playDataCacheX[num] && playDataCacheY[num]){

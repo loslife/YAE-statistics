@@ -16,6 +16,7 @@ app.controller('dakaCommentsCtrl', ['$rootScope', '$scope', '$http', 'utilsServi
         $scope.comments_result_x = [0,0,0,0,0];
         $scope.comments_result_y = [0,0,0,0,0];
 
+        //数据缓存
         var commentsDataCacheX = {};
         var commentsDataCacheY = {};
 

@@ -18,11 +18,14 @@ app.controller('dakacommentsStage', ['$rootScope', '$scope', '$http', 'utilsServ
                 }
             }
         };
+
         $scope.comments_stage_x = [0,0,0,0,0];
         $scope.comments_stage_y = [0,0,0,0,0];
 
+        //数据缓存
         var commentsDataCacheX = {};
         var commentsDataCacheY = {};
+
         //获取评论数据
         function getNoPlayData(num){
             if(commentsDataCacheX[num] && commentsDataCacheY[num]){

@@ -3,7 +3,7 @@ angular.module('app.utilsService', [])
 
         var service = {};
 
-        //获取投票最新活动期数数据格式化
+        //获取最新活动期数的数据格式化
         service.formatDataX = function(details, no, num){
             var length = details.length;
             if(num == length){
