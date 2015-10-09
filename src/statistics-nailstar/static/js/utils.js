@@ -214,5 +214,37 @@ angular.module('app.utilsService', [])
             }
         };
 
+        //维度的数据格式化
+        service.tickFormatter = function (rs, order){
+            var array = [];
+            var formatFunction = getFormatFunction();
+            for(var i = 0; i < rs.length; i++){
+                array.push(formatFunction(rs[i]));
+            }
+
+            function getFormatFunction(){
+                switch(order){
+                    case "0" :
+                        return function(val){
+                            return moment(val).format("YYYYMMDD");
+                        };
+                    case "1" :
+                        return function(val){
+                            return moment(val).format("YYYY") + "第" + moment(val).week() + "周"
+                        };
+                    case "2" :
+                        return function(val){
+                            return moment(val).format("YYYYMM")
+                        };
+                    default :
+                        return function(val){
+                            return moment(val).format("YYYYMMDD")
+                        };
+                }
+            }
+
+            return array;
+        }
+
         return service;
 });

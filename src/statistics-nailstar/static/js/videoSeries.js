@@ -28,37 +28,6 @@ app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService
         var playDataCacheX = {};
         var playDataCacheY = {};
 
-        function tickFormatter(rs){
-            var array = [];
-            var formatFunction = getFormatFunction();
-            for(var i = 0; i < rs.length; i++){
-                array.push(formatFunction(rs[i]));
-            }
-
-            function getFormatFunction(){
-                switch($scope.CateParams.order){
-                    case "0" :
-                        return function(val){
-                            return moment(val).format("YYYYMMDD");
-                        };
-                    case "1" :
-                        return function(val){
-                            return moment(val).format("YYYY") + "第" + moment(val).week() + "周"
-                        };
-                    case "2" :
-                        return function(val){
-                            return moment(val).format("YYYYMM")
-                        };
-                    default :
-                        return function(val){
-                            return moment(val).format("YYYYMMDD")
-                        };
-                }
-            }
-
-            return array;
-        }
-
         //获取播放数据
         function getCatePlayData(id, order, num){
             if(playDataCacheX[id + "_" + order + "_" + num] && playDataCacheY[id + "_" + order + "_" + num]){
@@ -72,7 +41,7 @@ app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService
                 var rs = utilsService.formatDataByOrderAndNumX(data.result.details, order, num);
                 var ls = utilsService.formatDataByOrderAndNumY(data.result.details, order, num);
 
-                var rs = tickFormatter(rs);
+                var rs = utilsService.tickFormatter(rs, order);
                 playDataCacheX[id + "_" + order + "_" + num] = rs;
                 $scope.cate_result_x = rs;
 
