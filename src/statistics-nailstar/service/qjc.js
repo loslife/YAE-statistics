@@ -1,15 +1,6 @@
-var mysql = require('mysql');
 var _ = require("underscore");
 var async = require("async");
-
-var databaseParams = {
-    host: 'yilosdev.mysql.rds.aliyuncs.com',
-    user: 'yilos_dev',
-    password: 'yilos_dev',
-    database: 'nailstar'
-};
-
-var dbPool = mysql.createPool(databaseParams);
+var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
 exports.getNewestActivity = getNewestActivity;
 exports.qjcPicCount = qjcPicCount;
@@ -18,25 +9,12 @@ exports.qjcVoteCount = qjcVoteCount;
 //获取最新活动期数
 function getNewestActivity(req, res, next){
     var sql = "select max(id) 'no' from activities";
-    dbPool.getConnection(function (err, connection) {
-
+    dbHelper.execSql(sql, {}, function (err, row) {
         if (err) {
             next(err);
-            if (connection) {
-                connection.release();
-            }
             return;
         }
-        connection.query(sql, function (err, row) {
-            if (connection) {
-                connection.release();
-            }
-            if (err) {
-                next(err);
-                return;
-            }
-            doResponse(req, res, row[0]);
-        });
+        doResponse(req, res, row[0]);
     });
 }
 
@@ -47,29 +25,14 @@ function qjcPicCount(req, res, next) {
 
     var sql = "select b.id 'no', sum(a.vote_num) 'count' " +
         "from candidates a join activities b ON a.activity_id = b.id " +
-        "group by b.id order by b.id desc limit 0 , ?";
+        "group by b.id order by b.id desc limit 0,:num";
 
-    dbPool.getConnection(function (err, connection) {
-
+    dbHelper.execSql(sql, {num: num}, function (err, result) {
         if (err) {
-            next(err);
-            if(connection){
-                connection.release();
-            }
-            return;
+            return next(err);
         }
-        connection.query(sql, [num], function (err, result) {
-
-            if(connection){
-                connection.release();
-            }
-            if (err) {
-                return next(err);
-            }
-            var data = {details: result};
-            doResponse(req, res, data);
-        });
-
+        var data = {details: result};
+        doResponse(req, res, data);
     });
 }
 
@@ -80,27 +43,13 @@ function qjcVoteCount(req, res, next) {
 
     var sql = "select b.id 'no', count(a.id) 'count' " +
         "from candidates a join activities b ON a.activity_id = b.id " +
-        "group by b.id order by b.id desc limit 0 , ?";
+        "group by b.id order by b.id desc limit 0,:num";
 
-    dbPool.getConnection(function (err, connection) {
-
+    dbHelper.execSql(sql, {num: num}, function (err, result) {
         if (err) {
-            next(err);
-            if(connection){
-                connection.release();
-            }
-            return;
+            return next(err);
         }
-        connection.query(sql, [num], function (err, result) {
-            if(connection){
-                connection.release();
-            }
-            if (err) {
-                return next(err);
-            }
-            var data = {details: result};
-            doResponse(req, res, data);
-        });
-
+        var data = {details: result};
+        doResponse(req, res, data);
     });
 }

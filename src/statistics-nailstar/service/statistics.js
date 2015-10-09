@@ -1,17 +1,8 @@
-var mysql = require('mysql');
 var _ = require("underscore");
 var request = require("request");
 var async = require("async");
 var wxApi = require("wechat-toolkit");
-
-var databaseParams = {
-    host     : 'yilosdev.mysql.rds.aliyuncs.com',
-    user     : 'yilos_dev',
-    password : 'yilos_dev',
-    database : 'nailstar'
-};
-
-var dbPool = mysql.createPool(databaseParams);
+var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
 exports.users = users;
 
@@ -39,7 +30,7 @@ function users(req, res, next){
 
         var sql = "select count(1) as total from accounts";
 
-        dbPool.getConnection(function(err, connection) {
+        dbHelper.execSql(sql, {}, function(err, rows) {
 
             if(err){
                 console.log(err);
@@ -48,20 +39,8 @@ function users(req, res, next){
                 return;
             }
 
-            connection.query(sql, function(err, rows) {
-
-                if(err){
-                    console.log(err);
-                    connection.release();
-                    temp.value = "查询失败";
-                    callback(null);
-                    return;
-                }
-
-                temp.value = rows[0].total;
-                connection.release();
-                callback(null);
-            });
+            temp.value = rows[0].total;
+            callback(null);
         });
     }
 
@@ -169,29 +148,17 @@ function users(req, res, next){
 
         var sql = "select count(1) as total from accounts";
 
-        dbPool.getConnection(function(err, connection) {
+        dbHelper.execSql(sql, function(err, rows) {
 
-            if (err) {
+            if(err){
                 console.log(err);
                 temp.value = "查询失败";
                 callback(null);
                 return;
             }
 
-            connection.query(sql, function(err, rows) {
-
-                if(err){
-                    console.log(err);
-                    connection.release();
-                    temp.value = "查询失败";
-                    callback(null);
-                    return;
-                }
-
-                temp.value = rows[0].total;
-                connection.release();
-                callback(null);
-            });
+            temp.value = rows[0].total;
+            callback(null);
         });
     }
 }
