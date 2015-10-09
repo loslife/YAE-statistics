@@ -9,11 +9,6 @@ app.controller('dakaQjcVoteCtrl', ['$rootScope', '$scope', '$http', 'utilsServic
         recentVote: 20,
     };
 
-    $scope.refresh = Math.random();
-    function refreshCanvas() {
-        $scope.refresh = Math.random();
-    }
-
     //格式化X轴数据
     function myformatDataX(details) {
         return _.map(details, function (el) {
@@ -39,8 +34,6 @@ app.controller('dakaQjcVoteCtrl', ['$rootScope', '$scope', '$http', 'utilsServic
 
             $scope.vote_result_x = vote_result_x;
             $scope.vote_result_y = vote_result_y;
-
-            refreshCanvas();
 
         }).error(function (data, status) {
 
@@ -72,8 +65,6 @@ app.controller('dakaQjcVoteCtrl', ['$rootScope', '$scope', '$http', 'utilsServic
 
                 $scope.vote_result_x = vote_result_x;
                 $scope.vote_result_y = vote_result_y;
-
-                refreshCanvas();
 
             }).error(function (data, status) {
 

@@ -18,28 +18,28 @@ app.controller('dakacommentsStage', ['$rootScope', '$scope', '$http', 'utilsServ
                 }
             }
         };
-        $scope.play_result_x = [0,0,0,0,0];
-        $scope.play_result_y = [0,0,0,0,0];
+        $scope.comments_stage_x = [0,0,0,0,0];
+        $scope.comments_stage_y = [0,0,0,0,0];
 
-        var playDataCacheX = {};
-        var playDataCacheY = {};
+        var commentsDataCacheX = {};
+        var commentsDataCacheY = {};
         //获取评论数据
         function getNoPlayData(num){
-            if(playDataCacheX[num] && playDataCacheY[num]){
-                $scope.play_result_x = playDataCacheX[num];
-                $scope.play_result_y = playDataCacheY[num];
+            if(commentsDataCacheX[num] && commentsDataCacheY[num]){
+                $scope.comments_stage_x = commentsDataCacheX[num];
+                $scope.comments_stage_y = commentsDataCacheY[num];
                 return;
             }
             var url = "/svc/dakatongji/getCommentsByNo?num=" + num;
             $http.get(url).success(function(data) {
                 var rs = utilsService.formatDataByNoX(data.result.details);
                 var ls = utilsService.formatDataByNoY(data.result.details);
-                playDataCacheX[num] = rs;
-                playDataCacheY[num] = ls;
-                $scope.play_result_x = rs;
-                $scope.play_result_y = ls;
+                commentsDataCacheX[num] = rs;
+                commentsDataCacheY[num] = ls;
+                $scope.comments_stage_x = rs;
+                $scope.comments_stage_y = ls;
             }).error(function(data, status) {
-                console.log("getplayByCate in error");
+                console.log("getCommentsByCate in error");
             });
         }
 

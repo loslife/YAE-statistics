@@ -10,9 +10,15 @@ app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService
         $scope.CateParams = {
             cateId: null,//初始分类id
             order: "0",//初始维度
-            num: 10,//初始数据数量
-            //refresh: null,
-            //showSpline: true,
+            num: 20,//初始数据数量
+            changeNum: function(){
+                getCatePlayData($scope.CateParams.cateId, $scope.CateParams.order, $scope.CateParams.num);
+            },
+            keyDown: function(){
+                if(event.keyCode == 13){
+                    $scope.CateParams.changeNum();
+                }
+            }
         };
 
         $scope.cate_result_x = [0,0,0,0,0];
@@ -55,9 +61,9 @@ app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService
 
         //获取播放数据
         function getCatePlayData(id, order, num){
-            if(playDataCacheX[id + "_" + order]){
-                $scope.cate_result_x = playDataCacheX[id + "_" + order];
-                $scope.cate_result_y = playDataCacheY[id + "_" + order];
+            if(playDataCacheX[id + "_" + order + "_" + num] && playDataCacheY[id + "_" + order + "_" + num]){
+                $scope.cate_result_x = playDataCacheX[id + "_" + order + "_" + num];
+                $scope.cate_result_y = playDataCacheY[id + "_" + order + "_" + num];
                 return;
             }
 
@@ -67,10 +73,10 @@ app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService
                 var ls = utilsService.formatDataByOrderAndNumY(data.result.details, order, num);
 
                 var rs = tickFormatter(rs);
-                playDataCacheX[id + "_" + order] = rs;
+                playDataCacheX[id + "_" + order + "_" + num] = rs;
                 $scope.cate_result_x = rs;
 
-                playDataCacheY[id + "_" + order] = ls;
+                playDataCacheY[id + "_" + order + "_" + num] = ls;
                 $scope.cate_result_y = ls;
 
                 console.log(rs);
@@ -82,8 +88,8 @@ app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService
 
         //监听视频参数变化
         $scope.$watch('CateParams', function (newVal, oldVal) {
-            if (newVal !== oldVal && newVal.cateId !== oldVal.cateId || newVal.order !== oldVal.order) {
-                if (!newVal.cateId || !newVal.order || newVal.num > $scope.no) {
+            if (newVal.cateId !== oldVal.cateId || newVal.order !== oldVal.order) {
+                if (!newVal.cateId || !newVal.order || newVal.num < 1) {
                     return;
                 }
                 getCatePlayData($scope.CateParams.cateId, $scope.CateParams.order, $scope.CateParams.num);
