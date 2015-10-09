@@ -77,11 +77,11 @@ function getplayByNo(req, res, next){
 
     var num = parseInt(req.query["num"]) || 10;
 
-    var sql1 = "select sum(count) 'count' from (select count(a.id) 'count' " +
-        "from topics a join topic_actions b on a.id = b.topic_id where b.action_type = 1 " +
+    var sql1 = "select sum(count) 'count' from (select count(b.id) 'count' " +
+        "from topics a left join topic_actions b on a.id = b.topic_id and b.action_type = 1 " +
         "group by a.id order by a.create_date desc limit 0,:num) a";
-    var sql2 = "select a.title 'title',count(a.id) 'count' " +
-        "from topics a join topic_actions b on a.id = b.topic_id where b.action_type = 1 " +
+    var sql2 = "select a.title 'title',count(b.id) 'count' " +
+        "from topics a left join topic_actions b on a.id = b.topic_id and b.action_type = 1 " +
         "group by a.id order by a.create_date desc limit 0,:num";
 
     var obj = {
