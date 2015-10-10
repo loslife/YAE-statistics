@@ -148,7 +148,7 @@ function users(req, res, next){
 
         var sql = "select count(1) as total from accounts";
 
-        dbHelper.execSql(sql, function(err, rows) {
+        dbHelper.execSql(sql, {}, function(err, rows) {
 
             if(err){
                 console.log(err);
