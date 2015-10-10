@@ -75,7 +75,7 @@ response:
         }
     ]
     
-## 每次新增关注数
+## 每日新增关注数
 
 url: /svc/dakatongji/me/followCount
 
