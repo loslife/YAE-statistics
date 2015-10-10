@@ -131,13 +131,23 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
-                    .state('app.dakamyguanzhuxingwei', {
-                        url: '/dakamyguanzhuxingwei',
-                        templateUrl: '/statistics-nailstar/myguanzhuxingwei.html',
+                    .state('app.dakameaction', {
+                        url: '/dakameaction',
+                        templateUrl: '/statistics-nailstar/meaction.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/myguanzhuxingwei.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/meaction.js']);
+                                }]
+                        }
+                    })
+                    .state('app.dakameranking', {
+                        url: '/dakameranking',
+                        templateUrl: '/statistics-nailstar/meranking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/meranking.js']);
                                 }]
                         }
                     })

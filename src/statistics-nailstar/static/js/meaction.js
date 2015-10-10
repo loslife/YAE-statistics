@@ -1,4 +1,4 @@
-app.controller('dakamyguanzhuxingwei', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
+app.controller('dakameaction', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
 
     $rootScope.promise = $http.get("/svc/dakatongji/me/statistics", {}).success(function(data) {
 

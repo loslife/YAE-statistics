@@ -54,6 +54,18 @@ angular.module('app.utilsService', [])
             }).reverse();
         };
 
+        service.formatRankX = function (result){
+            return _.map(result, function(el){
+                return el.nickname;
+            }).reverse();
+        };
+
+        service.formatRankY = function (result){
+            return _.map(result, function(el){
+                return el.count;
+            }).reverse();
+        };
+
         //视频分期播放统计数据格式化
         service.formatDataByNoX = function _formatDataX(details){
             return _.map(details, function(el){
