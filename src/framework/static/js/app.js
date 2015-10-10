@@ -131,6 +131,16 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+                    .state('app.dakamyguanzhuxingwei', {
+                        url: '/dakamyguanzhuxingwei',
+                        templateUrl: '/statistics-nailstar/myguanzhuxingwei.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/myguanzhuxingwei.js']);
+                                }]
+                        }
+                    })
             }
         ]
     )
