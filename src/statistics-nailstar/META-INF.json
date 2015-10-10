@@ -101,6 +101,30 @@
             "auth": false,
             "impl": "me.statistics",
             "comment": "我的页面数据统计"
+        },
+        {
+            "name": "me",
+            "path": "/dakatongji/me/fansRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "me.fansRanking",
+            "comment": "粉丝数排行榜"
+        },
+        {
+            "name": "me",
+            "path": "/dakatongji/me/followsRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "me.followsRanking",
+            "comment": "关注数排行榜"
+        },
+        {
+            "name": "me",
+            "path": "/dakatongji/me/followCount",
+            "method": "get",
+            "auth": false,
+            "impl": "me.followCount",
+            "comment": "每日新增关注数"
         }
     ],
     "ejsviews": [

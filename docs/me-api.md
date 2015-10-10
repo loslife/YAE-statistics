@@ -1,7 +1,7 @@
 ## 各项指数统计接口
 
 url: /svc/dakatongji/me/statistics
-
+    
 response:
 
 	{
@@ -24,3 +24,74 @@ response:
           }
         ]
      }
+     
+## 粉丝数排行榜
+
+url: /svc/dakatongji/me/fansRanking
+
+query:
+    
+    num=20
+    
+response:
+
+    [
+        {
+          "nickname": "手机用户3789",
+          "count": 7
+        },
+        {
+          "nickname": "手机用户5640",
+          "count": 6
+        },
+        {
+          "nickname": "蝴蝶淘最美甲",
+          "count": 6
+        }
+    ]
+    
+## 关注数排行榜
+
+url: /svc/dakatongji/me/followsRanking
+
+query:
+    
+    num=20
+    
+response:
+
+    [
+        {
+          "nickname": "手机用户3789",
+          "count": 7
+        },
+        {
+          "nickname": "手机用户5640",
+          "count": 6
+        },
+        {
+          "nickname": "蝴蝶淘最美甲",
+          "count": 6
+        }
+    ]
+    
+## 每次新增关注数
+
+url: /svc/dakatongji/me/followCount
+
+query:
+    
+    num=20
+    
+response:
+
+    [
+        {
+          "day": "20151010",
+          "count": 7
+        },
+        {
+          "day": "20151009",
+          "count": 1
+        }
+    ]

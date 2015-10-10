@@ -3,6 +3,9 @@ var async = require("async");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
 exports.statistics = statistics;
+exports.fansRanking = fansRanking;
+exports.followsRanking = followsRanking;
+exports.followCount = followCount;
 
 //我的页面数据统计
 function statistics(req, res, next) {
@@ -19,7 +22,6 @@ function statistics(req, res, next) {
         if(err){
             return next(err);
         }
-        console.log(final_result);
         doResponse(req, res, final_result);
     });
 
@@ -110,4 +112,48 @@ function statistics(req, res, next) {
     }
 
 
+}
+
+//粉丝数排行榜
+function fansRanking(req, res, next){
+    var num = parseInt(req.query.num) || 20;
+    var sql = "select b.nickname 'nickname',count(a.id) 'count' from " +
+        "account_relations a join accounts b on a.account_id = b.id " +
+        "group by a.account_id order by count desc limit 0,:num";
+    dbHelper.execSql(sql, {num: num}, function (err, result) {
+        if (err) {
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//关注数排行榜
+function followsRanking(req, res, next){
+    var num = parseInt(req.query.num) || 20;
+    var sql = "select b.nickname 'nickname',count(a.id) 'count' from " +
+        "account_relations a join accounts b on a.follower_id = b.id " +
+        "group by a.follower_id order by count desc limit 0,:num";
+    dbHelper.execSql(sql, {num: num}, function (err, result) {
+        if (err) {
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//每日新增关注数
+function followCount(req, res, next){
+    var num = parseInt(req.query.num) || 20;
+    var sql = "select from_unixtime(create_date/1000, '%Y%m%d') as 'day', count(id) as 'count' " +
+        "from account_relations_history " +
+        "where action_type = 1 and FROM_UNIXTIME( create_date/1000, '%Y%m%d' ) " +
+        "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
+        "group by day order by day desc";
+    dbHelper.execSql(sql, {}, function (err, result) {
+        if (err) {
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
 }
