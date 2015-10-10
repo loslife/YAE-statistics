@@ -6,6 +6,8 @@ exports.statistics = statistics;
 exports.fansRanking = fansRanking;
 exports.followsRanking = followsRanking;
 exports.followCount = followCount;
+exports.detailsLikeRanking = detailsLikeRanking;
+exports.detailsLikeCount = detailsLikeCount;
 
 //我的页面数据统计
 function statistics(req, res, next) {
@@ -156,4 +158,88 @@ function followCount(req, res, next){
         }
         doResponse(req, res, result);
     });
+}
+
+//点赞排行榜
+function detailsLikeRanking(req, res, next){
+    var num = parseInt(req.query.num) || 20;
+    var sql = "select r.nickname 'nickname',count(l.id) 'count' from " +
+        "(select a.id 'id',b.account_id 'account_id' from " +
+        "topic_actions a join topics b on a.topic_id = b.id where a.action_type = 2 " +
+        "union " +
+        "select a.id 'id',b.account_id 'account_id' from " +
+        "comment_actions a join comments b on a.comment_id = b.id where a.action_type = 2 " +
+        "union " +
+        "select a.id 'id',b.account_id 'account_id' from " +
+        "post_actions a join posts b on a.post_id = b.id where a.action_type = 2) l " +
+        "join accounts r on l.account_id = r.id group by l.account_id order by count desc limit 0,:num";
+    dbHelper.execSql(sql, {num: num}, function (err, result) {
+        if (err) {
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//每日点赞数
+function detailsLikeCount(req, res, next){
+
+    var num = parseInt(req.query.num) || 20;
+    var details_result = {
+        totalCount: 0,
+        details: []
+    };
+
+    async.parallel([_queryLikeCount, _queryLikeByDay], function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, details_result);
+    });
+
+    function _queryLikeCount(nextStep){
+        var sql = "select count(1) 'count' from " +
+            "(select a.id'id',a.create_date 'create_date' from " +
+            "topic_actions a join topics b on a.topic_id = b.id where a.action_type = 2 " +
+            "union " +
+            "select a.id 'id',a.create_date 'create_date' from " +
+            "comment_actions a join comments b on a.comment_id = b.id where a.action_type = 2 " +
+            "union " +
+            "select a.id 'id',a.action_date 'create_date' from " +
+            "post_actions a join posts b on a.post_id = b.id where a.action_type = 2) t";
+        dbHelper.execSql(sql, {}, function (err, result) {
+            if (err) {
+                return nextStep(err);
+            }
+            if(result && result[0]){
+                details_result.totalCount = result[0].count;
+            }
+            nextStep();
+        });
+    }
+
+    function _queryLikeByDay(nextStep){
+        var sql = "select FROM_UNIXTIME( t.create_date/1000, '%Y%m%d' ) 'day',count(t.id) 'count' from " +
+            "(select a.id 'id',a.create_date 'create_date' from " +
+            "topic_actions a join topics b on a.topic_id = b.id where a.action_type = 2 " +
+            "union " +
+            "select a.id 'id',a.create_date 'create_date' from " +
+            "comment_actions a join comments b on a.comment_id = b.id where a.action_type = 2 " +
+            "union " +
+            "select a.id 'id',a.action_date 'create_date' from " +
+            "post_actions a join posts b on a.post_id = b.id where a.action_type = 2) t " +
+            "where FROM_UNIXTIME( t.create_date/1000, '%Y%m%d' ) " +
+            "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
+            "group by day order by count desc";
+        dbHelper.execSql(sql, {}, function (err, result) {
+            if (err) {
+                return next(err);
+            }
+            if(result){
+                details_result.details = result;
+            }
+            nextStep();
+        });
+    }
+
 }
