@@ -125,6 +125,38 @@
             "auth": false,
             "impl": "me.followCount",
             "comment": "每日新增关注数"
+        },
+        {
+            "name": "me",
+            "path": "/dakatongji/me/detailsLikeRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "me.detailsLikeRanking",
+            "comment": "点赞排行榜"
+        },
+        {
+            "name": "me",
+            "path": "/dakatongji/me/detailsLikeCount",
+            "method": "get",
+            "auth": false,
+            "impl": "me.detailsLikeCount",
+            "comment": "每日点赞数"
+        },
+        {
+            "name": "me",
+            "path": "/dakatongji/me/detailsCommentsRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "me.detailsCommentsRanking",
+            "comment": "评论排行榜"
+        },
+        {
+            "name": "me",
+            "path": "/dakatongji/me/detailsCommentsCount",
+            "method": "get",
+            "auth": false,
+            "impl": "me.detailsCommentsCount",
+            "comment": "每日评论数"
         }
     ],
     "ejsviews": [

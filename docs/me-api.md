@@ -95,3 +95,101 @@ response:
           "count": 1
         }
     ]
+    
+## 点赞排行榜
+
+url: /svc/dakatongji/me/detailsLikeRanking
+
+query:
+    
+    num=20
+    
+response:
+
+    [
+        {
+          "nickname": "胡波老师",
+          "count": 3707
+        },
+        {
+          "nickname": "王红老师",
+          "count": 2424
+        },
+        {
+          "nickname": "董亚坡老师",
+          "count": 2399
+        }
+    ]
+    
+## 每日点赞数
+
+url: /svc/dakatongji/me/detailsLikeCount
+
+query:
+    
+    num=20
+    
+response:
+
+    {
+        "totalCount": 11010,
+        "details": [
+          {
+            "day": "20151010",
+            "count": 51
+          },
+          {
+            "day": "20151009",
+            "count": 5
+          }
+        ]
+    }
+    
+## 评论排行榜
+
+url: /svc/dakatongji/me/detailsCommentsRanking
+
+query:
+    
+    num=20
+    
+response:
+
+    [
+        {
+          "nickname": "胡波老师",
+          "count": 3707
+        },
+        {
+          "nickname": "王红老师",
+          "count": 2424
+        },
+        {
+          "nickname": "董亚坡老师",
+          "count": 2399
+        }
+    ]
+    
+## 每日评论数
+
+url: /svc/dakatongji/me/detailsCommentsCount
+
+query:
+    
+    num=20
+    
+response:
+
+    {
+        "totalCount": 11010,
+        "details": [
+          {
+            "day": "20151010",
+            "count": 51
+          },
+          {
+            "day": "20151009",
+            "count": 5
+          }
+        ]
+    }
