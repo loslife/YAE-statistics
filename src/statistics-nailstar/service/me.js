@@ -8,6 +8,8 @@ exports.followsRanking = followsRanking;
 exports.followCount = followCount;
 exports.detailsLikeRanking = detailsLikeRanking;
 exports.detailsLikeCount = detailsLikeCount;
+exports.detailsCommentsRanking = detailsCommentsRanking;
+exports.detailsCommentsCount = detailsCommentsCount;
 
 //我的页面数据统计
 function statistics(req, res, next) {
@@ -230,6 +232,91 @@ function detailsLikeCount(req, res, next){
             "post_actions a join posts b on a.post_id = b.id where a.action_type = 2) t " +
             "where FROM_UNIXTIME( t.create_date/1000, '%Y%m%d' ) " +
             "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
+            "group by day order by count desc";
+        dbHelper.execSql(sql, {}, function (err, result) {
+            if (err) {
+                return next(err);
+            }
+            if(result){
+                details_result.details = result;
+            }
+            nextStep();
+        });
+    }
+
+}
+
+//评论排行榜
+function detailsCommentsRanking(req, res, next){
+    var num = parseInt(req.query.num) || 20;
+    var sql = "select p.nickname 'nickname',count(t.id) 'count' from " +
+        "(select a.id 'id',b.account_id 'account_id' from " +
+        "comments a join topics b on a.topic_id = b.id where a.reply_to is null " +
+        "union " +
+        "select a.id 'id',b.id 'account_id' from " +
+        "comments a join accounts b on a.account_id = b.id where a.reply_to is null and a.isHomework = 1 " +
+        "union " +
+        "select a.id 'id',b.id 'account_id' from post_comments a join accounts b on a.account_id = b.id) t " +
+        "join accounts p on t.account_id = p.id " +
+        "group by t.account_id order by count desc limit 0,:num";
+    dbHelper.execSql(sql, {num: num}, function (err, result) {
+        if (err) {
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//每日评论数
+function detailsCommentsCount(req, res, next){
+
+    var num = parseInt(req.query.num) || 20;
+    var details_result = {
+        totalCount: 0,
+        details: []
+    };
+
+    async.parallel([_queryLikeCount, _queryLikeByDay], function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, details_result);
+    });
+
+    function _queryLikeCount(nextStep){
+        var sql = "select count(1) 'count' from " +
+            "(select a.id 'id' from " +
+            "comments a join topics b on a.topic_id = b.id where a.reply_to is null " +
+            "union " +
+            "select a.id 'id' from " +
+            "comments a join accounts b on a.account_id = b.id where a.reply_to is null and a.isHomework = 1 " +
+            "union " +
+            "select a.id 'id' from " +
+            "post_comments a join accounts b on a.account_id = b.id) t";
+        dbHelper.execSql(sql, {}, function (err, result) {
+            if (err) {
+                return nextStep(err);
+            }
+            if(result && result[0]){
+                details_result.totalCount = result[0].count;
+            }
+            nextStep();
+        });
+    }
+
+    function _queryLikeByDay(nextStep){
+        var sql = "select FROM_UNIXTIME( create_date/1000, '%Y%m%d' ) 'day',count(id) 'count' from " +
+            "(select a.id 'id',a.create_date 'create_date' from " +
+            "comments a join topics b on a.topic_id = b.id where a.reply_to is null " +
+            "union " +
+            "select a.id 'id',a.create_date 'create_date' from " +
+            "comments a join accounts b on a.account_id = b.id where a.reply_to is null and a.isHomework = 1 " +
+            "union " +
+            "select a.id 'id',a.create_date 'create_date' from " +
+            "post_comments a join accounts b on a.account_id = b.id) t " +
+            "where FROM_UNIXTIME( t.create_date/1000, '%Y%m%d' ) " +
+            "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') " +
+            "and date_format(now(), '%Y%m%d') " +
             "group by day order by count desc";
         dbHelper.execSql(sql, {}, function (err, result) {
             if (err) {
