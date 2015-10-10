@@ -8,11 +8,9 @@ exports.statistics = statistics;
 function statistics(req, res, next) {
 
     var final_result = {
-        follow: 0,
-        avgFollow: 0,
-        background_rate: 0,
-        photo_rate: 0
+        infos: []
     };
+
     async.parallel([
         _queryFollowAndAverage,
         _queryBackgroundChangeRate,
@@ -28,6 +26,7 @@ function statistics(req, res, next) {
     //总关注数&平均每人关注数
     function _queryFollowAndAverage(nextStep){
 
+        var follow = 0;
         async.series([_queryFollowCount, _queryAverageFollow], function(err){
             if(err){
                 return nextStep(err);
@@ -44,7 +43,11 @@ function statistics(req, res, next) {
                     return nextOne(err);
                 }
                 if(result && result[0]){
-                    final_result.follow = result[0].follow;
+                    follow = result[0].follow;
+                    final_result.infos.push({
+                        title: "总关注数",
+                        value: result[0].follow
+                    });
                 }
                 nextOne();
             });
@@ -59,7 +62,10 @@ function statistics(req, res, next) {
                     return nextOne(err);
                 }
                 if(result && result[0]){
-                    final_result.avgFollow = final_result.follow / result[0].count;
+                    final_result.infos.push({
+                        title: "平均每人关注数",
+                        value: (follow / result[0].count * 100).toFixed(2) + "%"
+                    });
                 }
                 nextOne();
             });
@@ -76,7 +82,10 @@ function statistics(req, res, next) {
                 return nextStep(err);
             }
             if(result && result[0]){
-                final_result.background_rate = result[0].background_rate;
+                final_result.infos.push({
+                    title: "注册用户修改背景图片率",
+                    value: (result[0].background_rate * 100).toFixed(2) + "%"
+                });
             }
             nextStep();
         });
@@ -91,7 +100,10 @@ function statistics(req, res, next) {
                 return nextStep(err);
             }
             if(result && result[0]){
-                final_result.photo_rate = result[0].photo_rate;
+                final_result.infos.push({
+                    title: "注册用户修改个人图像率",
+                    value: (result[0].photo_rate * 100).toFixed(2) + "%"
+                });
             }
             nextStep();
         });
