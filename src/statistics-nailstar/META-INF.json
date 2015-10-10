@@ -93,6 +93,14 @@
             "auth": false,
             "impl": "comments.getCommentsByNo",
             "comment": "美甲大咖分期评论数量"
+        },
+        {
+            "name": "me",
+            "path": "/dakatongji/me/statistics",
+            "method": "get",
+            "auth": false,
+            "impl": "me.statistics",
+            "comment": "我的页面数据统计"
         }
     ],
     "ejsviews": [
