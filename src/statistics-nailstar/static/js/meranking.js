@@ -8,7 +8,7 @@ app.controller('dakameranking', ['$rootScope', '$scope', '$http', 'utilsService'
     function initNo(){
         //默认参数
         $scope.noParams = {
-            num: 20,//初始数据数量
+            num: 10,//初始数据数量
             changeNum: function(){
                 getNoPlayData($scope.noParams.num);
             },

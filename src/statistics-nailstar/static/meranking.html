@@ -34,16 +34,8 @@
                         saveAsImage : {show: true}
                     }
                 },
-                dataZoom:{
-                    show:true,
-                    realtime:true,
-                    start: 10,
-                    end: 90,
-                    handleColor:'#008acd',
-                    dataBackgroundColor:'#efefff',
-                },
                 legend: {
-                    data:['粉丝数'],
+                    data:['粉丝数','播放数'],
                     x : 'left',
                 },
                 grid: {
@@ -101,7 +93,36 @@
                             ],
                         },
                     },
+                    {
+                        name:'播放数',
+                        smooth: true,
+                        type:'bar',
+                        data:{{play_result_y}},
+                        itemStyle:{
+                            normal: {
+                                lineStyle: {
+                                    width: 2,
+                                    color: '#23B7E5',
+                                    shadowColor : 'rgba(0,0,0,0.5)',
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 8,
+                                    shadowOffsetY: 8,
+                                },
+                                barBorderRadius: 4,
+                                label: {show: true},
+                                areaStyle: {type: 'default'},
+                            },
+                            emphasis:{
+                                label: {show: true},
+                            },
+                        },
+                        markLine:{
+                            data:[
+                                {type:'average',name:'平均值'}
+                            ],
+                        },
+                    },
                 ]
-        }" style="height: 700px;" class="col-xs-12"></div>
+        }" style="height: 400px;" class="col-xs-6"></div>
     </div>
 </div>
