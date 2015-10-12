@@ -133,11 +133,11 @@ var app = angular.module('app', [
                     })
                     .state('app.dakameaction', {
                         url: '/dakameaction',
-                        templateUrl: '/statistics-nailstar/meaction.html',
+                        templateUrl: '/statistics-nailstar/meAction.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/meaction.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/meAction.js']);
                                 }]
                         }
                     })
