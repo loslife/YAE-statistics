@@ -201,7 +201,7 @@ function detailsLikeCount(req, res, next){
 
     function _queryLikeCount(nextStep){
         var sql = "select count(1) 'count' from " +
-            "(select a.id'id',a.create_date 'create_date' from " +
+            "(select a.id 'id',a.create_date 'create_date' from " +
             "topic_actions a join topics b on a.topic_id = b.id where a.action_type = 2 " +
             "union " +
             "select a.id 'id',a.create_date 'create_date' from " +
