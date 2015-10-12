@@ -141,13 +141,81 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
-                    .state('app.dakameranking', {
-                        url: '/dakameranking',
-                        templateUrl: '/statistics-nailstar/meranking.html',
+                    .state('app.dakamefansranking', {
+                        url: '/dakamefansranking',
+                        templateUrl: '/statistics-nailstar/meFansRanking.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/meranking.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/meFansRanking.js']);
+                                }]
+                        }
+                    })
+                    .state('app.dakamefollowsranking', {
+                        url: '/dakamefollowsranking',
+                        templateUrl: '/statistics-nailstar/meFollowsRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/meFollowsRanking.js']);
+                                }]
+                        }
+                    })
+                    .state('app.dakamefollowscount', {
+                        url: '/dakamefollowscount',
+                        templateUrl: '/statistics-nailstar/meFollowsCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/meFollowsCount.js']);
+                                }]
+                        }
+                    })
+
+                    //点赞排行榜
+                    .state('app.dakamelikeranking', {
+                        url: '/dakamelikeranking',
+                        templateUrl: '/statistics-nailstar/meLikeRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/meLikeRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //评论排行榜
+                    .state('app.dakamecommentsranking', {
+                        url: '/dakamecommentsranking',
+                        templateUrl: '/statistics-nailstar/meCommentsRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/meCommentsRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //分时点赞统计
+                    .state('app.dakamelikecount', {
+                        url: '/dakamelikecount',
+                        templateUrl: '/statistics-nailstar/meLikeCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/meLikeCount.js']);
+                                }]
+                        }
+                    })
+
+                    //分时评论统计
+                    .state('app.dakamecommentscount', {
+                        url: '/dakamecommentscount',
+                        templateUrl: '/statistics-nailstar/meCommentsCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/meCommentsCount.js']);
                                 }]
                         }
                     })

@@ -153,6 +153,46 @@ angular.module('app.utilsService', [])
             }
         };
 
+        service.formatDataByDayX = function(details, num){
+            for(var i=0; i<num; i++){
+                var day = moment().add(-i, 'd').format("YYYYMMDD");
+                var flag = true;
+                for(var j=0; j<details.length; j++){
+                    var detail = details[j];
+                    if(detail.day === day){
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag){
+                    details.splice(i, 0, {day: day,count: 0});
+                }
+            }
+            return _.map(details, function(el){
+                return moment(el.day, 'YYYYMMDD').valueOf();
+            }).reverse();
+        }
+
+        service.formatDataByDayY = function(details, order, num){
+            for(var i=0; i<num; i++){
+                var day = moment().add(-i, 'd').format("YYYYMMDD");
+                var flag = true;
+                for(var j=0; j<details.length; j++){
+                    var detail = details[j];
+                    if(detail.day === day){
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag){
+                    details.splice(i, 0, {day: day,count: 0});
+                }
+            }
+            return _.map(details, function(el){
+                return el.count;
+            }).reverse();
+        }
+
         service.formatDataByOrderAndNumY = function(details, order, num){
             switch(order){
                 case "0" :
