@@ -32,8 +32,8 @@ app.controller('dakamelikecount', ['$rootScope', '$scope', '$http', 'utilsServic
 
                 $scope.totalcount = data.result.totalCount;
 
-                var rs =  utilsService.formatDataByOrderAndNumX(data.result.details, 0, num);
-                var ls =  utilsService.formatDataByOrderAndNumY(data.result.details, 0, num, "count");
+                var rs =  utilsService.formatDataByOrderAndNum(data.result.details, 0, num);
+                var ls =  utilsService.getFormatData(data.result.details, "count");
 
                 var rs = utilsService.tickFormatter(rs);
 

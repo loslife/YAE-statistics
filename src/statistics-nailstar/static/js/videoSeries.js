@@ -38,8 +38,8 @@ app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService
 
             var url = "/svc/dakatongji/getplayByCate?cate=" + id + "&order=" + order + "&num=" + num;
             $http.get(url).success(function(data) {
-                var rs = utilsService.formatDataByOrderAndNumX(data.result.details, order, num);
-                var ls = utilsService.formatDataByOrderAndNumY(data.result.details, order, num);
+                var rs = utilsService.formatDataByOrderAndNum(data.result.details, order, num);
+                var ls = utilsService.getFormatData(data.result.details, 'count');
 
                 var rs = utilsService.tickFormatter(rs, order);
                 playDataCacheX[id + "_" + order + "_" + num] = rs;
