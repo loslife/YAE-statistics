@@ -60,3 +60,52 @@ response:
         "总咖币": 2000,
         "注册用户人均咖币": 0.3995205753096284
     }
+    
+## 咖币排行榜
+
+url: /svc/dakatongji/member/expAndCoinCount
+    
+query:
+    
+    num=20
+    
+response:
+
+	[
+        {
+          "day": "20151013",
+          "exps": 2,
+          "coins": 3,
+          "avgexp": 0.0004,
+          "avgcoin": 0.0006
+        },
+        {
+          "day": "20151012",
+          "exps": 5,
+          "coins": null,
+          "avgexp": 0.001,
+          "avgcoin": null
+        }
+    ]
+      
+## 咖币排行榜
+
+url: /svc/dakatongji/member/targetRanking
+    
+query:
+    
+    target=1
+    num=20
+    
+response:
+
+	[
+        {
+          "count": 3,
+          "nickname": "秋"
+        },
+        {
+          "count": 2,
+          "nickname": "大神"
+        }
+    ]

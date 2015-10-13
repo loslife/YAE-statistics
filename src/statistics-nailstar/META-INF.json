@@ -181,6 +181,22 @@
             "auth": false,
             "impl": "member.expAndCoinAnalyse",
             "comment": "注册用户经验、咖币的总数和平均数"
+        },
+        {
+            "name": "member",
+            "path": "/dakatongji/member/expAndCoinCount",
+            "method": "get",
+            "auth": false,
+            "impl": "member.expAndCoinCount",
+            "comment": "注册用户每日获得经验、咖币的总数和平均数"
+        },
+        {
+            "name": "member",
+            "path": "/dakatongji/member/targetRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "member.targetRanking",
+            "comment": "经验指标获取排行榜"
         }
     ],
     "ejsviews": [
