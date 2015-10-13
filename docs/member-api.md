@@ -48,7 +48,7 @@ response:
         }
     ]
     
-## 咖币排行榜
+## 注册用户经验、咖币的总数和平均数
 
 url: /svc/dakatongji/member/expAndCoinAnalyse
     
@@ -61,7 +61,7 @@ response:
         "注册用户人均咖币": 0.3995205753096284
     }
     
-## 咖币排行榜
+## 注册用户每日获得经验、咖币的总数和平均数
 
 url: /svc/dakatongji/member/expAndCoinCount
     
@@ -88,7 +88,7 @@ response:
         }
     ]
       
-## 咖币排行榜
+## 经验指标获取排行榜
 
 url: /svc/dakatongji/member/targetRanking
     
