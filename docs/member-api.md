@@ -50,7 +50,7 @@ response:
     
 ## 咖币排行榜
 
-url: /svc/dakatongji/member/coinAnalyse
+url: /svc/dakatongji/member/expAndCoinAnalyse
     
 response:
 

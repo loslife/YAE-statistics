@@ -176,10 +176,10 @@
         },
         {
             "name": "member",
-            "path": "/dakatongji/member/coinAnalyse",
+            "path": "/dakatongji/member/expAndCoinAnalyse",
             "method": "get",
             "auth": false,
-            "impl": "member.coinAnalyse",
+            "impl": "member.expAndCoinAnalyse",
             "comment": "注册用户经验、咖币的总数和平均数"
         }
     ],

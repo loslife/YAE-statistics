@@ -4,7 +4,7 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
 exports.expRanking = expRanking;
 exports.coinRanking = coinRanking;
-exports.coinAnalyse = coinAnalyse;
+exports.expAndCoinAnalyse = expAndCoinAnalyse;
 
 //经验值排行榜
 function expRanking(req, res, next){
@@ -35,7 +35,7 @@ function coinRanking(req, res, next){
 }
 
 //注册用户经验、咖币的总数和平均数
-function coinAnalyse(req, res, next){
+function expAndCoinAnalyse(req, res, next){
 
     var final_result = {
         exps: 0,
