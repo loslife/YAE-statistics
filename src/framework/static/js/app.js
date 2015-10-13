@@ -196,6 +196,18 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //经验值排行榜
+                    .state('app.dakameexpranking', {
+                        url: '/dakameexpranking',
+                        templateUrl: '/statistics-nailstar/meExpRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/meExpRanking.js']);
+                                }]
+                        }
+                    })
+
                     //分时点赞统计
                     .state('app.dakamelikecount', {
                         url: '/dakamelikecount',
