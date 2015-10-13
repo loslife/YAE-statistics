@@ -153,107 +153,7 @@ angular.module('app.utilsService', [])
             }
         };
 
-        service.formatDataByDayX = function(details, num){
-            for(var i=0; i<num; i++){
-                var day = moment().add(-i, 'd').format("YYYYMMDD");
-                var flag = true;
-                for(var j=0; j<details.length; j++){
-                    var detail = details[j];
-                    if(detail.day === day){
-                        flag = false;
-                        break;
-                    }
-                }
-                if(flag){
-                    details.splice(i, 0, {day: day,count: 0});
-                }
-            }
-            return _.map(details, function(el){
-                return moment(el.day, 'YYYYMMDD').valueOf();
-            }).reverse();
-        }
-
-        service.formatDataByDayY = function(details, order, num){
-            for(var i=0; i<num; i++){
-                var day = moment().add(-i, 'd').format("YYYYMMDD");
-                var flag = true;
-                for(var j=0; j<details.length; j++){
-                    var detail = details[j];
-                    if(detail.day === day){
-                        flag = false;
-                        break;
-                    }
-                }
-                if(flag){
-                    details.splice(i, 0, {day: day,count: 0});
-                }
-            }
-            return _.map(details, function(el){
-                return el.count;
-            }).reverse();
-        }
-
-        service.formatExpCountByDayX = function(details, num){
-            for(var i=0; i<num; i++){
-                var day = moment().add(-i, 'd').format("YYYYMMDD");
-                var flag = true;
-                for(var j=0; j<details.length; j++){
-                    var detail = details[j];
-                    if(detail.day === day){
-                        flag = false;
-                        break;
-                    }
-                }
-                if(flag){
-                    details.splice(i, 0, {day: day,exps: 0});
-                }
-            }
-            return _.map(details, function(el){
-                return moment(el.day, 'YYYYMMDD').valueOf();
-            }).reverse();
-        }
-
-        service.formatExpCountByDayY = function(details, order, num){
-            for(var i=0; i<num; i++){
-                var day = moment().add(-i, 'd').format("YYYYMMDD");
-                var flag = true;
-                for(var j=0; j<details.length; j++){
-                    var detail = details[j];
-                    if(detail.day === day){
-                        flag = false;
-                        break;
-                    }
-                }
-                if(flag){
-                    details.splice(i, 0, {day: day,exps: 0});
-                }
-            }
-            return _.map(details, function(el){
-                return el.exps;
-            }).reverse();
-        }
-
-        service.formatAvgExpCountByDayY = function(details, order, num){
-            for(var i=0; i<num; i++){
-                var day = moment().add(-i, 'd').format("YYYYMMDD");
-                var flag = true;
-                for(var j=0; j<details.length; j++){
-                    var detail = details[j];
-                    if(detail.day === day){
-                        flag = false;
-                        break;
-                    }
-                }
-                if(flag){
-                    details.splice(i, 0, {day: day,avgexp: 0});
-                }
-            }
-            return _.map(details, function(el){
-                return el.avgexp;
-            }).reverse();
-        }
-
-        service.formatDataByOrderAndNumY = function(details, order, num){
+        service.formatDataByOrderAndNumY = function(details, order, num, param){
             switch(order){
                 case "0" :
                     return _formatDataByDayY();
@@ -265,63 +165,22 @@ angular.module('app.utilsService', [])
                     return _formatDataByDayY();
             }
 
+            //Y轴不需要对day进行补全
             function _formatDataByDayY(){
-                for(var i=0; i<num; i++){
-                    var day = moment().add(-i, 'd').format("YYYYMMDD");
-                    var flag = true;
-                    for(var j=0; j<details.length; j++){
-                        var detail = details[j];
-                        if(detail.day === day){
-                            flag = false;
-                            break;
-                        }
-                    }
-                    if(flag){
-                        details.splice(i, 0, {day: day,count: 0});
-                    }
-                }
                 return _.map(details, function(el){
-                    return el.count;
+                    return el[param];
                 }).reverse();
             }
 
             function _formatDataByWeekY(){
-                for(var i=0; i<num; i++){
-                    var week = moment().add(-i, 'w').format("YYYY") + moment().add(-i, 'w').week();
-                    var flag = true;
-                    for(var j=0; j<details.length; j++){
-                        var detail = details[j];
-                        if(detail.week === week){
-                            flag = false;
-                            break;
-                        }
-                    }
-                    if(flag){
-                        details.splice(i, 0, {week: week,count: 0});
-                    }
-                }
                 return _.map(details, function(el){
-                    return el.count;
+                    return el[param];
                 }).reverse();
             }
 
             function _formatDataByMonthY(){
-                for(var i=0; i<num; i++){
-                    var month = moment().add(-i, 'M').format("YYYYMM");
-                    var flag = true;
-                    for(var j=0; j<details.length; j++){
-                        var detail = details[j];
-                        if(detail.month === month){
-                            flag = false;
-                            break;
-                        }
-                    }
-                    if(flag){
-                        details.splice(i, 0, {month: month,count: 0});
-                    }
-                }
                 return _.map(details, function(el){
-                    return el.count;
+                    return el[param];
                 }).reverse();
             }
         };
@@ -356,7 +215,7 @@ angular.module('app.utilsService', [])
             }
 
             return array;
-        }
+        };
 
         return service;
 });

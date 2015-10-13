@@ -30,8 +30,8 @@ app.controller('dakameFollowsCount', ['$rootScope', '$scope', '$http', 'utilsSer
             var url = "/svc/dakatongji/me/followCount?num=" + num;
             $http.get(url).success(function(data){
 
-                var rs =  utilsService.formatDataByDayX(data.result, num);
-                var ls =  utilsService.formatDataByDayY(data.result, num);
+                var rs =  utilsService.formatDataByOrderAndNumX(data.result, 0, num);
+                var ls =  utilsService.formatDataByOrderAndNumY(data.result, 0, num, "count");
 
                 var rs = utilsService.tickFormatter(rs);
 
