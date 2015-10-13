@@ -193,6 +193,66 @@ angular.module('app.utilsService', [])
             }).reverse();
         }
 
+        service.formatExpCountByDayX = function(details, num){
+            for(var i=0; i<num; i++){
+                var day = moment().add(-i, 'd').format("YYYYMMDD");
+                var flag = true;
+                for(var j=0; j<details.length; j++){
+                    var detail = details[j];
+                    if(detail.day === day){
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag){
+                    details.splice(i, 0, {day: day,exps: 0});
+                }
+            }
+            return _.map(details, function(el){
+                return moment(el.day, 'YYYYMMDD').valueOf();
+            }).reverse();
+        }
+
+        service.formatExpCountByDayY = function(details, order, num){
+            for(var i=0; i<num; i++){
+                var day = moment().add(-i, 'd').format("YYYYMMDD");
+                var flag = true;
+                for(var j=0; j<details.length; j++){
+                    var detail = details[j];
+                    if(detail.day === day){
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag){
+                    details.splice(i, 0, {day: day,exps: 0});
+                }
+            }
+            return _.map(details, function(el){
+                return el.exps;
+            }).reverse();
+        }
+
+        service.formatAvgExpCountByDayY = function(details, order, num){
+            for(var i=0; i<num; i++){
+                var day = moment().add(-i, 'd').format("YYYYMMDD");
+                var flag = true;
+                for(var j=0; j<details.length; j++){
+                    var detail = details[j];
+                    if(detail.day === day){
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag){
+                    details.splice(i, 0, {day: day,avgexp: 0});
+                }
+            }
+            return _.map(details, function(el){
+                return el.avgexp;
+            }).reverse();
+        }
+
         service.formatDataByOrderAndNumY = function(details, order, num){
             switch(order){
                 case "0" :

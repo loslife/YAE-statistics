@@ -199,11 +199,23 @@ var app = angular.module('app', [
                     //经验值排行榜
                     .state('app.dakameexpranking', {
                         url: '/dakameexpranking',
-                        templateUrl: '/statistics-nailstar/meExpRanking.html',
+                        templateUrl: '/statistics-nailstar/memberExpRanking.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/meExpRanking.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/memberExpRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //咖币排行榜
+                    .state('app.dakacoinranking', {
+                        url: '/dakacoinranking',
+                        templateUrl: '/statistics-nailstar/memberCoinRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/memberCoinRanking.js']);
                                 }]
                         }
                     })
@@ -228,6 +240,18 @@ var app = angular.module('app', [
                             deps: ['uiLoad',
                                 function (uiLoad) {
                                     return uiLoad.load(['/statistics-nailstar/js/meCommentsCount.js']);
+                                }]
+                        }
+                    })
+
+                    //用户经验总数和平均数
+                    .state('app.dakamemberexpcount', {
+                        url: '/dakamemberexpcount',
+                        templateUrl: '/statistics-nailstar/memberExpCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/memberExpCount.js']);
                                 }]
                         }
                     })
