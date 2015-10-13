@@ -86,4 +86,26 @@ response:
           "avgexp": 0.001,
           "avgcoin": null
         }
-      ]
+    ]
+      
+## 咖币排行榜
+
+url: /svc/dakatongji/member/targetRanking
+    
+query:
+    
+    target=1
+    num=20
+    
+response:
+
+	[
+        {
+          "count": 3,
+          "nickname": "秋"
+        },
+        {
+          "count": 2,
+          "nickname": "大神"
+        }
+    ]

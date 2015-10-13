@@ -6,6 +6,7 @@ exports.expRanking = expRanking;
 exports.coinRanking = coinRanking;
 exports.expAndCoinAnalyse = expAndCoinAnalyse;
 exports.expAndCoinCount = expAndCoinCount;
+exports.targetRanking = targetRanking;
 
 //经验值排行榜
 function expRanking(req, res, next){
@@ -133,4 +134,21 @@ function expAndCoinCount(req, res, next){
             nextStep();
         });
     }
+}
+
+//经验指标获取排行榜
+function targetRanking(req, res, next){
+
+    var num = parseInt(req.query.num) || 20;
+    var target = parseInt(req.query.target) || 1;
+
+    var sql = "select count(a.id) 'count',b.nickname 'nickname' " +
+        "from actions_history a left join accounts b on a.account_id = b.id " +
+        "where a.action = :target group by a.account_id order by count desc limit 0,:num";
+    dbHelper.execSql(sql, {target: target,num: num}, function (err, result) {
+        if (err) {
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
 }
