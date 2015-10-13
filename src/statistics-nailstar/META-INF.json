@@ -157,6 +157,30 @@
             "auth": false,
             "impl": "me.detailsCommentsCount",
             "comment": "每日评论数"
+        },
+        {
+            "name": "member",
+            "path": "/dakatongji/member/expRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "member.expRanking",
+            "comment": "经验值排行榜"
+        },
+        {
+            "name": "member",
+            "path": "/dakatongji/member/coinRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "member.coinRanking",
+            "comment": "咖币排行榜"
+        },
+        {
+            "name": "member",
+            "path": "/dakatongji/member/coinAnalyse",
+            "method": "get",
+            "auth": false,
+            "impl": "member.coinAnalyse",
+            "comment": "注册用户经验、咖币的总数和平均数"
         }
     ],
     "ejsviews": [
