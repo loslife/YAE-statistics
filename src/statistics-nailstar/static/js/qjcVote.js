@@ -32,7 +32,7 @@ app.controller('dakaQjcVoteCtrl', ['$rootScope', '$scope', '$http', 'utilsServic
                 $http.get("/svc/dakatongji/qjcVoteCount?num=" + num).success(function (data) {
 
                     var details = data.result.details;
-                    var rs = utilsService.formatData(details, $scope.no, $scope.vote.recentVote);
+                    var rs = utilsService.formatDataByNo(details, $scope.no, $scope.vote.recentVote);
                     var ls = utilsService.getFormatData(details, "count");
 
                     voteDataCacheX[num] = rs;

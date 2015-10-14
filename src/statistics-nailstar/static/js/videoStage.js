@@ -38,8 +38,8 @@ app.controller('dakaPlayStage', ['$rootScope', '$scope', '$http', 'utilsService'
             var url = "/svc/dakatongji/getplayByNo?num=" + num;
             $http.get(url).success(function(data) {
 
-                var rs = utilsService.formatData(data.result.details, 'title');
-                var ls = utilsService.formatData(data.result.details, 'count');
+                var rs = utilsService.getFormatData(data.result.details, 'title');
+                var ls = utilsService.getFormatData(data.result.details, 'count');
 
                 playDataCacheX[num] = rs;
                 playDataCacheY[num] = ls;

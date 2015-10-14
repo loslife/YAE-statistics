@@ -38,8 +38,8 @@ app.controller('dakacommentsStage', ['$rootScope', '$scope', '$http', 'utilsServ
             var url = "/svc/dakatongji/getCommentsByNo?num=" + num;
             $http.get(url).success(function(data) {
 
-                var rs = utilsService.formatData(data.result.details, 'title');
-                var ls = utilsService.formatData(data.result.details, 'count');
+                var rs = utilsService.getFormatData(data.result.details, 'title');
+                var ls = utilsService.getFormatData(data.result.details, 'count');
 
                 commentsDataCacheX[num] = rs;
                 commentsDataCacheY[num] = ls;

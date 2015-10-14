@@ -32,13 +32,15 @@ app.controller('dakamecommentscount', ['$rootScope', '$scope', '$http', 'utilsSe
 
                 $scope.totalcount = data.result.totalCount;
 
-                var rs =  utilsService.formatDataByOrderAndNum(data.result.details, 0, num, ["count"]);
+                utilsService.formatDataByOrderAndNum(data.result.details, 0, num, ["count"]);
+                var rs =  utilsService.getFormatData(data.result.details, "time");
                 var ls =  utilsService.getFormatData(data.result.details, "count");
 
-                var rs = utilsService.tickFormatter(rs);
+                var rs = utilsService.tickFormatter(rs, 0);
 
                 commentsDataCacheX[num] = rs;
                 commentsDataCacheY[num] = ls;
+
                 $scope.comments_result_x = rs;
                 $scope.comments_result_y = ls;
 
