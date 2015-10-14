@@ -134,23 +134,23 @@ function getSqlsByOrder(order, num){
         "where b.category_id = :cate and FROM_UNIXTIME( a.create_date/1000, '%Y%m' ) " +
         "between date_format(date_add(now(), interval -" + num + " month), '%Y%m') and date_format(now(), '%Y%m') ";
 
-    var sql_order_by_day = "select from_unixtime(a.create_date/1000, '%Y%m%d') as 'day', count(a.id) as 'count' " +
+    var sql_order_by_day = "select from_unixtime(a.create_date/1000, '%Y%m%d') as 'time', count(a.id) as 'count' " +
         "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id and a.action_type = 1 " +
         "where b.category_id = :cate and FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) " +
         "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
-        "group by day order by day desc";
+        "group by time order by time desc";
 
-    var sql_order_by_week = "select from_unixtime(a.create_date/1000, '%Y%u') as 'week', count(a.id) as 'count' " +
+    var sql_order_by_week = "select from_unixtime(a.create_date/1000, '%Y%u') as 'time', count(a.id) as 'count' " +
         "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id and a.action_type = 1 " +
         "where b.category_id = :cate and FROM_UNIXTIME( a.create_date/1000, '%Y%u' ) " +
         "between date_format(date_add(now(), interval -" + num + " week), '%Y%u') and date_format(now(), '%Y%u') " +
-        "group by week order by week desc";
+        "group by time order by time desc";
 
-    var sql_order_by_month = "select from_unixtime(a.create_date/1000, '%Y%m') as 'month', count(a.id) as 'count' " +
+    var sql_order_by_month = "select from_unixtime(a.create_date/1000, '%Y%m') as 'time', count(a.id) as 'count' " +
         "from topic_actions a join categories_has_topics b on a.topic_id = b.topic_id and a.action_type = 1 " +
         "where b.category_id = :cate and FROM_UNIXTIME( a.create_date/1000, '%Y%m' ) " +
         "between date_format(date_add(now(), interval -" + num + " month), '%Y%m') and date_format(now(), '%Y%m') " +
-        "group by month order by month desc";
+        "group by time order by time desc";
 
     switch(order){
         case "0":

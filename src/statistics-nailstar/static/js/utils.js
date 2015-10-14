@@ -58,7 +58,7 @@ angular.module('app.utilsService', [])
                     if(flag){
                         var result = {time: day};
                         for(param in params){
-                            result[param] = 0;
+                            result[params[param]] = 0;
                         }
                         details.splice(i, 0, result);
                     }
