@@ -32,7 +32,7 @@ angular.module('app.utilsService', [])
         };
 
         //格式化视频系列播放统计数据
-        service.formatDataByOrderAndNum = function(details, order, num){
+        service.formatDataByOrderAndNum = function(details, order, num, params){
             switch(order){
                 case "0" :
                     return _formatDataByDayX();
@@ -56,7 +56,11 @@ angular.module('app.utilsService', [])
                         }
                     }
                     if(flag){
-                        details.splice(i, 0, {time: day,count: 0});
+                        var result = {time: day};
+                        for(param in params){
+                            result[param] = 0;
+                        }
+                        details.splice(i, 0, result);
                     }
                 }
             }
@@ -73,7 +77,11 @@ angular.module('app.utilsService', [])
                         }
                     }
                     if(flag){
-                        details.splice(i, 0, {time: week,count: 0});
+                        var result = {time: week};
+                        for(param in params){
+                            result[param] = 0;
+                        }
+                        details.splice(i, 0, result);
                     }
                 }
             }
@@ -90,7 +98,11 @@ angular.module('app.utilsService', [])
                         }
                     }
                     if(flag){
-                        details.splice(i, 0, {time: month,count: 0});
+                        var result = {time: month};
+                        for(param in params){
+                            result[param] = 0;
+                        }
+                        details.splice(i, 0, result);
                     }
                 }
             }
