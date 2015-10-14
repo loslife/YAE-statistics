@@ -29,16 +29,21 @@ app.controller('dakacommentsStage', ['$rootScope', '$scope', '$http', 'utilsServ
         //获取评论数据
         function getNoPlayData(num){
             if(commentsDataCacheX[num] && commentsDataCacheY[num]){
+
                 $scope.comments_stage_x = commentsDataCacheX[num];
                 $scope.comments_stage_y = commentsDataCacheY[num];
+
                 return;
             }
             var url = "/svc/dakatongji/getCommentsByNo?num=" + num;
             $http.get(url).success(function(data) {
-                var rs = utilsService.formatDataByNoX(data.result.details);
-                var ls = utilsService.formatDataByNoY(data.result.details);
+
+                var rs = utilsService.formatData(data.result.details, 'title');
+                var ls = utilsService.formatData(data.result.details, 'count');
+
                 commentsDataCacheX[num] = rs;
                 commentsDataCacheY[num] = ls;
+
                 $scope.comments_stage_x = rs;
                 $scope.comments_stage_y = ls;
             }).error(function(data, status) {

@@ -27,17 +27,23 @@ app.controller('dakaPlayStage', ['$rootScope', '$scope', '$http', 'utilsService'
 
         //获取播放数据
         function getNoPlayData(num){
+
             if(playDataCacheX[num] && playDataCacheY[num]){
+
                 $scope.play_result_x = playDataCacheX[num];
                 $scope.play_result_y = playDataCacheY[num];
+
                 return;
             }
             var url = "/svc/dakatongji/getplayByNo?num=" + num;
             $http.get(url).success(function(data) {
-                var rs = utilsService.formatDataByNoX(data.result.details);
-                var ls = utilsService.formatDataByNoY(data.result.details);
+
+                var rs = utilsService.formatData(data.result.details, 'title');
+                var ls = utilsService.formatData(data.result.details, 'count');
+
                 playDataCacheX[num] = rs;
                 playDataCacheY[num] = ls;
+
                 $scope.play_result_x = rs;
                 $scope.play_result_y = ls;
             }).error(function(data, status) {

@@ -32,8 +32,8 @@ app.controller('dakaQjcPhotoCtrl', ['$rootScope', '$scope', '$http', 'utilsServi
                 $http.get("/svc/dakatongji/qjcPicCount?num=" + num).success(function (data) {
 
                     var details = data.result.details;
-                    var rs = utilsService.formatDataX(details, $scope.no, $scope.photo.recentPhoto);
-                    var ls = utilsService.formatDataY(details, $scope.no, $scope.photo.recentPhoto);
+                    var rs = utilsService.formatData(details, $scope.no, $scope.photo.recentPhoto);
+                    var ls = utilsService.getFormatData(details, "count");
 
                     picDataCacheX[num] = rs;
                     picDataCacheY[num] = ls;
