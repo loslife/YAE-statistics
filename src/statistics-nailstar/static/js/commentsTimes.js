@@ -33,7 +33,7 @@ app.controller('dakaCommentsCtrl', ['$rootScope', '$scope', '$http', 'utilsServi
 
                 $scope.totalCount = data.result.totalCount;
 
-                utilsService.formatDataByOrderAndNum(data.result.details, order, num);
+                utilsService.formatDataByOrderAndNum(data.result.details, order, num, ['count']);
                 var rs =  utilsService.getFormatData(data.result.details, "time");
                 var ls =  utilsService.getFormatData(data.result.details, 'count');
 
