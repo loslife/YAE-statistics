@@ -39,25 +39,15 @@ function coinRanking(req, res, next){
 //注册用户经验、咖币的总数和平均数
 function expAndCoinAnalyse(req, res, next){
 
-    var final_result = {
-        exps: 0,
-        coins: 0,
-        avgexp: 0,
-        avgcoin: 0
-    };
+    var final_result = [];
     async.series([_queryExpAndCoinCount, _queryAverageExpAndCoin], function(err){
         if(err){
             return next(err);
         }
-        var result = {
-            "总经验值": final_result.exps,
-            "注册用户人均经验值": final_result.avgexp,
-            "总咖币": final_result.coins,
-            "注册用户人均咖币": final_result.avgcoin
-        };
-        doResponse(req, res, result);
+        doResponse(req, res, final_result);
     });
 
+    var exps = 0,coins = 0;
     function _queryExpAndCoinCount(nextStep){
 
         var sql = "select sum(exp) 'exps',sum(coin) 'coins' from accounts";
@@ -66,8 +56,16 @@ function expAndCoinAnalyse(req, res, next){
                 return nextStep(err);
             }
             if(result && result[0]){
-                final_result.exps = result[0].exps;
-                final_result.coins = result[0].coins;
+                final_result.push({
+                    title: "总经验值",
+                    value: result[0].exps
+                });
+                final_result.push({
+                    title: "总咖币",
+                    value: result[0].coins
+                });
+                exps = result[0].exps;
+                coins = result[0].coins;
             }
             nextStep();
         });
@@ -80,8 +78,14 @@ function expAndCoinAnalyse(req, res, next){
                 return nextStep(err);
             }
             if(result && result[0]){
-                final_result.avgexp = (final_result.exps / result[0].count).toFixed(2);
-                final_result.avgcoin = (final_result.coins / result[0].count).toFixed(2);
+                final_result.push({
+                    title: "注册用户人均经验值",
+                    value: (exps / result[0].count).toFixed(2)
+                });
+                final_result.push({
+                    title: "注册用户人均咖币",
+                    value: (coins / result[0].count).toFixed(2)
+                });
             }
             nextStep();
         });
