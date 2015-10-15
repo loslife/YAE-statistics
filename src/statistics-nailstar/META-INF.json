@@ -205,6 +205,14 @@
             "auth": false,
             "impl": "communities.staticits",
             "comment": "圈子数据统计"
+        },
+        {
+            "name": "communities",
+            "path": "/dakatongji/communities/communitiesRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "communities.communitiesRanking",
+            "comment": "圈子活跃度排名"
         }
     ],
     "ejsviews": [
