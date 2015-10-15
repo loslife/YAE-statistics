@@ -6,40 +6,39 @@
   app.hideFooter = true;" ng-controller="dakaexpanalyse">
 
 
-    <select>
-        <option>打开APP</option>
-        <option>评论主题</option>
-        <option>交作业</option>
-        <option>分享</option>
-        <option>求教程拉票</option>
-        <option>创建圈子</option>
-        <option>圈子发表帖子</option>
-        <option>注册</option>
-        <option>上传头像</option>
-        <option>填写手机号</option>
-    </select>
+    <div style="margin-top: 2px">
+        <span>选择指标：</span>
+        <div class="btn-group dropdown" style="margin-bottom: 2px;">
+            <button href class="dropdown-toggle" data-toggle="dropdown">
+                {{selectKind}} <b class="caret"></b>
+            </button>
+            <ul class="dropdown-menu animated fadeInDown">
+                <li ng-repeat="cate in cates">
+                    <a ng-click="changeCate(cate.id,cate.name)">{{cate.name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
     <div class="col" style="width: 100%;">
 
         <div class="row-row">
             <div class="cell">
                 <div class="cell-inner">
                     <div class="wrapper-md pb-0">
-
                         <div class="panel panel-default">
-
                             <div class="table-responsive ngGrid">
                                 <table class="table table-striped m-b-none">
                                     <thead>
-                                    <tr>
-                                        <th>用户名</th>
-                                        <th>数值</th>
-                                    </tr>
+                                        <tr>
+                                            <th>用户名</th>
+                                            <th>数值</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="info in infos">
-                                        <td>{{info.nickname}}</td>
-                                        <td>{{info.count}}</td>
-                                    </tr>
+                                        <tr ng-repeat="info in infos">
+                                            <td>{{info.nickname}}</td>
+                                            <td>{{info.count}}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
