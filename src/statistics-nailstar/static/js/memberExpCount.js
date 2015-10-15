@@ -46,6 +46,7 @@ app.controller('dakamemberexpcount', ['$rootScope', '$scope', '$http', 'utilsSer
                 commentsDataCacheX[num] = rs;
                 commentsDataCacheY[num] = ls;
                 commentsDataCacheAvgY[num] = avgls;
+
                 $scope.comments_result_x = rs;
                 $scope.comments_result_y = ls;
                 $scope.avg_comments_result_y = avgls;
@@ -53,8 +54,11 @@ app.controller('dakamemberexpcount', ['$rootScope', '$scope', '$http', 'utilsSer
                 console.log(rs);
                 console.log(ls);
                 console.log(avgls);
+
             }).error(function(data, status){
+
                 console.log("getCommentsData in error");
+                
             });
         }
 

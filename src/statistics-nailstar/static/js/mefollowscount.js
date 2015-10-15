@@ -31,9 +31,9 @@ app.controller('dakameFollowsCount', ['$rootScope', '$scope', '$http', 'utilsSer
             $http.get(url).success(function(data){
 
                 utilsService.formatDataByOrderAndNum(data.result, 0, num, ["count"]);
+
                 var rs =  utilsService.getFormatData(data.result, "time");
                 var ls =  utilsService.getFormatData(data.result, "count");
-
                 var rs = utilsService.tickFormatter(rs, 0);
 
                 commentsDataCacheX[num] = rs;
@@ -44,7 +44,9 @@ app.controller('dakameFollowsCount', ['$rootScope', '$scope', '$http', 'utilsSer
                 console.log(rs);
                 console.log(ls);
             }).error(function(data, status){
+
                 console.log("getCommentsData in error");
+
             });
         }
 
