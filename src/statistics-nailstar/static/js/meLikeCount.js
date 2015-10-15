@@ -19,7 +19,7 @@ app.controller('dakamelikecount', ['$rootScope', '$scope', '$http', 'utilsServic
         var commentsDataCacheX = {};
         var commentsDataCacheY = {};
 
-        //获取评论数据
+        //获取点赞数据
         function getCommentsData(num){
             if(commentsDataCacheX[num] && commentsDataCacheY[num]){
                 $scope.comments_result_x = commentsDataCacheX[num];
