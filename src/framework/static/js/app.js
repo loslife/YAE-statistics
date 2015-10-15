@@ -267,6 +267,18 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+
+                    //用户经验咖币总数和平均数
+                    .state('app.dakamemberexpandcoin', {
+                        url: '/dakamemberexpandcoin',
+                        templateUrl: '/statistics-nailstar/memberExpAndCoin.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/memberExpAndCoin.js']);
+                                }]
+                        }
+                    })
             }
         ]
     )
