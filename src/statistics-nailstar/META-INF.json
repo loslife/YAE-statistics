@@ -213,6 +213,14 @@
             "auth": false,
             "impl": "communities.communitiesRanking",
             "comment": "圈子活跃度排名"
+        },
+        {
+            "name": "communities",
+            "path": "/dakatongji/communities/teacherCommunitiesRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "communities.teacherCommunitiesRanking",
+            "comment": "老师（官方）圈子活跃度排名"
         }
     ],
     "ejsviews": [
