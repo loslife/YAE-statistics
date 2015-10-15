@@ -255,6 +255,18 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+
+                    //用户咖币总数和平均数
+                    .state('app.dakamembercoincount', {
+                        url: '/dakamembercoincount',
+                        templateUrl: '/statistics-nailstar/memberCoinCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/memberCoinCount.js']);
+                                }]
+                        }
+                    })
             }
         ]
     )
