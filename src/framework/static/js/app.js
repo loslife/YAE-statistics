@@ -279,6 +279,18 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+
+                    //经验指标获取排行榜
+                    .state('app.dakamemberexpanalyse', {
+                        url: '/dakamemberexpanalyse',
+                        templateUrl: '/statistics-nailstar/memberExpAnalyse.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/memberExpAnalyse.js']);
+                                }]
+                        }
+                    })
             }
         ]
     )
