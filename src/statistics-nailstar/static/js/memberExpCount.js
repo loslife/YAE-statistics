@@ -58,7 +58,7 @@ app.controller('dakamemberexpcount', ['$rootScope', '$scope', '$http', 'utilsSer
             }).error(function(data, status){
 
                 console.log("getCommentsData in error");
-                
+
             });
         }
 
