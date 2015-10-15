@@ -4,6 +4,7 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
 exports.staticits = staticits;
 exports.communitiesRanking = communitiesRanking;
+exports.teacherCommunitiesRanking = teacherCommunitiesRanking;
 
 // 点赞数
 // 阅读量
@@ -13,7 +14,7 @@ exports.communitiesRanking = communitiesRanking;
 // 圈子评论数量
 function staticits(req, res, next){
 
-    var final_result = {};
+    var final_result = [];
     async.parallel([
         _queryPostLiked,
         _queryPostRead,
@@ -35,7 +36,10 @@ function staticits(req, res, next){
                 return nextStep(err);
             }
             if(result && result[0]){
-                final_result["点赞数"] = result[0].count;
+                final_result.push({
+                    title: "点赞数",
+                    value: result[0].count
+                });
             }
             nextStep();
         });
@@ -48,7 +52,10 @@ function staticits(req, res, next){
                 return nextStep(err);
             }
             if(result && result[0]){
-                final_result["阅读量"] = result[0].count;
+                final_result.push({
+                    title: "阅读量",
+                    value: result[0].count
+                });
             }
             nextStep();
         });
@@ -61,7 +68,10 @@ function staticits(req, res, next){
                 return nextStep(err);
             }
             if(result && result[0]){
-                final_result["圈子粉丝关注量"] = result[0].count;
+                final_result.push({
+                    title: "圈子粉丝关注量",
+                    value: result[0].count
+                });
             }
             nextStep();
         });
@@ -75,6 +85,7 @@ function staticits(req, res, next){
             nextStep();
         });
 
+        var count = 0;
         function ___queryCommunityFollowCount(nextOne){
             var sql = "select count(distinct community_id) 'count' from communities_has_accounts";
             dbHelper.execSql(sql, {}, function(err, result){
@@ -82,7 +93,11 @@ function staticits(req, res, next){
                     return nextOne(err);
                 }
                 if(result && result[0]){
-                    final_result["用户关注圈子的数量"] = result[0].count;
+                    final_result.push({
+                        title: "用户关注圈子的数量",
+                        value: result[0].count
+                    });
+                    count = result[0].count;
                 }
                 nextOne();
             });
@@ -94,7 +109,10 @@ function staticits(req, res, next){
                     return nextOne(err);
                 }
                 if(result && result[0]){
-                    final_result["注册用户平均关注的圈子个数"] = (final_result["用户关注圈子的数量"] / result[0].count).toFixed(2);
+                    final_result.push({
+                        title: "注册用户平均关注的圈子个数",
+                        value: (count / result[0].count).toFixed(2)
+                    });
                 }
                 nextOne();
             });
@@ -108,7 +126,10 @@ function staticits(req, res, next){
                 return nextStep(err);
             }
             if(result && result[0]){
-                final_result["圈子评论数量"] = result[0].count;
+                final_result.push({
+                    title: "圈子评论数量",
+                    value: result[0].count
+                });
             }
             nextStep();
         });
@@ -128,8 +149,8 @@ function communitiesRanking(req, res, next){
         }
         doResponse(req, res, result);
     });
-}
-    function getSqlByRankBy(rankby){
+
+    function getSqlByRankBy(rankby) {
         var rankByAccounts = "select a.name 'name',count(b.id) 'count' " +
             "from communities a left join communities_has_accounts b on a.id = b.community_id " +
             "group by a.id " +
@@ -150,7 +171,7 @@ function communitiesRanking(req, res, next){
             "and FROM_UNIXTIME( c.action_date/1000, '%Y-%m-%d') = curdate() " +
             "group by a.id " +
             "order by count desc limit 0,:num";
-        switch(rankby){
+        switch (rankby) {
             case 0:
                 // 按人数排名
                 return rankByAccounts;
@@ -164,4 +185,61 @@ function communitiesRanking(req, res, next){
                 // 按当日进入数排行
                 return rankByEntry;
         }
+    }
+}
+
+// 老师（官方）圈子活跃度排名（人数、总话题数、当日回复数、当日进入数）
+function teacherCommunitiesRanking(req, res, next){
+
+    var num = parseInt(req.query.num) || 20;
+    var rankby = parseInt(req.query.rankby) || 0;
+
+    var sql = getSqlByRankBy(rankby);
+    dbHelper.execSql(sql, {num: num}, function (err, result) {
+        if (err) {
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+
+    function getSqlByRankBy(rankby) {
+        var rankByAccounts = "select a.name 'name',count(b.id) 'count' " +
+            "from communities a left join communities_has_accounts b on a.id = b.community_id " +
+            "where a.is_official = 1 " +
+            "group by a.id " +
+            "order by count limit 0,:num";
+        var rankByPosts = "select a.name 'name',count(b.id) 'count' " +
+            "from communities a left join posts b on a.id = b.community_id " +
+            "where a.is_official = 1 " +
+            "group by a.id " +
+            "order by count limit 0,:num";
+        var rankByComments = "select a.name 'name',count(c.id) 'count' " +
+            "from communities a left join posts b on a.id = b.community_id " +
+            "left join post_comments c on b.id = c.post_id " +
+            "and FROM_UNIXTIME( c.create_date/1000, '%Y-%m-%d') = curdate() " +
+            "where a.is_official = 1 " +
+            "group by a.id " +
+            "order by count desc limit 0,:num";
+        var rankByEntry = "select a.name 'name',count(c.id) 'count' " +
+            "from communities a left join posts b on a.id = b.community_id " +
+            "left join post_actions c on b.id = c.post_id and c.action_type = 1 " +
+            "and FROM_UNIXTIME( c.action_date/1000, '%Y-%m-%d') = curdate() " +
+            "where a.is_official = 1 " +
+            "group by a.id " +
+            "order by count desc limit 0,:num";
+        switch (rankby) {
+            case 0:
+                // 按人数排名
+                return rankByAccounts;
+            case 1:
+                // 按总话题数排行
+                return rankByPosts;
+            case 2:
+                // 按当日回复数排行
+                return rankByComments;
+            case 3:
+                // 按当日进入数排行
+                return rankByEntry;
+        }
+    }
 }
