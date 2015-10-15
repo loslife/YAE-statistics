@@ -21,6 +21,7 @@ app.controller('dakaQjcVoteCtrl', ['$rootScope', '$scope', '$http', 'utilsServic
         function getVote(num) {
 
             if(voteDataCacheX[num] && voteDataCacheY[num]){
+
                 $scope.vote_result_x = voteDataCacheX[num];
                 $scope.vote_result_y = voteDataCacheY[num];
                 return;
@@ -32,7 +33,8 @@ app.controller('dakaQjcVoteCtrl', ['$rootScope', '$scope', '$http', 'utilsServic
                 $http.get("/svc/dakatongji/qjcVoteCount?num=" + num).success(function (data) {
 
                     var details = data.result.details;
-                    var rs = utilsService.formatDataByNo(details, $scope.no, $scope.vote.recentVote);
+                    utilsService.formatDataByNo(details, $scope.no, $scope.vote.recentVote);
+                    var rs = utilsService.getFormatData(details, "no");
                     var ls = utilsService.getFormatData(details, "count");
 
                     voteDataCacheX[num] = rs;
@@ -58,12 +60,14 @@ app.controller('dakaQjcVoteCtrl', ['$rootScope', '$scope', '$http', 'utilsServic
 
         //监听投票参数变化
         $scope.$watch('vote', function (newVal, oldVal) {
+
             if (newVal !== oldVal && newVal.recentVote !== oldVal.recentVote) {
                 if (!newVal.recentVote || newVal.recentVote < 1 || newVal.recentVote > $scope.no) {
                     return;
                 }
                 getVote($scope.vote.recentVote);
             }
+
         }, true);
     }
 }]);

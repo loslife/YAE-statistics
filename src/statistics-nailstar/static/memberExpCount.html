@@ -9,7 +9,6 @@
             height: 24px; padding: 0 4px;" ng-model="CommentsParams.num"><br/>
     <div class="col-xs-12">
         <div e-chart ui-options="{
-                color: ['#23B7E5'],
                 title:{
                     text:'用户经验值统计',
                     subtext:'数据来自——美甲大咖',
@@ -33,8 +32,8 @@
                 dataZoom:{
                     show:true,
                     realtime:true,
-                    start: 5,
-                    end: 95,
+                    start: 3,
+                    end: 97,
                     handleColor:'#008acd',
                     dataBackgroundColor:'#efefff',
                 },
@@ -80,7 +79,6 @@
                             normal: {
                                 lineStyle: {
                                     width: 2,
-                                    color: '#23B7E5',
                                     shadowColor : 'rgba(0,0,0,0.5)',
                                     shadowBlur: 10,
                                     shadowOffsetX: 8,
@@ -95,6 +93,7 @@
                         },
                     },
                     {
+                    yAxisIndex: 1,
                         name:'平均经验值',
                         smooth: true,
                         type:'line',

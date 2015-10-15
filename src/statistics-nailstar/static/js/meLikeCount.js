@@ -32,10 +32,11 @@ app.controller('dakamelikecount', ['$rootScope', '$scope', '$http', 'utilsServic
 
                 $scope.totalcount = data.result.totalCount;
 
-                var rs =  utilsService.formatDataByOrderAndNum(data.result.details, 0, num, ["count"]);
+                utilsService.formatDataByOrderAndNum(data.result.details, 0, num, ["count"]);
+                var rs =  utilsService.getFormatData(data.result.details, "time");
                 var ls =  utilsService.getFormatData(data.result.details, "count");
 
-                var rs = utilsService.tickFormatter(rs);
+                var rs = utilsService.tickFormatter(rs, 0);
 
                 commentsDataCacheX[num] = rs;
                 commentsDataCacheY[num] = ls;

@@ -149,11 +149,11 @@ function followsRanking(req, res, next){
 //每日新增关注数
 function followCount(req, res, next){
     var num = parseInt(req.query.num) || 20;
-    var sql = "select from_unixtime(create_date/1000, '%Y%m%d') as 'day', count(id) as 'count' " +
+    var sql = "select from_unixtime(create_date/1000, '%Y%m%d') as 'time', count(id) as 'count' " +
         "from account_relations_history " +
         "where action_type = 1 and FROM_UNIXTIME( create_date/1000, '%Y%m%d' ) " +
         "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
-        "group by day order by day desc";
+        "group by time order by time desc";
     dbHelper.execSql(sql, {}, function (err, result) {
         if (err) {
             return next(err);
@@ -305,7 +305,7 @@ function detailsCommentsCount(req, res, next){
     }
 
     function _queryLikeByDay(nextStep){
-        var sql = "select FROM_UNIXTIME( create_date/1000, '%Y%m%d' ) 'day',count(id) 'count' from " +
+        var sql = "select FROM_UNIXTIME( create_date/1000, '%Y%m%d' ) 'time',count(id) 'count' from " +
             "(select a.id 'id',a.create_date 'create_date' from " +
             "comments a join topics b on a.topic_id = b.id where a.reply_to is null " +
             "union " +
@@ -317,7 +317,7 @@ function detailsCommentsCount(req, res, next){
             "where FROM_UNIXTIME( t.create_date/1000, '%Y%m%d' ) " +
             "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') " +
             "and date_format(now(), '%Y%m%d') " +
-            "group by day order by count desc";
+            "group by time order by count desc";
         dbHelper.execSql(sql, {}, function (err, result) {
             if (err) {
                 return next(err);

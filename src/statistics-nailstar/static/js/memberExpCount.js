@@ -18,12 +18,14 @@ app.controller('dakamemberexpcount', ['$rootScope', '$scope', '$http', 'utilsSer
         //数据缓存
         var commentsDataCacheX = {};
         var commentsDataCacheY = {};
+        var commentsDataCacheAvgY = {};
 
         //获取评论数据
         function getCommentsData(num){
-            if(commentsDataCacheX[num] && commentsDataCacheY[num]){
+            if(commentsDataCacheX[num] && commentsDataCacheY[num] && commentsDataCacheAvgY[num]){
                 $scope.comments_result_x = commentsDataCacheX[num];
                 $scope.comments_result_y = commentsDataCacheY[num];
+                $scope.avg_comments_result_y = commentsDataCacheAvgY[num];
                 return;
             }
 
@@ -32,14 +34,18 @@ app.controller('dakamemberexpcount', ['$rootScope', '$scope', '$http', 'utilsSer
 
                 $scope.totalcount = data.result.totalCount;
 
-                var rs =  utilsService.formatExpCountByDayX(data.result, num);
-                var ls =  utilsService.formatExpCountByDayY(data.result, num);
-                var avgls =  utilsService.formatAvgExpCountByDayY(data.result, num);
+                utilsService.formatDataByOrderAndNum(data.result, 0, num, ["exps", "avgexp"]);
 
-                var rs = utilsService.tickFormatter(rs);
+                var rs =  utilsService.getFormatData(data.result, "time");
+                var ls =  utilsService.getFormatData(data.result, "exps");
+                var avgls =  utilsService.getFormatData(data.result, "avgexp");
+                //var avgls =  [0, 0, 0, 0, 0, 0,"2.5", 0, 0, 0, 0, 0, 0, 0, 0, 0, "0.5"]
+
+                var rs = utilsService.tickFormatter(rs, 0);
 
                 commentsDataCacheX[num] = rs;
                 commentsDataCacheY[num] = ls;
+                commentsDataCacheAvgY[num] = avgls;
                 $scope.comments_result_x = rs;
                 $scope.comments_result_y = ls;
                 $scope.avg_comments_result_y = avgls;

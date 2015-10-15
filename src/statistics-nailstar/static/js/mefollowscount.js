@@ -19,7 +19,7 @@ app.controller('dakameFollowsCount', ['$rootScope', '$scope', '$http', 'utilsSer
         var commentsDataCacheX = {};
         var commentsDataCacheY = {};
 
-        //获取评论数据
+        //获取关注数据
         function getCommentsData(num){
             if(commentsDataCacheX[num] && commentsDataCacheY[num]){
                 $scope.comments_result_x = commentsDataCacheX[num];
@@ -30,10 +30,11 @@ app.controller('dakameFollowsCount', ['$rootScope', '$scope', '$http', 'utilsSer
             var url = "/svc/dakatongji/me/followCount?num=" + num;
             $http.get(url).success(function(data){
 
-                var rs =  utilsService.formatDataByOrderAndNum(data.result, 0, num, ["count"]);
+                utilsService.formatDataByOrderAndNum(data.result, 0, num, ["count"]);
+                var rs =  utilsService.getFormatData(data.result, "time");
                 var ls =  utilsService.getFormatData(data.result, "count");
 
-                var rs = utilsService.tickFormatter(rs);
+                var rs = utilsService.tickFormatter(rs, 0);
 
                 commentsDataCacheX[num] = rs;
                 commentsDataCacheY[num] = ls;

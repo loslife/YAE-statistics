@@ -12,10 +12,7 @@ angular.module('app.utilsService', [])
 
         //格式化最新活动期数的数据
         service.formatDataByNo = function(details, no, num){
-            var length = details.length;
-            if(num == length){
-                return;
-            }
+
             for(var i=0; i<num; i++){
                 var flag = true;
                 for(var j=0; j<details.length; j++){
@@ -29,6 +26,7 @@ angular.module('app.utilsService', [])
                     details.splice(i, 0, {no: no - i,count: 0});
                 }
             }
+
         };
 
         //格式化视频系列播放统计数据

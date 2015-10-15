@@ -117,13 +117,13 @@ function expAndCoinCount(req, res, next){
 
     function _queryExpAndCoinCount(nextStep){
 
-        var sql = "select from_unixtime(action_date/1000, '%Y%m%d') 'day'," +
+        var sql = "select from_unixtime(action_date/1000, '%Y%m%d') 'time'," +
             "IFNULL(sum(get_exp),0) 'exps',IFNULL(sum(get_coin),0) 'coins'," +
             "FORMAT(IFNULL(sum(get_exp),0)/" + accountsCount + ",2) as 'avgexp', FORMAT(IFNULL(sum(get_coin),0)/" + accountsCount + ",2) as 'avgcoin' " +
             "from actions_history " +
             "where FROM_UNIXTIME( action_date/1000, '%Y%m%d' ) " +
             "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
-            "group by day order by day desc";
+            "group by time order by time desc";
         console.log(sql);
         dbHelper.execSql(sql, {}, function (err, result) {
             if (err) {
