@@ -154,11 +154,11 @@ function communitiesRanking(req, res, next){
         var rankByAccounts = "select a.name 'name',count(b.id) 'count' " +
             "from communities a left join communities_has_accounts b on a.id = b.community_id " +
             "group by a.id " +
-            "order by count limit 0,:num";
+            "order by count desc limit 0,:num";
         var rankByPosts = "select a.name 'name',count(b.id) 'count' " +
             "from communities a left join posts b on a.id = b.community_id " +
             "group by a.id " +
-            "order by count limit 0,:num";
+            "order by count desc limit 0,:num";
         var rankByComments = "select a.name 'name',count(c.id) 'count' " +
             "from communities a left join posts b on a.id = b.community_id " +
             "left join post_comments c on b.id = c.post_id " +
@@ -207,12 +207,12 @@ function teacherCommunitiesRanking(req, res, next){
             "from communities a left join communities_has_accounts b on a.id = b.community_id " +
             "where a.is_official = 1 " +
             "group by a.id " +
-            "order by count limit 0,:num";
+            "order by count desc limit 0,:num";
         var rankByPosts = "select a.name 'name',count(b.id) 'count' " +
             "from communities a left join posts b on a.id = b.community_id " +
             "where a.is_official = 1 " +
             "group by a.id " +
-            "order by count limit 0,:num";
+            "order by count desc limit 0,:num";
         var rankByComments = "select a.name 'name',count(c.id) 'count' " +
             "from communities a left join posts b on a.id = b.community_id " +
             "left join post_comments c on b.id = c.post_id " +

@@ -221,7 +221,7 @@ function detailsLikeCount(req, res, next){
     }
 
     function _queryLikeByDay(nextStep){
-        var sql = "select FROM_UNIXTIME( t.create_date/1000, '%Y%m%d' ) 'time',count(t.id) 'count' from " +
+        var sql = "select FROM_UNIXTIME( t.create_date/1000, '%Y%m%d' ) 't',count(t.id) 'count' from " +
             "(select a.id 'id',a.create_date 'create_date' from " +
             "topic_actions a join topics b on a.topic_id = b.id where a.action_type = 2 " +
             "union " +
@@ -232,7 +232,7 @@ function detailsLikeCount(req, res, next){
             "post_actions a join posts b on a.post_id = b.id where a.action_type = 2) t " +
             "where FROM_UNIXTIME( t.create_date/1000, '%Y%m%d' ) " +
             "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
-            "group by time order by count desc";
+            "group by day order by count desc";
         dbHelper.execSql(sql, {}, function (err, result) {
             if (err) {
                 return next(err);

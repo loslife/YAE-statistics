@@ -1,7 +1,5 @@
 app.controller('dakacommunitiesteacherranking', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
 
-
-
     (function init(){
         initTarget();
     })();
