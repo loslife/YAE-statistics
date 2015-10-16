@@ -3,10 +3,10 @@
   app.settings.asideDock = false;
   app.settings.container = false;
   app.hideAside = false;
-  app.hideFooter = true;" ng-controller="dakaexpanalyse">
+  app.hideFooter = true;" ng-controller="dakacommunitiesteacherranking">
 
 
-    <div style="margin-top: 12px;width: 200px;margin-left: 20px">
+    <div style="margin-top: 12px;width: 300px;margin-left: 20px">
         <span>选择指标：</span>
         <div class="btn-group dropdown" style="margin-bottom: 2px;">
             <button href class="dropdown-toggle" data-toggle="dropdown">
@@ -14,7 +14,7 @@
             </button>
             <ul class="dropdown-menu animated fadeInDown">
                 <li ng-repeat="cate in cates">
-                    <a ng-click="changeCate(cate.id,cate.name)">{{cate.name}}</a>
+                    <a ng-click="changeCate(cate.id, cate.name)">{{cate.name}}</a>
                 </li>
             </ul>
         </div>
@@ -30,13 +30,13 @@
                                 <table class="table table-striped m-b-none">
                                     <thead>
                                         <tr>
-                                            <th>用户名</th>
+                                            <th>指标</th>
                                             <th>数值</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="info in infos">
-                                            <td>{{info.nickname}}</td>
+                                            <td>{{info.name}}</td>
                                             <td>{{info.count}}</td>
                                         </tr>
                                     </tbody>

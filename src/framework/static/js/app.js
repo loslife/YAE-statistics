@@ -291,6 +291,42 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+
+                    //圈子数据统计
+                    .state('app.dakacomstaticits', {
+                        url: '/dakacomstaticits',
+                        templateUrl: '/statistics-nailstar/communitiesStaticits.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communitiesStaticits.js']);
+                                }]
+                        }
+                    })
+
+                    //圈子活跃度排名
+                    .state('app.dakacommunitiesranking', {
+                        url: '/dakacommunitiesranking',
+                        templateUrl: '/statistics-nailstar/communitiesRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communitiesRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //老师圈子活跃度排名
+                    .state('app.dakateachercommunitiesranking', {
+                        url: '/dakateachercommunitiesranking',
+                        templateUrl: '/statistics-nailstar/communitiesTeacherRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communitiesTeacherRanking.js']);
+                                }]
+                        }
+                    })
             }
         ]
     )
