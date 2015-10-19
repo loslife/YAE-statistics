@@ -145,7 +145,7 @@ function expAndCoinCount(req, res, next){
 function targetRanking(req, res, next){
 
     var num = parseInt(req.query.num) || 20;
-    var target = parseInt(req.query.target) || 1;
+    var target = parseInt(req.query.target);
 
     var sql = "select count(a.id) 'count',b.nickname 'nickname' " +
         "from actions_history a left join accounts b on a.account_id = b.id " +
