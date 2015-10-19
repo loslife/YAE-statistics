@@ -7,7 +7,7 @@ app.controller('dakaexpanalyse', ['$rootScope', '$scope', '$http', function ($ro
     function initCommunitiesRanking(){
 
         $scope.CateParams = {
-            rankby : 0,
+            target : 0,
             num : 20
         };
 
@@ -23,13 +23,13 @@ app.controller('dakaexpanalyse', ['$rootScope', '$scope', '$http', function ($ro
             {id: "8", name: "圈子回复帖子"},
             {id: "9", name: "注册"},
             {id: "10", name: "上传头像"},
-            {id: "111", name: "填写手机号"},
+            {id: "11", name: "填写手机号"},
         ];
 
         $scope.selectKind = $scope.cates[0].name;
 
         function getCateCommunities(id, num){
-            $http.get("/svc/dakatongji/member/targetRanking?rankby=" + id + '&num=' + num, {}).success(function(data) {
+            $http.get("/svc/dakatongji/member/targetRanking?target=" + id + '&num=' + num, {}).success(function(data) {
 
                 $scope.infos = data.result;
 
@@ -38,22 +38,22 @@ app.controller('dakaexpanalyse', ['$rootScope', '$scope', '$http', function ($ro
             });
         }
 
-        getCateCommunities($scope.CateParams.rankby, $scope.CateParams.num)
+        getCateCommunities($scope.CateParams.target, $scope.CateParams.num)
 
         //监听视频参数变化
         $scope.$watch('CateParams', function (newVal, oldVal) {
-            if (newVal.rankby !== oldVal.rankby ) {
-                if (!newVal.rankby ||  newVal.num < 1) {
+            if (newVal.target !== oldVal.target ) {
+                if (!newVal.target ||  newVal.num < 1) {
                     return;
                 }
-                getCateCommunities($scope.CateParams.rankby, $scope.CateParams.num)
+                getCateCommunities($scope.CateParams.target, $scope.CateParams.num)
             }
         }, true);
 
 
         //修改分类数据
         $scope.changeCate = function(id, name){
-            $scope.CateParams.rankby = id;
+            $scope.CateParams.target = id;
             $scope.selectKind = name;
         }
     }
