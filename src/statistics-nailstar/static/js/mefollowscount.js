@@ -9,7 +9,6 @@ app.controller('dakameFollowsCount', ['$rootScope', '$scope', '$http', 'utilsSer
         //默认参数
         $scope.CommentsParams = {
             num : 20,
-            totalCount : 0,
         }
 
         $scope.comments_result_x = [0,0,0,0,0];
