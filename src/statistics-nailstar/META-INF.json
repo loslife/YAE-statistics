@@ -52,7 +52,15 @@
             "method": "get",
             "auth": false,
             "impl": "play.getCategories",
-            "comment": "获取分类信息"
+            "comment": "获取视频分类列表接口"
+        },
+        {
+            "name": "getTopics",
+            "path": "/dakatongji/getTopics",
+            "method": "get",
+            "auth": false,
+            "impl": "play.getTopics",
+            "comment": "获取视频主题列表接口"
         },
         {
             "name": "users",
