@@ -1,0 +1,142 @@
+<div class="hbox hbox-auto-xs bg-light col-md-8 " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="dakavideototal">
+
+    <div style="margin-left: 35px; margin-top: 20px;">
+        <label style="margin-left: 28px;">数量：</label><input style="margin-left: 3px; padding-left: 7px; width: 50px" class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="height: 24px; padding: 0 4px;" ng-model="CateParams.num" ng-keydown="CateParams.keyDown()">
+        <button type="button" class="btn btn-default btn-xs" style="height: 26px;margin-top: -3px;margin-left: 3px;" ng-click="CateParams.changeNum()">Go!</button><br/>
+        <div style="margin-top: 2px">
+            <span>选择系列：</span>
+            <div class="btn-group dropdown" style="margin-bottom: 2px;">
+                <button href class="dropdown-toggle" data-toggle="dropdown">
+                    {{selectKind}} <b class="caret"></b>
+                </button>
+                <ul class="dropdown-menu animated fadeInDown">
+                    <li ng-repeat="cate in cates">
+                        <a ng-click="changeCate(cate.id,cate.name)">{{cate.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <span>选择维度：</span>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" name="optionsRadios" ng-model="CateParams.order" value="0">
+                    日
+                </label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" name="optionsRadios" ng-model="CateParams.order" value="1">
+                    周
+                </label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" name="optionsRadios" ng-model="CateParams.order" value="2">
+                    月
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div e-chart ui-options="{
+            color: ['#23B7E5'],
+            title:{
+                text:'美甲大咖总播放统计',
+                subtext:'数据来自——美甲大咖',
+                x : 'center',
+            },
+            tooltip: {
+                show: true,
+                trigger: 'axis',
+                enterable: true,
+            },
+            toolbox:{
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: true},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            dataZoom:{
+                show:true,
+                realtime:true,
+                start: 3,
+                end: 97,
+                handleColor:'#008acd',
+                dataBackgroundColor:'#efefff',
+            },
+            legend: {
+                data:['播放数'],
+                x : 'left',
+            },
+            grid: {
+                y: 80,
+                y2: 100,
+            },
+            xAxis : [
+                {
+                    name : '日期',
+                    type : 'category',
+                    data : {{cate_result_x}},
+                    nameTextStyle : {fontSize:15},
+                    axisLabel:{
+                        show: true,
+                        rotate: 35,
+                    }
+                },
+            ],
+            yAxis : [
+                {
+                    name : '播放数',
+                    type : 'value',
+                    nameTextStyle : {fontSize:15},
+                }
+            ],
+            series : [
+                {
+                    name:'播放数',
+                    smooth: true,
+                    type:'line',
+                    data:{{cate_result_y}},
+                    itemStyle:{
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                color: '#23B7E5',
+                                shadowColor : 'rgba(0,0,0,0.5)',
+                                shadowBlur: 10,
+                                shadowOffsetX: 8,
+                                shadowOffsetY: 8,
+                            },
+                            barBorderRadius: 4,
+                            label: {show: true},
+                        },
+                        emphasis:{
+                            label: {show: true},
+                        },
+                    },
+                    markPoint:{
+                        data:[
+                            {type:'max',name:'最大值'},
+                            {type:'min',name:'最小值'},
+                        ],
+                    },
+                    markLine:{
+                        data:[
+                            {type:'average',name:'平均值'}
+                        ],
+                    },
+                },
+            ]
+    }" style="height: 500px;" class="col-xs-12"></div>
+    </div>
+</div>

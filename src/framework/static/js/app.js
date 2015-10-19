@@ -327,6 +327,18 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+
+                    //美甲大咖总播放统计
+                    .state('app.dakavideototal', {
+                        url: '/dakavideototal',
+                        templateUrl: '/statistics-nailstar/videoTotal.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/videoTotal.js']);
+                                }]
+                        }
+                    })
             }
         ]
     )
