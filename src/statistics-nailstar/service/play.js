@@ -6,7 +6,7 @@ exports.getCategories = getCategories;
 exports.getplayByCate = getplayByCate;
 exports.getplayByNo = getplayByNo;
 
-//获取⾸⻚列表接口
+//获取视频分类列表接口
 function getCategories(req, res, next) {
 
     var sql = "select id,name from topic_categories order by serial_number";
