@@ -30,7 +30,7 @@ app.controller('dakamelikecount', ['$rootScope', '$scope', '$http', 'utilsServic
             var url = "/svc/dakatongji/me/detailsLikeCount?num=" + num;
             $http.get(url).success(function(data){
 
-                $scope.totalcount = data.result.totalCount;
+                $scope.CommentsParams.totalcount = data.result.totalCount;
 
                 utilsService.formatDataByOrderAndNum(data.result.details, 0, num, ["count"]);
                 var rs =  utilsService.getFormatData(data.result.details, "time");
