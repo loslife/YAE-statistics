@@ -19,7 +19,7 @@ response:
           }
     ]
     
-## 获取视频分类列表接口
+## 获取视频主题列表接口
 
 url: /svc/dakatongji/getTopics
 
