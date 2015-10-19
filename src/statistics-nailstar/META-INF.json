@@ -24,6 +24,14 @@
         },
         {
             "name": "play",
+            "path": "/dakatongji/getplayAll",
+            "method": "get",
+            "auth": false,
+            "impl": "play.getplayAll",
+            "comment": "美甲大咖总播放数"
+        },
+        {
+            "name": "play",
             "path": "/dakatongji/getplayByCate",
             "method": "get",
             "auth": false,
@@ -32,10 +40,10 @@
         },
         {
             "name": "play",
-            "path": "/dakatongji/getplayByNo",
+            "path": "/dakatongji/getplayByTopic",
             "method": "get",
             "auth": false,
-            "impl": "play.getplayByNo",
+            "impl": "play.getplayByTopic",
             "comment": "美甲大咖分期播放数"
         },
         {
