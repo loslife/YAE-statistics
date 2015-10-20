@@ -245,6 +245,14 @@
             "auth": false,
             "impl": "communities.teacherCommunitiesRanking",
             "comment": "老师（官方）圈子活跃度排名"
+        },
+        {
+            "name": "posters",
+            "path": "/dakatongji/posters",
+            "method": "get",
+            "auth": false,
+            "impl": "posters.posters",
+            "comment": "轮播图数据统计"
         }
     ],
     "ejsviews": [
