@@ -95,6 +95,22 @@
             "comment": "获取最新活动期数"
         },
         {
+            "name": "qjcPlayCount",
+            "path": "/dakatongji/qjcPlayCount",
+            "method": "get",
+            "auth": false,
+            "impl": "qjc.qjcPlayCount",
+            "comment": "求教程视频播放数"
+        },
+        {
+            "name": "qjcCommentsCount",
+            "path": "/dakatongji/qjcCommentsCount",
+            "method": "get",
+            "auth": false,
+            "impl": "qjc.qjcCommentsCount",
+            "comment": "求教程视频评论数"
+        },
+        {
             "name": "comments",
             "path": "/dakatongji/getCommentsAll",
             "method": "get",
