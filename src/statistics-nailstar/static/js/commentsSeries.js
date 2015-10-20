@@ -1,11 +1,11 @@
-app.controller('dakavideototal', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('dakacommentsseries', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init(){
-        initvideototal();
+        initCates();
     })();
 
     //系列播放统计
-    function initvideototal(){
+    function initCates(){
         //默认参数
         $scope.CateParams = {
             cateId: null,//初始分类id
@@ -36,8 +36,9 @@ app.controller('dakavideototal', ['$rootScope', '$scope', '$http', 'utilsService
                 return;
             }
 
-            var url = "/svc/dakatongji/getplayAll?cate=" + id + "&order=" + order + "&num=" + num;
+            var url = "/svc/dakatongji/getCommentsByCate?cate=" + id + "&order=" + order + "&num=" + num;
             $http.get(url).success(function(data) {
+
                 utilsService.formatDataByOrderAndNum(data.result.details, order, num, ["count"]);
                 var rs = utilsService.getFormatData(data.result.details, 'time');
                 var ls = utilsService.getFormatData(data.result.details, 'count');
@@ -56,7 +57,7 @@ app.controller('dakavideototal', ['$rootScope', '$scope', '$http', 'utilsService
             });
         }
 
-        //监听参数变化
+        //监听视频参数变化
         $scope.$watch('CateParams', function (newVal, oldVal) {
             if (newVal.cateId !== oldVal.cateId || newVal.order !== oldVal.order) {
                 if (!newVal.cateId || !newVal.order || newVal.num < 1) {
@@ -66,11 +67,11 @@ app.controller('dakavideototal', ['$rootScope', '$scope', '$http', 'utilsService
             }
         }, true);
 
-        //获取主题数据
+        //获取分类数据
         function getCates(){
-            var url = "/svc/dakatongji/getTopics";
+            var url = "/svc/dakatongji/getCategories";
             $http.get(url).success(function(data) {
-                $scope.cates = data.result.topics;
+                $scope.cates = data.result.cates;
                 if($scope.cates[0].id){
                     $scope.CateParams.cateId = $scope.cates[0].id;
                     $scope.selectKind = $scope.cates[0].name;
@@ -81,9 +82,9 @@ app.controller('dakavideototal', ['$rootScope', '$scope', '$http', 'utilsService
         }
         getCates();
 
-        $scope.selectKind = '请选择一个主题';
+        $scope.selectKind = '请选择一个分类';
 
-        //修改主题数据
+        //修改分类数据
         $scope.changeCate = function(id,name){
             $scope.CateParams.cateId = id;
             $scope.selectKind = name;

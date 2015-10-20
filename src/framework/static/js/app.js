@@ -339,6 +339,42 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+
+                    //美甲大咖总评论统计
+                    .state('app.dakacommentstotal', {
+                        url: '/dakacommentstotal',
+                        templateUrl: '/statistics-nailstar/commentsTotal.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/commentsTotal.js']);
+                                }]
+                        }
+                    })
+
+                    //美甲大咖系列评论统计
+                    .state('app.dakacommentsseries', {
+                        url: '/dakacommentsseries',
+                        templateUrl: '/statistics-nailstar/commentsSeries.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/commentsSeries.js']);
+                                }]
+                        }
+                    })
+
+                    //美甲大咖分期评论统计
+                    .state('app.dakacommentstopic', {
+                        url: '/dakacommentstopic',
+                        templateUrl: '/statistics-nailstar/commentsTopic.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/commentsTopic.js']);
+                                }]
+                        }
+                    })
             }
         ]
     )
