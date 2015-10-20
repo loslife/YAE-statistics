@@ -96,19 +96,27 @@
         },
         {
             "name": "comments",
-            "path": "/dakatongji/getCommentsByTime",
+            "path": "/dakatongji/getCommentsAll",
             "method": "get",
             "auth": false,
-            "impl": "comments.getCommentsByTime",
-            "comment": "美甲大咖分时评论数量"
+            "impl": "comments.getCommentsAll",
+            "comment": "美甲大咖总评论数"
         },
         {
             "name": "comments",
-            "path": "/dakatongji/getCommentsByNo",
+            "path": "/dakatongji/getCommentsByCate",
             "method": "get",
             "auth": false,
-            "impl": "comments.getCommentsByNo",
-            "comment": "美甲大咖分期评论数量"
+            "impl": "comments.getCommentsByCate",
+            "comment": "美甲大咖系列评论数"
+        },
+        {
+            "name": "comments",
+            "path": "/dakatongji/getCommentsByTopic",
+            "method": "get",
+            "auth": false,
+            "impl": "comments.getCommentsByTopic",
+            "comment": "美甲大咖分期评论数"
         },
         {
             "name": "me",

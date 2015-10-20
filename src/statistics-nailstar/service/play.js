@@ -163,7 +163,7 @@ function getplayByCate(req, res, next) {
 
     var cate = req.query["cate"];
     if(!cate){
-        next("缺失参数cate");
+        return next("缺失参数cate");
     }
 
     var order = req.query["order"] || 0;
@@ -323,7 +323,7 @@ function getplayByTopic(req, res, next){
 
     var topicId = req.query["topicId"];
     if(!topicId){
-        next("缺失参数topicId");
+        return next("缺失参数topicId");
     }
 
     var order = req.query["order"] || 0;
