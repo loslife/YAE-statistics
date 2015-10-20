@@ -2,33 +2,10 @@ var _ = require("underscore");
 var async = require("async");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
-exports.getCategories = getCategories;
-exports.getTopics = getTopics;
 exports.getplayAll = getplayAll;
 exports.getplayByCate = getplayByCate;
 exports.getplayByTopic = getplayByTopic;
 
-//获取视频分类列表接口
-function getCategories(req, res, next) {
-    var sql = "select id,name from topic_categories order by serial_number";
-    dbHelper.execSql(sql, {}, function (err, data) {
-        if (err) {
-            return next(err);
-        }
-        doResponse(req, res, {cates: data});
-    });
-}
-
-//获取视频主题列表接口
-function getTopics(req, res, next){
-    var sql = "select id,title 'name' from topics order by create_date desc";
-    dbHelper.execSql(sql, {}, function (err, data) {
-        if (err) {
-            return next(err);
-        }
-        doResponse(req, res, {topics: data});
-    });
-}
 //美甲大咖总播放数
 function getplayAll(req, res, next){
 
@@ -186,7 +163,7 @@ function getplayByCate(req, res, next) {
 
     var cate = req.query["cate"];
     if(!cate){
-        next("缺失参数cate");
+        return next("缺失参数cate");
     }
 
     var order = req.query["order"] || 0;
@@ -346,7 +323,7 @@ function getplayByTopic(req, res, next){
 
     var topicId = req.query["topicId"];
     if(!topicId){
-        next("缺失参数topicId");
+        return next("缺失参数topicId");
     }
 
     var order = req.query["order"] || 0;

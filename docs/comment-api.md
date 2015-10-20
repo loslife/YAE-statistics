@@ -1,6 +1,6 @@
-## 系列播放统计接口
+## 美甲大咖总评论数
 
-url: /svc/dakatongji/getCommentsByTime
+url: /svc/dakatongji/getCommentsAll
 
 query: 
 
@@ -16,40 +16,24 @@ response:
         totalCount: 12000,
         details: [
             {
-                day: "20150826",
+                time: "20150826",
                 count: 20
             }
             ...
         ]
     }
     
-    {
-        totalCount: 12000,
-        details: [
-            {
-                week: "201508",
-                count: 20
-            }
-            ...
-        ]
-    }
-    
-    {
-        totalCount: 12000,
-        details: [
-            {
-                month: "201508",
-                count: 20
-            }
-            ...
-        ]
-    }
-    
-## 分期播放统计接口
+## 美甲大咖系列评论数
 
-url: /svc/dakatongji/getCommentsByNo
+url: /svc/dakatongji/getCommentsByCate
 
 query: 
+
+* 系列id: cate=id
+
+* 日: order=0
+* 周: order=1
+* 月: order=2
 
 * 查询数量: num=10
 
@@ -59,7 +43,34 @@ response:
         totalCount: 12000,
         details: [
             {
-                title: "121",
+                time: "20150826",
+                count: 20
+            }
+            ...
+        ]
+    }
+    
+## 美甲大咖分期评论数
+
+url: /svc/dakatongji/getCommentsByTopic
+
+query: 
+
+* 主题id: topicId=id
+
+* 日: order=0
+* 周: order=1
+* 月: order=2
+
+* 查询数量: num=10
+
+response:
+
+    {
+        totalCount: 12000,
+        details: [
+            {
+                time: "20150826",
                 count: 20
             }
             ...
