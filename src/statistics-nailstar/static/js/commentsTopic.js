@@ -8,7 +8,7 @@ app.controller('dakacommentstopic', ['$rootScope', '$scope', '$http', 'utilsServ
     function initCates(){
         //默认参数
         $scope.CateParams = {
-            cateId: null,//初始分类id
+            topicId: null,//初始分类id
             order: "0",//初始维度
             num: 20,//初始数据数量
             changeNum: function(){
@@ -36,7 +36,7 @@ app.controller('dakacommentstopic', ['$rootScope', '$scope', '$http', 'utilsServ
                 return;
             }
 
-            var url = "/svc/dakatongji/getCommentsByTopic?cate=" + id + "&order=" + order + "&num=" + num;
+            var url = "/svc/dakatongji/getCommentsByCate?cate=" + id + "&order=" + order + "&num=" + num;
             $http.get(url).success(function(data) {
 
                 utilsService.formatDataByOrderAndNum(data.result.details, order, num, ["count"]);
@@ -63,7 +63,7 @@ app.controller('dakacommentstopic', ['$rootScope', '$scope', '$http', 'utilsServ
                 if (!newVal.cateId || !newVal.order || newVal.num < 1) {
                     return;
                 }
-                getCatePlayData($scope.CateParams.cateId, $scope.CateParams.order, $scope.CateParams.num);
+                getCatePlayData($scope.CateParams.topicId, $scope.CateParams.order, $scope.CateParams.num);
             }
         }, true);
 

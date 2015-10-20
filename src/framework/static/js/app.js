@@ -71,23 +71,25 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
-                    .state('app.dakavideostage', {
-                        url: '/dakavideostage',
-                        templateUrl: '/statistics-nailstar/videoStage.html',
+
+                    //分期播放
+                    .state('app.dakavideotopic', {
+                        url: '/dakavideotopic',
+                        templateUrl: '/statistics-nailstar/videoPlayTopic.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/videoStage.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/videoPlayTopic.js']);
                                 }]
                         }
                     })
                     .state('app.dakavideoseries', {
                         url: '/dakavideoseries',
-                        templateUrl: '/statistics-nailstar/videoSeries.html',
+                        templateUrl: '/statistics-nailstar/videoPlaySeries.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/videoSeries.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/videoPlaySeries.js']);
                                 }]
                         }
                     })
@@ -328,19 +330,19 @@ var app = angular.module('app', [
                         }
                     })
 
-                    //美甲大咖总播放统计
+                    //总播放统计
                     .state('app.dakavideototal', {
                         url: '/dakavideototal',
-                        templateUrl: '/statistics-nailstar/videoTotal.html',
+                        templateUrl: '/statistics-nailstar/videoPlayTotal.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/videoTotal.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/videoPlayTotal.js']);
                                 }]
                         }
                     })
 
-                    //美甲大咖总评论统计
+                    //总评论统计
                     .state('app.dakacommentstotal', {
                         url: '/dakacommentstotal',
                         templateUrl: '/statistics-nailstar/commentsTotal.html',
@@ -352,7 +354,7 @@ var app = angular.module('app', [
                         }
                     })
 
-                    //美甲大咖系列评论统计
+                    //系列评论统计
                     .state('app.dakacommentsseries', {
                         url: '/dakacommentsseries',
                         templateUrl: '/statistics-nailstar/commentsSeries.html',
@@ -364,7 +366,7 @@ var app = angular.module('app', [
                         }
                     })
 
-                    //美甲大咖分期评论统计
+                    //分期评论统计
                     .state('app.dakacommentstopic', {
                         url: '/dakacommentstopic',
                         templateUrl: '/statistics-nailstar/commentsTopic.html',

@@ -1,11 +1,11 @@
-app.controller('dakaCommentsCtrl', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('dakavideoplaytopic', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init(){
-        initComments();
+        initCommentsTotal();
     })();
 
     //分时播放统计
-    function initComments(){
+    function initCommentsTotal(){
         //默认参数
         $scope.CommentsParams = {
             num : 20,
@@ -28,10 +28,12 @@ app.controller('dakaCommentsCtrl', ['$rootScope', '$scope', '$http', 'utilsServi
                 return;
             }
 
-            var url = "/svc/dakatongji/getCommentsByTime?order=" + order + "&num=" + num;
+            var url = "/svc/dakatongji/getplayByTopic?order=" + order + "&num=" + num;
             $http.get(url).success(function(data){
 
                 $scope.totalCount = data.result.totalCount;
+
+                console.log(data.result.details);
 
                 utilsService.formatDataByOrderAndNum(data.result.details, order, num, ['count']);
                 var rs =  utilsService.getFormatData(data.result.details, "time");

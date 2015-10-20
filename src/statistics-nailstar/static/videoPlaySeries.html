@@ -3,7 +3,7 @@
   app.settings.asideDock = false;
   app.settings.container = false;
   app.hideAside = false;
-  app.hideFooter = true;" ng-controller="dakavideototal">
+  app.hideFooter = true;" ng-controller="dakaPlaySeries">
 
     <div style="margin-left: 35px; margin-top: 20px;">
         <label style="margin-left: 28px;">数量：</label><input style="margin-left: 3px; padding-left: 7px; width: 50px" class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="height: 24px; padding: 0 4px;" ng-model="CateParams.num" ng-keydown="CateParams.keyDown()">
@@ -18,8 +18,14 @@
                     <li ng-repeat="cate in cates">
                         <a ng-click="changeCate(cate.id,cate.name)">{{cate.name}}</a>
                     </li>
-                    <div></div>
                 </ul>
+                <ui-select ng-model="person.selected" theme="select2" ng-disabled="disabled" style="min-width: 300px;">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search}">
+                        <div ng-bind-html="person.name "></div>
+
+                    </ui-select-choices>
+                </ui-select>
             </div>
         </div>
         <div>
@@ -48,7 +54,7 @@
         <div e-chart ui-options="{
             color: ['#23B7E5'],
             title:{
-                text:'美甲大咖总播放统计',
+                text:'系列播放统计',
                 subtext:'数据来自——美甲大咖',
                 x : 'center',
             },
