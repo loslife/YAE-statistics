@@ -10,7 +10,7 @@ response:
           "picUrl": "http://pic.yilos.com/603dc2df2fd46f87fbf17526849adf45",
           "create_date": "20150805",
           "end_date": null,
-          "plat_times": null,
+          "play_times": null,
           "total": 0
         },
         {
@@ -18,7 +18,7 @@ response:
           "picUrl": "http://pic.yilos.com/603dc2df2fd46f87fbf17526849adf45",
           "create_date": "20150717",
           "end_date": null,
-          "plat_times": 3030,
+          "play_times": 3030,
           "total": 42
         }
     ]
