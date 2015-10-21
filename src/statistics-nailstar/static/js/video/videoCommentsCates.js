@@ -43,15 +43,13 @@ app.controller('dakacommentsseries', ['$rootScope', '$scope', '$http', 'utilsSer
                 var rs = utilsService.getFormatData(data.result.details, 'time');
                 var ls = utilsService.getFormatData(data.result.details, 'count');
 
-                var rs = utilsService.tickFormatter(rs, order);
+                rs = utilsService.tickFormatter(rs, order);
                 commentsDataCacheX[id + "_" + order + "_" + num] = rs;
                 $scope.cate_result_x = rs;
 
                 commentsDataCacheY[id + "_" + order + "_" + num] = ls;
                 $scope.cate_result_y = ls;
 
-                console.log(rs);
-                console.log(ls);
             }).error(function(data, status) {
                 console.log("getplayByCate in error");
             });

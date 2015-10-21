@@ -47,7 +47,7 @@ var app = angular.module('app', [
                 app.value      = $provide.value;
 
                 $urlRouterProvider
-                    .otherwise('/app/dakacomments');
+                    .otherwise('/app/dakausers');
                 $stateProvider
                     .state('app', {
                         abstract: true,
@@ -308,20 +308,20 @@ var app = angular.module('app', [
                     })
 
                     //视频系列评论统计
-                    .state('app.dakacommentsseries', {
-                        url: '/dakacommentsseries',
-                        templateUrl: '/statistics-nailstar/html/video/videoCommentsSeries.html',
+                    .state('app.videoCommentsCates', {
+                        url: '/videoCommentsCates',
+                        templateUrl: '/statistics-nailstar/html/video/videoCommentsCates.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/video/videoCommentsSeries.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoCommentsCates.js']);
                                 }]
                         }
                     })
 
                     //视频分期评论统计
-                    .state('app.dakacommentstopic', {
-                        url: '/dakacommentstopic',
+                    .state('app.videoCommentsTopic', {
+                        url: '/videoCommentsTopic',
                         templateUrl: '/statistics-nailstar/html/video/videoCommentsTopic.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -332,8 +332,8 @@ var app = angular.module('app', [
                     })
 
                     //视频总评论统计
-                    .state('app.dakacommentstotal', {
-                        url: '/dakacommentstotal',
+                    .state('app.videoCommentsTotal', {
+                        url: '/videoCommentsTotal',
                         templateUrl: '/statistics-nailstar/html/video/videoCommentsTotal.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -344,8 +344,8 @@ var app = angular.module('app', [
                     })
 
                     //视频分期播放
-                    .state('app.dakavideotopic', {
-                        url: '/dakavideotopic',
+                    .state('app.videoPlayTopic', {
+                        url: '/videoPlayTopic',
                         templateUrl: '/statistics-nailstar/html/video/videoPlayTopic.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -356,20 +356,20 @@ var app = angular.module('app', [
                     })
 
                     //视频系列播放
-                    .state('app.dakavideoseries', {
-                        url: '/dakavideoseries',
-                        templateUrl: '/statistics-nailstar/html/video/videoPlaySeries.html',
+                    .state('app.videoPlayCates', {
+                        url: '/videoPlayCates',
+                        templateUrl: '/statistics-nailstar/html/video/videoPlayCates.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/video/videoPlaySeries.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoPlayCates.js']);
                                 }]
                         }
                     })
 
                     //视频总播放统计
-                    .state('app.dakavideototal', {
-                        url: '/dakavideototal',
+                    .state('app.videoPlayTotal', {
+                        url: '/videoPlayTotal',
                         templateUrl: '/statistics-nailstar/html/video/videoPlayTotal.html',
                         resolve: {
                             deps: ['uiLoad',

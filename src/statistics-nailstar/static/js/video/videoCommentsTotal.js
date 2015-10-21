@@ -10,8 +10,8 @@ app.controller('dakacommentstotal', ['$rootScope', '$scope', '$http', 'utilsServ
         $scope.CommentsParams = {
             num : 20,
             order : "0",//初始维度
-            totalCount : 0,
-        }
+            totalCount : 0
+        };
 
         $scope.comments_result_x = [0,0,0,0,0];
         $scope.comments_result_y = [0,0,0,0,0];
@@ -37,15 +37,13 @@ app.controller('dakacommentstotal', ['$rootScope', '$scope', '$http', 'utilsServ
                 var rs =  utilsService.getFormatData(data.result.details, "time");
                 var ls =  utilsService.getFormatData(data.result.details, 'count');
 
-                var rs = utilsService.tickFormatter(rs, order);
+                rs = utilsService.tickFormatter(rs, order);
 
                 commentsDataCacheX[order + "_" + num] = rs;
                 commentsDataCacheY[order + "_" + num] = ls;
                 $scope.comments_result_x = rs;
                 $scope.comments_result_y = ls;
-
-                console.log(rs);
-                console.log(ls);
+                
             }).error(function(data, status){
                 console.log("getCommentsData in error");
             });
