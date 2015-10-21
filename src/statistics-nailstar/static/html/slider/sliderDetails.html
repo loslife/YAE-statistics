@@ -1,0 +1,50 @@
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="dakasliderdetails">
+
+
+    <div class="col" style="width: 100%;">
+
+        <div class="row-row">
+            <div class="cell">
+                <div class="cell-inner">
+                    <div class="wrapper-md pb-0">
+
+                        <div class="panel panel-default">
+
+                            <div class="table-responsive ngGrid">
+                                <table class="table table-striped m-b-none">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>图片地址</th>
+                                            <th>创建时间</th>
+                                            <th>结束时间</th>
+                                            <th>plat_times</th>
+                                            <th>total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="info in infos">
+                                            <td>{{info.id}}</td>
+                                            <td>{{info.picUrl}}</td>
+                                            <td>{{info.create_date}}</td>
+                                            <td>{{info.end_date}}</td>
+                                            <td>{{info.plat_times}}</td>
+                                            <td>{{info.total}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
