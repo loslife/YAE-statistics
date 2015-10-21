@@ -19,7 +19,10 @@ var app = angular.module('app', [
         'app.directives',
         'app.controllers',
         'app.utilsService',
-        'ui.echarts'
+        'ui.echarts',
+        'ngSanitize',
+        'ui.select'
+
     ])
         .run(
         [          '$rootScope', '$state', '$stateParams',
