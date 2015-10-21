@@ -12,7 +12,7 @@ app.controller('dakacommentstopic', ['$rootScope', '$scope', '$http', 'utilsServ
             order: "0",//初始维度
             num: 20,//初始数据数量
             changeNum: function(){
-                getCatePlayData($scope.CateParams.cateId, $scope.CateParams.order, $scope.CateParams.num);
+                getCatePlayData($scope.CateParams.topicId, $scope.CateParams.order, $scope.CateParams.num);
             },
             keyDown: function(){
                 if(event.keyCode == 13){
@@ -36,7 +36,7 @@ app.controller('dakacommentstopic', ['$rootScope', '$scope', '$http', 'utilsServ
                 return;
             }
 
-            var url = "/svc/dakatongji/getCommentsByCate?cate=" + id + "&order=" + order + "&num=" + num;
+            var url = "/svc/dakatongji/getCommentsByTopic?topicId=" + id + "&order=" + order + "&num=" + num;
             $http.get(url).success(function(data) {
 
                 utilsService.formatDataByOrderAndNum(data.result.details, order, num, ["count"]);
@@ -59,8 +59,8 @@ app.controller('dakacommentstopic', ['$rootScope', '$scope', '$http', 'utilsServ
 
         //监听视频参数变化
         $scope.$watch('CateParams', function (newVal, oldVal) {
-            if (newVal.cateId !== oldVal.cateId || newVal.order !== oldVal.order) {
-                if (!newVal.cateId || !newVal.order || newVal.num < 1) {
+            if (newVal.topicId !== oldVal.topicId || newVal.order !== oldVal.order) {
+                if (!newVal.topicId || !newVal.order || newVal.num < 1) {
                     return;
                 }
                 getCatePlayData($scope.CateParams.topicId, $scope.CateParams.order, $scope.CateParams.num);
@@ -69,11 +69,11 @@ app.controller('dakacommentstopic', ['$rootScope', '$scope', '$http', 'utilsServ
 
         //获取分类数据
         function getCates(){
-            var url = "/svc/dakatongji/getCategories";
+            var url = "/svc/dakatongji/getTopics";
             $http.get(url).success(function(data) {
-                $scope.cates = data.result.cates;
+                $scope.cates = data.result.topics;
                 if($scope.cates[0].id){
-                    $scope.CateParams.cateId = $scope.cates[0].id;
+                    $scope.CateParams.topicId = $scope.cates[0].id;
                     $scope.selectKind = $scope.cates[0].name;
                 }
             }).error(function(data, status) {
@@ -86,7 +86,7 @@ app.controller('dakacommentstopic', ['$rootScope', '$scope', '$http', 'utilsServ
 
         //修改分类数据
         $scope.changeCate = function(id,name){
-            $scope.CateParams.cateId = id;
+            $scope.CateParams.topicId = id;
             $scope.selectKind = name;
         };
 
