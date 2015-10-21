@@ -91,14 +91,26 @@ var app = angular.module('app', [
                         }
                     })
 
-                    //测试
-                    .state('app.dakatest', {
-                        url: '/dakatest',
-                        templateUrl: '/statistics-nailstar/test.html',
+                    //求教程视频评论
+                    .state('app.dakaqjcvideocomments', {
+                        url: '/dakaqjcvideocomments',
+                        templateUrl: '/statistics-nailstar/html/qjc/qjcVideoComments.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/test.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/qjc/qjcVideoComments.js']);
+                                }]
+                        }
+                    })
+
+                    //求教程视频播放
+                    .state('app.dakaqjcvideoplay', {
+                        url: '/dakaqjcvideoplay',
+                        templateUrl: '/statistics-nailstar/html/qjc/qjcVideoPlay.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/qjc/qjcVideoPlay.js']);
                                 }]
                         }
                     })
@@ -375,6 +387,18 @@ var app = angular.module('app', [
                             deps: ['uiLoad',
                                 function (uiLoad) {
                                     return uiLoad.load(['/statistics-nailstar/js/video/videoPlayTotal.js']);
+                                }]
+                        }
+                    })
+
+                    //轮播图统计
+                    .state('app.dakasliderdetails', {
+                        url: '/dakasliderdetails',
+                        templateUrl: '/statistics-nailstar/html/slider/sliderDetails.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/slider/sliderDetails.js']);
                                 }]
                         }
                     })

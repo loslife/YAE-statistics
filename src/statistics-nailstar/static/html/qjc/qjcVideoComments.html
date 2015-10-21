@@ -1,0 +1,105 @@
+<div class="hbox hbox-auto-xs bg-light col-md-8" ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="dakaqjcvideocomments">
+
+    <span style="margin-left: 16px">最近视频期数:</span>
+    <input class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="width:50px;
+            height: 24px; margin-top: 14px; padding: 0 4px; margin-left: 15px" ng-model="vote.recentVote">
+    <div class="container-fluid">
+        <div class="row">
+            <div e-chart ui-options="{
+            color: ['#23B7E5'],
+            title:{
+                text:'视频评论数',
+                subtext:'数据来自——美甲大咖',
+                x : 'center',
+            },
+            tooltip: {
+                show: true,
+                trigger: 'axis',
+                enterable: true,
+            },
+            toolbox:{
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: true},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            dataZoom:{
+                show:true,
+                realtime:true,
+                start: 3,
+                end: 97,
+                handleColor:'#008acd',
+                dataBackgroundColor:'#efefff',
+            },
+            legend: {
+                data:['评论数'],
+                x : 'left',
+            },
+            grid: {
+                    y: 80,
+                    x2: 160,
+                },
+            xAxis : [
+                {
+                    name : '最近视频期数',
+                    type : 'category',
+                    data : {{vote_result_x}},
+                    nameTextStyle : {fontSize:15},
+                }
+            ],
+            yAxis : [
+                {
+                    name : '评论数',
+                    type : 'value',
+                    nameTextStyle : {fontSize:15},
+                }
+            ],
+            series : [
+                {
+                    name:'评论数',
+                    smooth: true,
+                    type:'line',
+                    data:{{vote_result_y}},
+                    itemStyle:{
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                color: '#23B7E5',
+                                shadowColor : 'rgba(0,0,0,0.5)',
+                                shadowBlur: 10,
+                                shadowOffsetX: 8,
+                                shadowOffsetY: 8,
+                            },
+                            barBorderRadius: 4,
+                            label: {show: true},
+                        },
+                        emphasis:{
+                            label: {show: true},
+                        },
+                    },
+                    markPoint:{
+                        data:[
+                            {type:'max',name:'最大值'},
+                            {type:'min',name:'最小值'},
+                        ],
+                    },
+                    markLine:{
+                        data:[
+                            {type:'average',name:'平均值'}
+                        ],
+                    },
+                },
+            ]
+    }" ui-refresh="refresh" style="height: 500px;" class="col-md-12"></div>
+        </div>
+    </div>
+</div>
