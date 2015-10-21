@@ -1,4 +1,4 @@
-app.controller('dakacommentstotal', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('videocommentstotal', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init(){
         initCommentsTotal();

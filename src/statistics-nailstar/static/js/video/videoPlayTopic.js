@@ -1,4 +1,4 @@
-app.controller('dakavideoplaytopic', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('videoplaytopic', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init(){
         initCates();

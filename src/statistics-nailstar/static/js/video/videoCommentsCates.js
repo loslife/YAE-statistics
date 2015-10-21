@@ -1,4 +1,4 @@
-app.controller('dakacommentsseries', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('videocommentscates', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init(){
         initCommentsSeries();

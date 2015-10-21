@@ -1,4 +1,4 @@
-app.controller('dakavideoplaytotal', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('videoplaytotal', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init(){
         initPlayTotal();
