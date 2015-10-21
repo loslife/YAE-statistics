@@ -1,48 +1,18 @@
 <div class="hbox hbox-auto-xs bg-light " ng-init="
-  app.settings.asideFixed = true;
-  app.settings.asideDock = false;
-  app.settings.container = false;
-  app.hideAside = false;
-  app.hideFooter = true;" ng-controller="dakasliderdetails">
+    app.settings.asideFixed = true;
+    app.settings.asideDock = false;
+    app.settings.container = false;
+    app.hideAside = false;
+    app.hideFooter = true;" ng-controller="GridDemoCtrl">
 
 
-    <div class="col" style="width: 100%;">
-
-        <div class="row-row">
-            <div class="cell">
-                <div class="cell-inner">
-                    <div class="wrapper-md pb-0">
-
-                        <div class="panel panel-default">
-
-                            <div class="table-responsive ngGrid">
-                                <table class="table table-striped m-b-none">
-                                    <thead>
-                                        <tr>
-                                            <th>图片地址</th>
-                                            <th>创建时间</th>
-                                            <th>结束时间</th>
-                                            <th>播放量</th>
-                                            <th>评论数</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="info in infos">
-                                            <td><div style="width: 100px;height: 50px;"><img style="width: 110%" src="{{info.picUrl}}" /></div></td>
-                                            <td>{{info.create_date}}</td>
-                                            <td>{{info.end_date}}</td>
-                                            <td>{{info.plat_times}}</td>
-                                            <td>{{info.total}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            ngGrid
         </div>
-
+        <div class="table-responsive">
+            <div ng-grid="gridOptions" style="min-height:420px"></div>
+        </div>
     </div>
 
 </div>
