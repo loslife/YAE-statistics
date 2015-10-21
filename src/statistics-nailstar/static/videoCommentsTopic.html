@@ -9,7 +9,7 @@
         <label style="margin-left: 28px;">数量：</label><input style="margin-left: 3px; padding-left: 7px; width: 50px" class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="height: 24px; padding: 0 4px;" ng-model="CateParams.num" ng-keydown="CateParams.keyDown()">
         <button type="button" class="btn btn-default btn-xs" style="height: 26px;margin-top: -3px;margin-left: 3px;" ng-click="CateParams.changeNum()">Go!</button><br/>
         <div style="margin-top: 2px">
-            <span>选择分期：</span>
+            <span>选择主题：</span>
             <ui-select ng-model="cate.selected" theme="select2" ng-disabled="disabled" style="min-width: 300px;">
                 <ui-select-match placeholder="请选择一个主题">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="cate in cates | propsFilter: {id: $select.search, name: $select.search}">
