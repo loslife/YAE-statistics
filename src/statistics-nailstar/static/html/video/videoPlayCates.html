@@ -45,7 +45,6 @@
     </div>
     <div class="col-xs-12">
         <div e-chart ui-options="{
-            color: ['#23B7E5'],
             title:{
                 text:'系列播放统计',
                 subtext:'数据来自——美甲大咖',
@@ -75,7 +74,7 @@
                 dataBackgroundColor:'#efefff',
             },
             legend: {
-                data:['播放数'],
+                data:['总播放数', 'app播放数', '微信播放数'],
                 x : 'left',
             },
             grid: {
@@ -103,15 +102,16 @@
             ],
             series : [
                 {
-                    name:'播放数',
+                    name:'总播放数',
                     smooth: true,
                     type:'line',
-                    data:{{cate_result_y}},
+                    symbol: 'circle',
+                    data:{{play_result_y_details}},
                     itemStyle:{
                         normal: {
                             lineStyle: {
                                 width: 2,
-                                color: '#23B7E5',
+                                color: '#32cd32',
                                 shadowColor : 'rgba(0,0,0,0.5)',
                                 shadowBlur: 10,
                                 shadowOffsetX: 8,
@@ -129,13 +129,64 @@
                             {type:'max',name:'最大值'},
                             {type:'min',name:'最小值'},
                         ],
+                    }
+                },{
+                    name:'app播放数',
+                    smooth: true,
+                    type:'line',
+                    symbol: 'circle',
+                    data:{{play_result_y_appDetails}},
+                    itemStyle:{
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                shadowColor : 'rgba(0,0,0,0.5)',
+                                shadowBlur: 10,
+                                shadowOffsetX: 8,
+                                shadowOffsetY: 8,
+                            },
+                            barBorderRadius: 4,
+                            label: {show: true},
+                        },
+                        emphasis:{
+                            label: {show: true},
+                        },
                     },
-                    markLine:{
+                    markPoint:{
                         data:[
-                            {type:'average',name:'平均值'}
+                            {type:'max',name:'最大值'},
+                            {type:'min',name:'最小值'},
                         ],
+                    }
+                },{
+                    name:'微信播放数',
+                    smooth: true,
+                    symbol: 'circle',
+                    type:'line',
+                    data:{{play_result_y_wechatDetails}},
+                    itemStyle:{
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                shadowColor : 'rgba(0,0,0,0.5)',
+                                shadowBlur: 10,
+                                shadowOffsetX: 8,
+                                shadowOffsetY: 8,
+                            },
+                            barBorderRadius: 4,
+                            label: {show: true},
+                        },
+                        emphasis:{
+                            label: {show: true},
+                        },
                     },
-                },
+                    markPoint:{
+                        data:[
+                            {type:'max',name:'最大值'},
+                            {type:'min',name:'最小值'},
+                        ],
+                    }
+                }
             ]
     }" style="height: 500px;" class="col-xs-12"></div>
     </div>

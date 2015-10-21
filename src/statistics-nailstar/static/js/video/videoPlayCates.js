@@ -22,32 +22,49 @@ app.controller('videoPlayCates', ['$rootScope', '$scope', '$http', 'utilsService
         };
 
         $scope.cate_result_x = [0,0,0,0,0];
-        $scope.cate_result_y = [0,0,0,0,0];
+        $scope.play_result_y_details = [0,0,0,0,0];
+        $scope.play_result_y_appDetails = [0,0,0,0,0];
+        $scope.play_result_y_wechatDetails = [0,0,0,0,0];
 
         //数据缓存
         var playDataCacheX = {};
-        var playDataCacheY = {};
+        var playDataCacheY_details = {};
+        var playDataCacheY_appDetails = {};
+        var playDataCacheY_wechatDetails = {};
 
         //获取播放数据
         function getCatePlayData(id, order, num){
             if(playDataCacheX[id + "_" + order + "_" + num] && playDataCacheY[id + "_" + order + "_" + num]){
                 $scope.cate_result_x = playDataCacheX[id + "_" + order + "_" + num];
-                $scope.cate_result_y = playDataCacheY[id + "_" + order + "_" + num];
+                $scope.play_result_y_details = playDataCacheY_details[order + "_" + num];
+                $scope.play_result_y_appDetails = playDataCacheY_appDetails[order + "_" + num];
+                $scope.play_result_y_wechatDetails = playDataCacheY_wechatDetails[order + "_" + num];
                 return;
             }
 
             var url = "/svc/dakatongji/getplayByCate?cate=" + id + "&order=" + order + "&num=" + num;
             $http.get(url).success(function(data) {
+
                 utilsService.formatDataByOrderAndNum(data.result.details, order, num, ["count"]);
+                utilsService.formatDataByOrderAndNum(data.result.appDetails, order, num, ['count']);
+                utilsService.formatDataByOrderAndNum(data.result.wechatDetails, order, num, ['count']);
+
                 var rs = utilsService.getFormatData(data.result.details, 'time');
-                var ls = utilsService.getFormatData(data.result.details, 'count');
+                var ls_details =  utilsService.getFormatData(data.result.details, 'count');
+                var ls_appDetails =  utilsService.getFormatData(data.result.appDetails, "count");
+                var ls_wechatDetails =  utilsService.getFormatData(data.result.wechatDetails, "count");
 
                 rs = utilsService.tickFormatter(rs, order);
                 playDataCacheX[id + "_" + order + "_" + num] = rs;
                 $scope.cate_result_x = rs;
 
-                playDataCacheY[id + "_" + order + "_" + num] = ls;
-                $scope.cate_result_y = ls;
+
+                playDataCacheY_details[order + "_" + num] = ls_details;
+                playDataCacheY_appDetails[order + "_" + num] = ls_appDetails;
+                playDataCacheY_wechatDetails[order + "_" + num] = ls_wechatDetails;
+                $scope.play_result_y_details = ls_details;
+                $scope.play_result_y_appDetails = ls_appDetails;
+                $scope.play_result_y_wechatDetails = ls_wechatDetails;
 
             }).error(function(data, status) {
                 console.log("getplayByCate in error");
