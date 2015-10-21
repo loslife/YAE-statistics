@@ -3,13 +3,13 @@
   app.settings.asideDock = false;
   app.settings.container = false;
   app.hideAside = false;
-  app.hideFooter = true;" ng-controller="dakacommentsseries">
+  app.hideFooter = true;" ng-controller="videoPlayCates">
 
     <div style="margin-left: 35px; margin-top: 20px;">
         <label style="margin-left: 28px;">数量：</label><input style="margin-left: 3px; padding-left: 7px; width: 50px" class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="height: 24px; padding: 0 4px;" ng-model="CateParams.num" ng-keydown="CateParams.keyDown()">
         <button type="button" class="btn btn-default btn-xs" style="height: 26px;margin-top: -3px;margin-left: 3px;" ng-click="CateParams.changeNum()">Go!</button><br/>
         <div style="margin-top: 2px">
-            <span>选择分类：</span>
+            <span>选择系列：</span>
             <div class="btn-group dropdown" style="margin-bottom: 2px;">
                 <button href class="dropdown-toggle" data-toggle="dropdown">
                     {{selectKind}} <b class="caret"></b>
@@ -47,7 +47,7 @@
         <div e-chart ui-options="{
             color: ['#23B7E5'],
             title:{
-                text:'系列评论统计',
+                text:'系列播放统计',
                 subtext:'数据来自——美甲大咖',
                 x : 'center',
             },
@@ -75,7 +75,7 @@
                 dataBackgroundColor:'#efefff',
             },
             legend: {
-                data:['评论数'],
+                data:['播放数'],
                 x : 'left',
             },
             grid: {
@@ -96,14 +96,14 @@
             ],
             yAxis : [
                 {
-                    name : '评论数',
+                    name : '播放数',
                     type : 'value',
                     nameTextStyle : {fontSize:15},
                 }
             ],
             series : [
                 {
-                    name:'评论数',
+                    name:'播放数',
                     smooth: true,
                     type:'line',
                     data:{{cate_result_y}},

@@ -3,11 +3,9 @@
   app.settings.asideDock = false;
   app.settings.container = false;
   app.hideAside = false;
-  app.hideFooter = true;" ng-controller="dakacommentstopic">
+  app.hideFooter = true;" ng-controller="videocommentstopic">
 
     <div style="margin-left: 35px; margin-top: 20px;">
-        <label style="margin-left: 28px;">数量：</label><input style="margin-left: 3px; padding-left: 7px; width: 50px" class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="height: 24px; padding: 0 4px;" ng-model="params.num" ng-keydown="params.keyDown()">
-        <button type="button" class="btn btn-default btn-xs" style="height: 26px;margin-top: -3px;margin-left: 3px;" ng-click="params.changeNum()">Go!</button><br/>
         <div style="margin-top: 2px">
             <span>选择分期：</span>
             <ui-select ng-model="topic.selected" theme="select2" ng-disabled="disabled" on-select="changeTopic($item, $modal)" style="min-width: 300px;">
@@ -17,7 +15,7 @@
                 </ui-select-choices>
             </ui-select>
         </div>
-        <div>
+        <div style="margin-top: 2px">
             <span>选择维度：</span>
             <div class="radio-inline">
                 <label>
@@ -38,6 +36,8 @@
                 </label>
             </div>
         </div>
+        <label style="margin-left: 28px;">数量：</label><input style="margin-left: 3px; padding-left: 7px; width: 50px" class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="height: 24px; padding: 0 4px;" ng-model="params.num" ng-keydown="params.keyDown()">
+        <button type="button" class="btn btn-default btn-xs" style="height: 26px;margin-top: -3px;margin-left: 3px;" ng-click="params.changeNum()">Go!</button><br/>
     </div>
     <div class="col-xs-12">
         <div e-chart ui-options="{

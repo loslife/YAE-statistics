@@ -67,7 +67,7 @@ function getCommentsAll(req, res, next) {
 
         var sql_total_by_month = "select count(1) as total " +
             "from comments a " +
-            "where FROM_UNIXTIME( a.create_date/1000, '%Y%m%d') " +
+            "where FROM_UNIXTIME( a.create_date/1000, '%Y%m') " +
             "between date_format(date_add(now(), interval -" + num + " month), '%Y%m') and date_format(now(), '%Y%m') ";
 
         var sql_order_by_day = "select from_unixtime(a.create_date/1000, '%Y%m%d') as 'time', count(a.id) as 'count' " +
@@ -84,7 +84,7 @@ function getCommentsAll(req, res, next) {
 
         var sql_order_by_month = "select from_unixtime(a.create_date/1000, '%Y%m') as 'time', count(a.id) as 'count' " +
             "from comments a " +
-            "where FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) " +
+            "where FROM_UNIXTIME( a.create_date/1000, '%Y%m' ) " +
             "between date_format(date_add(now(), interval -" + num + " month), '%Y%m') and date_format(now(), '%Y%m') " +
             "group by time order by time desc";
 
@@ -160,7 +160,7 @@ function getCommentsByCate(req, res, next){
 
         var sql_total_by_month = "select count(1) as total " +
             "from comments a join categories_has_topics b on a.topic_id = b.topic_id " +
-            "where b.category_id = :cate and FROM_UNIXTIME( a.create_date/1000, '%Y%m%d') " +
+            "where b.category_id = :cate and FROM_UNIXTIME( a.create_date/1000, '%Y%m') " +
             "between date_format(date_add(now(), interval -" + num + " month), '%Y%m') and date_format(now(), '%Y%m') ";
 
         var sql_order_by_day = "select from_unixtime(a.create_date/1000, '%Y%m%d') as 'time', count(a.id) as 'count' " +
@@ -177,7 +177,7 @@ function getCommentsByCate(req, res, next){
 
         var sql_order_by_month = "select from_unixtime(a.create_date/1000, '%Y%m') as 'time', count(a.id) as 'count' " +
             "from comments a join categories_has_topics b on a.topic_id = b.topic_id " +
-            "where b.category_id = :cate and FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) " +
+            "where b.category_id = :cate and FROM_UNIXTIME( a.create_date/1000, '%Y%m' ) " +
             "between date_format(date_add(now(), interval -" + num + " month), '%Y%m') and date_format(now(), '%Y%m') " +
             "group by time order by time desc";
 
@@ -253,7 +253,7 @@ function getCommentsByTopic(req, res, next){
 
         var sql_total_by_month = "select count(1) as total " +
             "from comments a join topics b on a.topic_id = b.id " +
-            "where b.id = :topicId and FROM_UNIXTIME( a.create_date/1000, '%Y%m%d') " +
+            "where b.id = :topicId and FROM_UNIXTIME( a.create_date/1000, '%Y%m') " +
             "between date_format(date_add(now(), interval -" + num + " month), '%Y%m') and date_format(now(), '%Y%m') ";
 
         var sql_order_by_day = "select from_unixtime(a.create_date/1000, '%Y%m%d') as 'time', count(a.id) as 'count' " +
@@ -270,7 +270,7 @@ function getCommentsByTopic(req, res, next){
 
         var sql_order_by_month = "select from_unixtime(a.create_date/1000, '%Y%m') as 'time', count(a.id) as 'count' " +
             "from comments a join topics b on a.topic_id = b.id " +
-            "where b.id = :topicId and FROM_UNIXTIME( a.create_date/1000, '%Y%m%d' ) " +
+            "where b.id = :topicId and FROM_UNIXTIME( a.create_date/1000, '%Y%m' ) " +
             "between date_format(date_add(now(), interval -" + num + " month), '%Y%m') and date_format(now(), '%Y%m') " +
             "group by time order by time desc";
 

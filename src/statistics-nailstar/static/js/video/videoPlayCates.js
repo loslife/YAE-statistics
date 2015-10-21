@@ -1,4 +1,4 @@
-app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('videoPlayCates', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init(){
         initCates();
@@ -24,18 +24,6 @@ app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService
         $scope.cate_result_x = [0,0,0,0,0];
         $scope.cate_result_y = [0,0,0,0,0];
 
-        $scope.person = {};
-        $scope.people = [
-            { name: 'Adam',      email: 'adam@email.com',      age: 10 },
-            { name: 'Amalie',    email: 'amalie@email.com',    age: 12 },
-            { name: 'Wladimir',  email: 'wladimir@email.com',  age: 30 },
-            { name: 'Samantha',  email: 'samantha@email.com',  age: 31 },
-            { name: 'Estefanía', email: 'estefanía@email.com', age: 16 },
-            { name: 'Natasha',   email: 'natasha@email.com',   age: 54 },
-            { name: 'Nicole',    email: 'nicole@email.com',    age: 43 },
-            { name: 'Adrian',    email: 'adrian@email.com',    age: 21 }
-        ];
-
         //数据缓存
         var playDataCacheX = {};
         var playDataCacheY = {};
@@ -54,15 +42,13 @@ app.controller('dakaPlaySeries', ['$rootScope', '$scope', '$http', 'utilsService
                 var rs = utilsService.getFormatData(data.result.details, 'time');
                 var ls = utilsService.getFormatData(data.result.details, 'count');
 
-                var rs = utilsService.tickFormatter(rs, order);
+                rs = utilsService.tickFormatter(rs, order);
                 playDataCacheX[id + "_" + order + "_" + num] = rs;
                 $scope.cate_result_x = rs;
 
                 playDataCacheY[id + "_" + order + "_" + num] = ls;
                 $scope.cate_result_y = ls;
 
-                console.log(rs);
-                console.log(ls);
             }).error(function(data, status) {
                 console.log("getplayByCate in error");
             });
