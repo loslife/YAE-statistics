@@ -345,11 +345,11 @@ var app = angular.module('app', [
                     //总评论统计
                     .state('app.dakacommentstotal', {
                         url: '/dakacommentstotal',
-                        templateUrl: '/statistics-nailstar/commentsTotal.html',
+                        templateUrl: '/statistics-nailstar/videoCommentsTotal.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/commentsTotal.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/videoCommentsTotal.js']);
                                 }]
                         }
                     })
@@ -357,11 +357,11 @@ var app = angular.module('app', [
                     //系列评论统计
                     .state('app.dakacommentsseries', {
                         url: '/dakacommentsseries',
-                        templateUrl: '/statistics-nailstar/commentsSeries.html',
+                        templateUrl: '/statistics-nailstar/videoCommentsSeries.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/commentsSeries.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/videoCommentsSeries.js']);
                                 }]
                         }
                     })
@@ -369,11 +369,11 @@ var app = angular.module('app', [
                     //分期评论统计
                     .state('app.dakacommentstopic', {
                         url: '/dakacommentstopic',
-                        templateUrl: '/statistics-nailstar/commentsTopic.html',
+                        templateUrl: '/statistics-nailstar/videoCommentsTopic.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/commentsTopic.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/videoCommentsTopic.js']);
                                 }]
                         }
                     })
