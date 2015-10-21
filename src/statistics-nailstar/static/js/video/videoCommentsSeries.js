@@ -1,11 +1,11 @@
 app.controller('dakacommentsseries', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init(){
-        initCates();
+        initCommentsSeries();
     })();
 
     //系列播放统计
-    function initCates(){
+    function initCommentsSeries(){
         //默认参数
         $scope.CateParams = {
             cateId: null,//初始分类id
@@ -25,14 +25,14 @@ app.controller('dakacommentsseries', ['$rootScope', '$scope', '$http', 'utilsSer
         $scope.cate_result_y = [0,0,0,0,0];
 
         //数据缓存
-        var playDataCacheX = {};
-        var playDataCacheY = {};
+        var commentsDataCacheX = {};
+        var commentsDataCacheY = {};
 
         //获取播放数据
         function getCatePlayData(id, order, num){
-            if(playDataCacheX[id + "_" + order + "_" + num] && playDataCacheY[id + "_" + order + "_" + num]){
-                $scope.cate_result_x = playDataCacheX[id + "_" + order + "_" + num];
-                $scope.cate_result_y = playDataCacheY[id + "_" + order + "_" + num];
+            if(commentsDataCacheX[id + "_" + order + "_" + num] && commentsDataCacheY[id + "_" + order + "_" + num]){
+                $scope.cate_result_x = commentsDataCacheX[id + "_" + order + "_" + num];
+                $scope.cate_result_y = commentsDataCacheY[id + "_" + order + "_" + num];
                 return;
             }
 
@@ -44,10 +44,10 @@ app.controller('dakacommentsseries', ['$rootScope', '$scope', '$http', 'utilsSer
                 var ls = utilsService.getFormatData(data.result.details, 'count');
 
                 var rs = utilsService.tickFormatter(rs, order);
-                playDataCacheX[id + "_" + order + "_" + num] = rs;
+                commentsDataCacheX[id + "_" + order + "_" + num] = rs;
                 $scope.cate_result_x = rs;
 
-                playDataCacheY[id + "_" + order + "_" + num] = ls;
+                commentsDataCacheY[id + "_" + order + "_" + num] = ls;
                 $scope.cate_result_y = ls;
 
                 console.log(rs);
