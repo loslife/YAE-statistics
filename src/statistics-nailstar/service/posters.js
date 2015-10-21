@@ -7,7 +7,7 @@ exports.posters = posters;
 //轮播图数据统计
 function posters(req, res, next) {
 
-    var sql = "select a.id 'id',FROM_UNIXTIME(a.create_date/1000, '%Y%m%d') 'create_date'," +
+    var sql = "select a.id 'id',a.pic_url 'picUrl',FROM_UNIXTIME(a.create_date/1000, '%Y%m%d') 'create_date'," +
         "FROM_UNIXTIME(a.end_date/1000, '%Y%m%d') 'end_date',d.play_times 'plat_times',count(e.id) 'total' " +
         "from posters a join topics b on a.topic_id = b.id " +
         "left join topics_has_videos c on b.id = c.topic_id " +
