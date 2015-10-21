@@ -54,78 +54,44 @@ var app = angular.module('app', [
                         url: '/app',
                         templateUrl: 'tpl/app.html'
                     })
-                    .state('app.dakacommentsTimes', {
-                        url: '/dakacommentsTimes',
-                        templateUrl: '/statistics-nailstar/commentsTimes.html',
+
+                    //用户详情统计
+                    .state('app.dakausers', {
+                        url: '/dakausers',
+                        templateUrl: '/statistics-nailstar/html/users/users.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/commentsTimes.js']);
-                                }]
-                        }
-                    })
-                    .state('app.dakacommentsStage', {
-                        url: '/dakacommentsStage',
-                        templateUrl: '/statistics-nailstar/commentsStage.html',
-                        resolve: {
-                            deps: ['uiLoad',
-                                function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/commentsStage.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/users/users.js']);
                                 }]
                         }
                     })
 
-                    //分期播放
-                    .state('app.dakavideotopic', {
-                        url: '/dakavideotopic',
-                        templateUrl: '/statistics-nailstar/videoPlayTopic.html',
-                        resolve: {
-                            deps: ['uiLoad',
-                                function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/videoPlayTopic.js']);
-                                }]
-                        }
-                    })
-                    .state('app.dakavideoseries', {
-                        url: '/dakavideoseries',
-                        templateUrl: '/statistics-nailstar/videoPlaySeries.html',
-                        resolve: {
-                            deps: ['uiLoad',
-                                function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/videoPlaySeries.js']);
-                                }]
-                        }
-                    })
-                    .state('app.dakausers', {
-                        url: '/dakausers',
-                        templateUrl: '/statistics-nailstar/users.html',
-                        resolve: {
-                            deps: ['uiLoad',
-                                function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/users.js']);
-                                }]
-                        }
-                    })
+                    //求教程投票
                     .state('app.dakaqjcvote', {
                         url: '/dakaqjcvote',
-                        templateUrl: '/statistics-nailstar/qjcVote.html',
+                        templateUrl: '/statistics-nailstar/html/qjc/qjcVote.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/qjcVote.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/qjc/qjcVote.js']);
                                 }]
                         }
                     })
+
+                    //求教程传图
                     .state('app.dakaqjcphoto', {
                         url: '/dakaqjcphoto',
-                        templateUrl: '/statistics-nailstar/qjcPhoto.html',
+                        templateUrl: '/statistics-nailstar/html/qjc/qjcPhoto.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/qjcPhoto.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/qjc/qjcPhoto.js']);
                                 }]
                         }
                     })
+
+                    //测试
                     .state('app.dakatest', {
                         url: '/dakatest',
                         templateUrl: '/statistics-nailstar/test.html',
@@ -136,163 +102,171 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+
+                    //我的行为统计
                     .state('app.dakameaction', {
                         url: '/dakameaction',
-                        templateUrl: '/statistics-nailstar/meAction.html',
+                        templateUrl: '/statistics-nailstar/html/me/meAction.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/meAction.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meAction.js']);
                                 }]
                         }
                     })
+
+                    //我的粉丝排行
                     .state('app.dakamefansranking', {
                         url: '/dakamefansranking',
-                        templateUrl: '/statistics-nailstar/meFansRanking.html',
+                        templateUrl: '/statistics-nailstar/html/me/meFansRanking.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/meFansRanking.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meFansRanking.js']);
                                 }]
                         }
                     })
+
+                    //我的关注排行
                     .state('app.dakamefollowsranking', {
                         url: '/dakamefollowsranking',
-                        templateUrl: '/statistics-nailstar/meFollowsRanking.html',
+                        templateUrl: '/statistics-nailstar/html/me/meFollowsRanking.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/meFollowsRanking.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meFollowsRanking.js']);
                                 }]
                         }
                     })
+
+                    //我的关注统计
                     .state('app.dakamefollowscount', {
                         url: '/dakamefollowscount',
-                        templateUrl: '/statistics-nailstar/meFollowsCount.html',
+                        templateUrl: '/statistics-nailstar/html/me/meFollowsCount.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/meFollowsCount.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meFollowsCount.js']);
                                 }]
                         }
                     })
 
-                    //点赞排行榜
+                    //我的点赞排行榜
                     .state('app.dakamelikeranking', {
                         url: '/dakamelikeranking',
-                        templateUrl: '/statistics-nailstar/meLikeRanking.html',
+                        templateUrl: '/statistics-nailstar/html/me/meLikeRanking.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/meLikeRanking.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meLikeRanking.js']);
                                 }]
                         }
                     })
 
-                    //评论排行榜
+                    //我的评论排行榜
                     .state('app.dakamecommentsranking', {
                         url: '/dakamecommentsranking',
-                        templateUrl: '/statistics-nailstar/meCommentsRanking.html',
+                        templateUrl: '/statistics-nailstar/html/me/meCommentsRanking.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/meCommentsRanking.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meCommentsRanking.js']);
                                 }]
                         }
                     })
 
-                    //经验值排行榜
-                    .state('app.dakameexpranking', {
-                        url: '/dakameexpranking',
-                        templateUrl: '/statistics-nailstar/memberExpRanking.html',
-                        resolve: {
-                            deps: ['uiLoad',
-                                function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/memberExpRanking.js']);
-                                }]
-                        }
-                    })
-
-                    //咖币排行榜
-                    .state('app.dakacoinranking', {
-                        url: '/dakacoinranking',
-                        templateUrl: '/statistics-nailstar/memberCoinRanking.html',
-                        resolve: {
-                            deps: ['uiLoad',
-                                function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/memberCoinRanking.js']);
-                                }]
-                        }
-                    })
-
-                    //分时点赞统计
+                    //我的分时点赞统计
                     .state('app.dakamelikecount', {
                         url: '/dakamelikecount',
-                        templateUrl: '/statistics-nailstar/meLikeCount.html',
+                        templateUrl: '/statistics-nailstar/html/me/meLikeCount.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/meLikeCount.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meLikeCount.js']);
                                 }]
                         }
                     })
 
-                    //分时评论统计
+                    //我的分时评论统计
                     .state('app.dakamecommentscount', {
                         url: '/dakamecommentscount',
-                        templateUrl: '/statistics-nailstar/meCommentsCount.html',
+                        templateUrl: '/statistics-nailstar/html/me/meCommentsCount.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/meCommentsCount.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meCommentsCount.js']);
                                 }]
                         }
                     })
 
-                    //用户经验总数和平均数
+                    //会员经验值排行榜
+                    .state('app.dakameexpranking', {
+                        url: '/dakameexpranking',
+                        templateUrl: '/statistics-nailstar/html/member/memberExpRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberExpRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //会员咖币排行榜
+                    .state('app.dakacoinranking', {
+                        url: '/dakacoinranking',
+                        templateUrl: '/statistics-nailstar/html/member/memberCoinRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberCoinRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //会员经验总数和平均数
                     .state('app.dakamemberexpcount', {
                         url: '/dakamemberexpcount',
-                        templateUrl: '/statistics-nailstar/memberExpCount.html',
+                        templateUrl: '/statistics-nailstar/html/member/memberExpCount.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/memberExpCount.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberExpCount.js']);
                                 }]
                         }
                     })
 
-                    //用户咖币总数和平均数
+                    //会员咖币总数和平均数
                     .state('app.dakamembercoincount', {
                         url: '/dakamembercoincount',
-                        templateUrl: '/statistics-nailstar/memberCoinCount.html',
+                        templateUrl: '/statistics-nailstar/html/member/memberCoinCount.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/memberCoinCount.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberCoinCount.js']);
                                 }]
                         }
                     })
 
-                    //用户经验咖币总数和平均数
+                    //会员经验咖币总数和平均数
                     .state('app.dakamemberexpandcoin', {
                         url: '/dakamemberexpandcoin',
-                        templateUrl: '/statistics-nailstar/memberExpAndCoin.html',
+                        templateUrl: '/statistics-nailstar/html/member/memberExpAndCoin.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/memberExpAndCoin.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberExpAndCoin.js']);
                                 }]
                         }
                     })
 
-                    //经验指标获取排行榜
+                    //会员经验指标获取排行榜
                     .state('app.dakamemberexpanalyse', {
                         url: '/dakamemberexpanalyse',
-                        templateUrl: '/statistics-nailstar/memberExpAnalyse.html',
+                        templateUrl: '/statistics-nailstar/html/member/memberExpAnalyse.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/memberExpAnalyse.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberExpAnalyse.js']);
                                 }]
                         }
                     })
@@ -300,11 +274,11 @@ var app = angular.module('app', [
                     //圈子数据统计
                     .state('app.dakacomstaticits', {
                         url: '/dakacomstaticits',
-                        templateUrl: '/statistics-nailstar/communitiesStaticits.html',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesStaticits.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/communitiesStaticits.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesStaticits.js']);
                                 }]
                         }
                     })
@@ -312,71 +286,95 @@ var app = angular.module('app', [
                     //圈子活跃度排名
                     .state('app.dakacommunitiesranking', {
                         url: '/dakacommunitiesranking',
-                        templateUrl: '/statistics-nailstar/communitiesRanking.html',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesRanking.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/communitiesRanking.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesRanking.js']);
                                 }]
                         }
                     })
 
-                    //老师圈子活跃度排名
+                    //圈子活跃度排名
                     .state('app.dakateachercommunitiesranking', {
                         url: '/dakateachercommunitiesranking',
-                        templateUrl: '/statistics-nailstar/communitiesTeacherRanking.html',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesTeacherRanking.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/communitiesTeacherRanking.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesTeacherRanking.js']);
                                 }]
                         }
                     })
 
-                    //总播放统计
-                    .state('app.dakavideototal', {
-                        url: '/dakavideototal',
-                        templateUrl: '/statistics-nailstar/videoPlayTotal.html',
-                        resolve: {
-                            deps: ['uiLoad',
-                                function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/videoPlayTotal.js']);
-                                }]
-                        }
-                    })
-
-                    //总评论统计
-                    .state('app.dakacommentstotal', {
-                        url: '/dakacommentstotal',
-                        templateUrl: '/statistics-nailstar/videoCommentsTotal.html',
-                        resolve: {
-                            deps: ['uiLoad',
-                                function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/videoCommentsTotal.js']);
-                                }]
-                        }
-                    })
-
-                    //系列评论统计
+                    //视频系列评论统计
                     .state('app.dakacommentsseries', {
                         url: '/dakacommentsseries',
-                        templateUrl: '/statistics-nailstar/videoCommentsSeries.html',
+                        templateUrl: '/statistics-nailstar/html/video/videoCommentsSeries.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/videoCommentsSeries.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoCommentsSeries.js']);
                                 }]
                         }
                     })
 
-                    //分期评论统计
+                    //视频分期评论统计
                     .state('app.dakacommentstopic', {
                         url: '/dakacommentstopic',
-                        templateUrl: '/statistics-nailstar/videoCommentsTopic.html',
+                        templateUrl: '/statistics-nailstar/html/video/videoCommentsTopic.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/videoCommentsTopic.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoCommentsTopic.js']);
+                                }]
+                        }
+                    })
+
+                    //视频总评论统计
+                    .state('app.dakacommentstotal', {
+                        url: '/dakacommentstotal',
+                        templateUrl: '/statistics-nailstar/html/video/videoCommentsTotal.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoCommentsTotal.js']);
+                                }]
+                        }
+                    })
+
+                    //视频分期播放
+                    .state('app.dakavideotopic', {
+                        url: '/dakavideotopic',
+                        templateUrl: '/statistics-nailstar/html/video/videoPlayTopic.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoPlayTopic.js']);
+                                }]
+                        }
+                    })
+
+                    //视频系列播放
+                    .state('app.dakavideoseries', {
+                        url: '/dakavideoseries',
+                        templateUrl: '/statistics-nailstar/html/video/videoPlaySeries.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoPlaySeries.js']);
+                                }]
+                        }
+                    })
+
+                    //视频总播放统计
+                    .state('app.dakavideototal', {
+                        url: '/dakavideototal',
+                        templateUrl: '/statistics-nailstar/html/video/videoPlayTotal.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoPlayTotal.js']);
                                 }]
                         }
                     })
