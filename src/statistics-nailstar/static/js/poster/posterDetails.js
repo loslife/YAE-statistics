@@ -50,5 +50,8 @@ app.controller('posterdetails', ['$rootScope', '$scope', '$http', function($root
         rowHeight:60,
         pagingOptions: $scope.pagingOptions,
         filterOptions: $scope.filterOptions,
+        multiSelect: false,
+        i18n: 'zh_cn'
     };
+    window.ngGrid.i18n['zh_cn'] = yilos_i18n.resource;
 }]);
