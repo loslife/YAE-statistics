@@ -47,7 +47,7 @@ var app = angular.module('app', [
                 app.value      = $provide.value;
 
                 $urlRouterProvider
-                    .otherwise('/app/dakausers');
+                    .otherwise('/app/users');
                 $stateProvider
                     .state('app', {
                         abstract: true,
@@ -56,8 +56,8 @@ var app = angular.module('app', [
                     })
 
                     //用户详情统计
-                    .state('app.dakausers', {
-                        url: '/dakausers',
+                    .state('app.users', {
+                        url: '/users',
                         templateUrl: '/statistics-nailstar/html/users/users.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -68,8 +68,8 @@ var app = angular.module('app', [
                     })
 
                     //求教程投票
-                    .state('app.dakaqjcvote', {
-                        url: '/dakaqjcvote',
+                    .state('app.qjcVote', {
+                        url: '/qjcVote',
                         templateUrl: '/statistics-nailstar/html/qjc/qjcVote.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -80,8 +80,8 @@ var app = angular.module('app', [
                     })
 
                     //求教程传图
-                    .state('app.dakaqjcphoto', {
-                        url: '/dakaqjcphoto',
+                    .state('app.qjcPhoto', {
+                        url: '/qjcPhoto',
                         templateUrl: '/statistics-nailstar/html/qjc/qjcPhoto.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -92,8 +92,8 @@ var app = angular.module('app', [
                     })
 
                     //求教程视频评论
-                    .state('app.dakaqjcvideocomments', {
-                        url: '/dakaqjcvideocomments',
+                    .state('app.qjcVideoComments', {
+                        url: '/qjcVideoComments',
                         templateUrl: '/statistics-nailstar/html/qjc/qjcVideoComments.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -104,8 +104,8 @@ var app = angular.module('app', [
                     })
 
                     //求教程视频播放
-                    .state('app.dakaqjcvideoplay', {
-                        url: '/dakaqjcvideoplay',
+                    .state('app.qjcVideoPlay', {
+                        url: '/qjcVideoPlay',
                         templateUrl: '/statistics-nailstar/html/qjc/qjcVideoPlay.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -116,8 +116,8 @@ var app = angular.module('app', [
                     })
 
                     //我的行为统计
-                    .state('app.dakameaction', {
-                        url: '/dakameaction',
+                    .state('app.meAction', {
+                        url: '/meAction',
                         templateUrl: '/statistics-nailstar/html/me/meAction.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -128,8 +128,8 @@ var app = angular.module('app', [
                     })
 
                     //我的粉丝排行
-                    .state('app.dakamefansranking', {
-                        url: '/dakamefansranking',
+                    .state('app.meFansRanking', {
+                        url: '/meFansRanking',
                         templateUrl: '/statistics-nailstar/html/me/meFansRanking.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -140,8 +140,8 @@ var app = angular.module('app', [
                     })
 
                     //我的关注排行
-                    .state('app.dakamefollowsranking', {
-                        url: '/dakamefollowsranking',
+                    .state('app.meFollowsRanking', {
+                        url: '/meFollowsRanking',
                         templateUrl: '/statistics-nailstar/html/me/meFollowsRanking.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -152,8 +152,8 @@ var app = angular.module('app', [
                     })
 
                     //我的关注统计
-                    .state('app.dakamefollowscount', {
-                        url: '/dakamefollowscount',
+                    .state('app.meFollowsCount', {
+                        url: '/meFollowsCount',
                         templateUrl: '/statistics-nailstar/html/me/meFollowsCount.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -164,8 +164,8 @@ var app = angular.module('app', [
                     })
 
                     //我的点赞排行榜
-                    .state('app.dakamelikeranking', {
-                        url: '/dakamelikeranking',
+                    .state('app.meLikeRanking', {
+                        url: '/meLikeRanking',
                         templateUrl: '/statistics-nailstar/html/me/meLikeRanking.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -176,8 +176,8 @@ var app = angular.module('app', [
                     })
 
                     //我的评论排行榜
-                    .state('app.dakamecommentsranking', {
-                        url: '/dakamecommentsranking',
+                    .state('app.meCommentsRanking', {
+                        url: '/meCommentsRanking',
                         templateUrl: '/statistics-nailstar/html/me/meCommentsRanking.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -188,8 +188,8 @@ var app = angular.module('app', [
                     })
 
                     //我的分时点赞统计
-                    .state('app.dakamelikecount', {
-                        url: '/dakamelikecount',
+                    .state('app.meLikeCount', {
+                        url: '/meLikeCount',
                         templateUrl: '/statistics-nailstar/html/me/meLikeCount.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -200,8 +200,8 @@ var app = angular.module('app', [
                     })
 
                     //我的分时评论统计
-                    .state('app.dakamecommentscount', {
-                        url: '/dakamecommentscount',
+                    .state('app.meCommentsCount', {
+                        url: '/meCommentsCount',
                         templateUrl: '/statistics-nailstar/html/me/meCommentsCount.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -212,8 +212,8 @@ var app = angular.module('app', [
                     })
 
                     //会员经验值排行榜
-                    .state('app.dakameexpranking', {
-                        url: '/dakameexpranking',
+                    .state('app.memberExpRanking', {
+                        url: '/memberExpRanking',
                         templateUrl: '/statistics-nailstar/html/member/memberExpRanking.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -224,8 +224,8 @@ var app = angular.module('app', [
                     })
 
                     //会员咖币排行榜
-                    .state('app.dakacoinranking', {
-                        url: '/dakacoinranking',
+                    .state('app.memberCoinRanking', {
+                        url: '/memberCoinRanking',
                         templateUrl: '/statistics-nailstar/html/member/memberCoinRanking.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -236,8 +236,8 @@ var app = angular.module('app', [
                     })
 
                     //会员经验总数和平均数
-                    .state('app.dakamemberexpcount', {
-                        url: '/dakamemberexpcount',
+                    .state('app.memberExpCount', {
+                        url: '/memberExpCount',
                         templateUrl: '/statistics-nailstar/html/member/memberExpCount.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -248,8 +248,8 @@ var app = angular.module('app', [
                     })
 
                     //会员咖币总数和平均数
-                    .state('app.dakamembercoincount', {
-                        url: '/dakamembercoincount',
+                    .state('app.memberCoinCount', {
+                        url: '/memberCoinCount',
                         templateUrl: '/statistics-nailstar/html/member/memberCoinCount.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -260,8 +260,8 @@ var app = angular.module('app', [
                     })
 
                     //会员经验咖币总数和平均数
-                    .state('app.dakamemberexpandcoin', {
-                        url: '/dakamemberexpandcoin',
+                    .state('app.memberExpAndCoin', {
+                        url: '/memberExpAndCoin',
                         templateUrl: '/statistics-nailstar/html/member/memberExpAndCoin.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -272,8 +272,8 @@ var app = angular.module('app', [
                     })
 
                     //会员经验指标获取排行榜
-                    .state('app.dakamemberexpanalyse', {
-                        url: '/dakamemberexpanalyse',
+                    .state('app.memberExpAnalyse', {
+                        url: '/memberExpAnalyse',
                         templateUrl: '/statistics-nailstar/html/member/memberExpAnalyse.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -284,8 +284,8 @@ var app = angular.module('app', [
                     })
 
                     //圈子数据统计
-                    .state('app.dakacomstaticits', {
-                        url: '/dakacomstaticits',
+                    .state('app.communitiesStaticits', {
+                        url: '/communitiesStaticits',
                         templateUrl: '/statistics-nailstar/html/communities/communitiesStaticits.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -296,8 +296,8 @@ var app = angular.module('app', [
                     })
 
                     //圈子活跃度排名
-                    .state('app.dakacommunitiesranking', {
-                        url: '/dakacommunitiesranking',
+                    .state('app.communitiesRanking', {
+                        url: '/communitiesRanking',
                         templateUrl: '/statistics-nailstar/html/communities/communitiesRanking.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -308,8 +308,8 @@ var app = angular.module('app', [
                     })
 
                     //圈子活跃度排名
-                    .state('app.dakateachercommunitiesranking', {
-                        url: '/dakateachercommunitiesranking',
+                    .state('app.communitiesTeacherRanking', {
+                        url: '/communitiesTeacherRanking',
                         templateUrl: '/statistics-nailstar/html/communities/communitiesTeacherRanking.html',
                         resolve: {
                             deps: ['uiLoad',

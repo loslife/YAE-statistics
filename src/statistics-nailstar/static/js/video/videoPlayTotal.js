@@ -14,17 +14,23 @@ app.controller('videoplaytotal', ['$rootScope', '$scope', '$http', 'utilsService
         };
 
         $scope.play_result_x = [0,0,0,0,0];
-        $scope.play_result_y = [0,0,0,0,0];
+        $scope.play_result_y_details = [0,0,0,0,0];
+        $scope.play_result_y_appDetails = [0,0,0,0,0];
+        $scope.play_result_y_wechatDetails = [0,0,0,0,0];
 
         //数据缓存
         var playDataCacheX = {};
-        var playDataCacheY = {};
+        var playDataCacheY_details = {};
+        var playDataCacheY_appDetails = {};
+        var playDataCacheY_wechatDetails = {};
 
         //获取评论数据
         function getCommentsData(order, num){
             if(playDataCacheX[order + "_" + num] && playDataCacheY[order + "_" + num]){
                 $scope.play_result_x = playDataCacheX[order + "_" + num];
-                $scope.play_result_y = playDataCacheY[order + "_" + num];
+                $scope.play_result_y_details = playDataCacheY_details[order + "_" + num];
+                $scope.play_result_y_appDetails = playDataCacheY_appDetails[order + "_" + num];
+                $scope.play_result_y_wechatDetails = playDataCacheY_wechatDetails[order + "_" + num];
                 return;
             }
 
@@ -34,15 +40,25 @@ app.controller('videoplaytotal', ['$rootScope', '$scope', '$http', 'utilsService
                 $scope.totalCount = data.result.totalCount;
 
                 utilsService.formatDataByOrderAndNum(data.result.details, order, num, ['count']);
+                utilsService.formatDataByOrderAndNum(data.result.appDetails, order, num, ['count']);
+                utilsService.formatDataByOrderAndNum(data.result.wechatDetails, order, num, ['count']);
+
                 var rs =  utilsService.getFormatData(data.result.details, "time");
-                var ls =  utilsService.getFormatData(data.result.details, 'count');
+                var ls_details =  utilsService.getFormatData(data.result.details, 'count');
+                var ls_appDetails =  utilsService.getFormatData(data.result.appDetails, "count");
+                var ls_wechatDetails =  utilsService.getFormatData(data.result.wechatDetails, "count");
 
                 rs = utilsService.tickFormatter(rs, order);
 
                 playDataCacheX[order + "_" + num] = rs;
-                playDataCacheY[order + "_" + num] = ls;
+                playDataCacheY_details[order + "_" + num] = ls_details;
+                playDataCacheY_appDetails[order + "_" + num] = ls_appDetails;
+                playDataCacheY_wechatDetails[order + "_" + num] = ls_wechatDetails;
+
                 $scope.play_result_x = rs;
-                $scope.play_result_y = ls;
+                $scope.play_result_y_details = ls_details;
+                $scope.play_result_y_appDetails = ls_appDetails;
+                $scope.play_result_y_wechatDetails = ls_wechatDetails;
 
             }).error(function(data, status){
                 console.log("getplayAll in error");
