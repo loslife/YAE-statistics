@@ -34,7 +34,7 @@ function getplayAll(req, res, next){
                 return nextStep(err);
             }
             if(result && result[0]){
-                obj.details = result[0].total;
+                obj.totalCount = result[0].total;
             }
             nextStep();
         });
