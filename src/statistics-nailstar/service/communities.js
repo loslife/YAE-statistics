@@ -154,23 +154,23 @@ function communitiesRanking(req, res, next){
         var rankByAccounts = "select a.name 'name',count(b.id) 'count' " +
             "from communities a left join communities_has_accounts b on a.id = b.community_id " +
             "group by a.id " +
-            "order by count desc limit 0,:num";
+            "order by count desc,a.create_date limit 0,:num";
         var rankByPosts = "select a.name 'name',count(b.id) 'count' " +
             "from communities a left join posts b on a.id = b.community_id " +
             "group by a.id " +
-            "order by count desc limit 0,:num";
+            "order by count desc,a.create_date limit 0,:num";
         var rankByComments = "select a.name 'name',count(c.id) 'count' " +
             "from communities a left join posts b on a.id = b.community_id " +
             "left join post_comments c on b.id = c.post_id " +
             "and FROM_UNIXTIME( c.create_date/1000, '%Y-%m-%d') = curdate() " +
             "group by a.id " +
-            "order by count desc limit 0,:num";
+            "order by count desc,a.create_date limit 0,:num";
         var rankByEntry = "select a.name 'name',count(c.id) 'count' " +
             "from communities a left join posts b on a.id = b.community_id " +
             "left join post_actions c on b.id = c.post_id and c.action_type = 1 " +
             "and FROM_UNIXTIME( c.action_date/1000, '%Y-%m-%d') = curdate() " +
             "group by a.id " +
-            "order by count desc limit 0,:num";
+            "order by count desc,a.create_date limit 0,:num";
         switch (rankby) {
             case 0:
                 // 按人数排名

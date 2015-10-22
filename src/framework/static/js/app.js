@@ -47,7 +47,7 @@ var app = angular.module('app', [
                 app.value      = $provide.value;
 
                 $urlRouterProvider
-                    .otherwise('/app/dakausers');
+                    .otherwise('/app/users');
                 $stateProvider
                     .state('app', {
                         abstract: true,
@@ -212,8 +212,8 @@ var app = angular.module('app', [
                     })
 
                     //会员经验值排行榜
-                    .state('app.dakameexpranking', {
-                        url: '/dakameexpranking',
+                    .state('app.memberExpRanking', {
+                        url: '/memberExpRanking',
                         templateUrl: '/statistics-nailstar/html/member/memberExpRanking.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -224,8 +224,8 @@ var app = angular.module('app', [
                     })
 
                     //会员咖币排行榜
-                    .state('app.dakacoinranking', {
-                        url: '/dakacoinranking',
+                    .state('app.memberCoinRanking', {
+                        url: '/memberCoinRanking',
                         templateUrl: '/statistics-nailstar/html/member/memberCoinRanking.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -236,8 +236,8 @@ var app = angular.module('app', [
                     })
 
                     //会员经验总数和平均数
-                    .state('app.dakamemberexpcount', {
-                        url: '/dakamemberexpcount',
+                    .state('app.memberExpCount', {
+                        url: '/memberExpCount',
                         templateUrl: '/statistics-nailstar/html/member/memberExpCount.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -248,8 +248,8 @@ var app = angular.module('app', [
                     })
 
                     //会员咖币总数和平均数
-                    .state('app.dakamembercoincount', {
-                        url: '/dakamembercoincount',
+                    .state('app.memberCoinCount', {
+                        url: '/memberCoinCount',
                         templateUrl: '/statistics-nailstar/html/member/memberCoinCount.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -260,8 +260,8 @@ var app = angular.module('app', [
                     })
 
                     //会员经验咖币总数和平均数
-                    .state('app.dakamemberexpandcoin', {
-                        url: '/dakamemberexpandcoin',
+                    .state('app.memberExpAndCoin', {
+                        url: '/memberExpAndCoin',
                         templateUrl: '/statistics-nailstar/html/member/memberExpAndCoin.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -272,8 +272,8 @@ var app = angular.module('app', [
                     })
 
                     //会员经验指标获取排行榜
-                    .state('app.dakamemberexpanalyse', {
-                        url: '/dakamemberexpanalyse',
+                    .state('app.memberExpAnalyse', {
+                        url: '/memberExpAnalyse',
                         templateUrl: '/statistics-nailstar/html/member/memberExpAnalyse.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -284,8 +284,8 @@ var app = angular.module('app', [
                     })
 
                     //圈子数据统计
-                    .state('app.dakacomstaticits', {
-                        url: '/dakacomstaticits',
+                    .state('app.communitiesStaticits', {
+                        url: '/communitiesStaticits',
                         templateUrl: '/statistics-nailstar/html/communities/communitiesStaticits.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -296,8 +296,8 @@ var app = angular.module('app', [
                     })
 
                     //圈子活跃度排名
-                    .state('app.dakacommunitiesranking', {
-                        url: '/dakacommunitiesranking',
+                    .state('app.communitiesRanking', {
+                        url: '/communitiesRanking',
                         templateUrl: '/statistics-nailstar/html/communities/communitiesRanking.html',
                         resolve: {
                             deps: ['uiLoad',
@@ -308,8 +308,8 @@ var app = angular.module('app', [
                     })
 
                     //圈子活跃度排名
-                    .state('app.dakateachercommunitiesranking', {
-                        url: '/dakateachercommunitiesranking',
+                    .state('app.communitiesTeacherRanking', {
+                        url: '/communitiesTeacherRanking',
                         templateUrl: '/statistics-nailstar/html/communities/communitiesTeacherRanking.html',
                         resolve: {
                             deps: ['uiLoad',
