@@ -162,7 +162,7 @@ function followCount(req, res, next){
     });
 }
 
-//点赞排行榜
+//点赞排行榜（视频点赞、评论点赞、帖子点赞）
 function detailsLikeRanking(req, res, next){
     var num = parseInt(req.query.num) || 20;
     var sql = "select r.nickname 'nickname',count(l.id) 'count' from " +
@@ -246,15 +246,15 @@ function detailsLikeCount(req, res, next){
 
 }
 
-//评论排行榜
+//评论排行榜（视频评论、交作业评论、帖子评论）
 function detailsCommentsRanking(req, res, next){
     var num = parseInt(req.query.num) || 20;
     var sql = "select p.nickname 'nickname',count(t.id) 'count' from " +
         "(select a.id 'id',b.account_id 'account_id' from " +
         "comments a join topics b on a.topic_id = b.id where a.reply_to is null " +
         "union " +
-        "select a.id 'id',b.id 'account_id' from " +
-        "comments a join accounts b on a.account_id = b.id where a.reply_to is null and a.isHomework = 1 " +
+        "select b.id 'id',c.id 'account_id' from " +
+        "comments a join comments b on a.id = b.reply_to and a.isHomework = 1 join accounts c on a.account_id = c.id " +
         "union " +
         "select a.id 'id',b.id 'account_id' from post_comments a join accounts b on a.account_id = b.id) t " +
         "join accounts p on t.account_id = p.id " +
@@ -289,7 +289,7 @@ function detailsCommentsCount(req, res, next){
             "comments a join topics b on a.topic_id = b.id where a.reply_to is null " +
             "union " +
             "select a.id 'id' from " +
-            "comments a join accounts b on a.account_id = b.id where a.reply_to is null and a.isHomework = 1 " +
+            "comments a join comments b on a.id = b.reply_to and a.a.isHomework = 1 join accounts c on a.account_id = b.id " +
             "union " +
             "select a.id 'id' from " +
             "post_comments a join accounts b on a.account_id = b.id) t";
