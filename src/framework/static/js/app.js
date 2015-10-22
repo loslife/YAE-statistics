@@ -392,13 +392,17 @@ var app = angular.module('app', [
                     })
 
                     //轮播图统计
-                    .state('app.dakasliderdetails', {
-                        url: '/dakasliderdetails',
-                        templateUrl: '/statistics-nailstar/html/slider/sliderDetails.html',
+                    .state('app.dakaposterdetails', {
+                        url: '/dakaposterdetails',
+                        templateUrl: '/statistics-nailstar/html/poster/posterDetails.html',
                         resolve: {
-                            deps: ['uiLoad',
-                                function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/slider/sliderDetails.js']);
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/poster/posterDetails.js');
+                                        }
+                                    );
                                 }]
                         }
                     })
