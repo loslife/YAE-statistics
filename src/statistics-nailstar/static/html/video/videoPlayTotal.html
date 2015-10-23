@@ -96,16 +96,15 @@
                         data:{{play_result_y_details}},
                         itemStyle:{
                             normal: {
+                                color: ['#23B7E5'],
                                 lineStyle: {
                                     width: 2,
-                                    color: '#32cd32',
                                     shadowColor : 'rgba(0,0,0,0.5)',
                                     shadowBlur: 10,
                                     shadowOffsetX: 8,
                                     shadowOffsetY: 8,
                                 },
                                 barBorderRadius: 4,
-                                label: {show: true},
                             },
                             emphasis:{
                                 label: {show: true},
@@ -117,7 +116,8 @@
                                 {type:'min',name:'最小值'},
                             ],
                         }
-                    },{
+                    },
+                    {
                         name:'app播放数',
                         smooth: true,
                         type:'line',
@@ -125,6 +125,7 @@
                         data:{{play_result_y_appDetails}},
                         itemStyle:{
                             normal: {
+                                color:  '#6495ed',
                                 lineStyle: {
                                     width: 2,
                                     shadowColor : 'rgba(0,0,0,0.5)',
@@ -133,7 +134,6 @@
                                     shadowOffsetY: 8,
                                 },
                                 barBorderRadius: 4,
-                                label: {show: true},
                             },
                             emphasis:{
                                 label: {show: true},
@@ -145,7 +145,8 @@
                                 {type:'min',name:'最小值'},
                             ],
                         }
-                    },{
+                    },
+                    {
                         name:'微信播放数',
                         smooth: true,
                         symbol: 'circle',
@@ -153,6 +154,7 @@
                         data:{{play_result_y_wechatDetails}},
                         itemStyle:{
                             normal: {
+                                color:  '#1e90ff',
                                 lineStyle: {
                                     width: 2,
                                     shadowColor : 'rgba(0,0,0,0.5)',
@@ -161,7 +163,6 @@
                                     shadowOffsetY: 8,
                                 },
                                 barBorderRadius: 4,
-                                label: {show: true},
                             },
                             emphasis:{
                                 label: {show: true},
@@ -176,6 +177,6 @@
                     }
                 ]
         }" style="height: 500px;" class="col-xs-12"></div>
-        <div class="col-xs-12" style="margin-top: 20px;">注：前期的版本只统计app播放量，未统计微信播放量，后期都进行了统计。</div>
+        <div class="col-xs-12" style="margin-top: 20px;margin-left: 5px;">注：前期的版本只统计app播放量，未统计微信播放量，后期都进行了统计。</div>
     </div>
 </div>
