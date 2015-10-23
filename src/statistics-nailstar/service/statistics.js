@@ -146,7 +146,7 @@ function users(req, res, next){
         };
         obj.infos.push(temp);
 
-        var sql = "select count(1) as total from accounts";
+        var sql = "select count(1) as total from topic_actions where action_type = 5";
 
         dbHelper.execSql(sql, {}, function(err, rows) {
 
