@@ -7,7 +7,7 @@
 
     <div style="margin-left: 35px; margin-top: 20px;">
         <div style="margin-top: 2px">
-            <span>选择分期：</span>
+            <span>选择主题：</span>
             <ui-select ng-model="topic.selected" theme="select2" ng-disabled="disabled" on-select="changeTopic($item, $modal)" style="min-width: 300px;">
                 <ui-select-match placeholder="请选择一个主题">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="topic in topics | propsFilter: {id: $select.search, name: $select.search}">
@@ -134,5 +134,6 @@
                 },
             ]
     }" style="height: 500px;" class="col-xs-12"></div>
+        <div class="col-xs-12" style="margin-top: 20px;">注：前期的版本只统计app播放量，未统计微信播放量，后期都进行了统计。</div>
     </div>
 </div>

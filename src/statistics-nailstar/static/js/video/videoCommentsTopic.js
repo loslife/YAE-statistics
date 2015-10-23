@@ -71,6 +71,8 @@ app.controller('videocommentstopic', ['$rootScope', '$scope', '$http', 'utilsSer
                 $scope.topics = data.result.topics;
                 if($scope.topics[0].id){
                     $scope.params.topicId = $scope.topics[0].id;
+                    //设置下拉菜单初始选项
+                    $scope.topic = {selected: $scope.topics[0]};
                 }
             }).error(function(data, status) {
                 console.log("getTopics in error");
