@@ -5,25 +5,25 @@ app.controller('dakaqjcvideoplay', ['$rootScope', '$scope', '$http', 'utilsServi
     })();
 
     function qjcVideoPlay(){
-        $scope.vote_result_x = [0,0,0,0,0];
-        $scope.vote_result_y = [0,0,0,0,0];
+        $scope.play_result_x = [0,0,0,0,0];
+        $scope.play_result_y = [0,0,0,0,0];
 
         //默认参数
-        $scope.vote = {
-            recentVote: 20,
+        $scope.PlayParams = {
+            num: 20,
         };
 
         //数据缓存
-        var voteDataCacheX = {};
-        var voteDataCacheY = {};
+        var playDataCacheX = {};
+        var playDataCacheY = {};
 
         //获取投票参数
         function getVote(num) {
 
-            if(voteDataCacheX[num] && voteDataCacheY[num]){
+            if(playDataCacheX[num] && playDataCacheY[num]){
 
-                $scope.vote_result_x = voteDataCacheX[num];
-                $scope.vote_result_y = voteDataCacheY[num];
+                $scope.play_result_x = playDataCacheX[num];
+                $scope.play_result_y = playDataCacheY[num];
                 return;
             }
 
@@ -33,39 +33,39 @@ app.controller('dakaqjcvideoplay', ['$rootScope', '$scope', '$http', 'utilsServi
                 $http.get("/svc/dakatongji/qjcPlayCount?num=" + num).success(function (data) {
 
                     var details = data.result.details;
-                    utilsService.formatDataByNo(details, $scope.no, $scope.vote.recentVote);
+                    utilsService.formatDataByNo(details, $scope.no, $scope.PlayParams.num);
                     var rs = utilsService.getFormatData(details, "no");
                     var ls = utilsService.getFormatData(details, "count");
 
-                    voteDataCacheX[num] = rs;
-                    voteDataCacheY[num] = ls;
+                    playDataCacheX[num] = rs;
+                    playDataCacheY[num] = ls;
 
-                    $scope.vote_result_x = rs;
-                    $scope.vote_result_y = ls;
+                    $scope.play_result_x = rs;
+                    $scope.play_result_y = ls;
 
                 }).error(function (data, status) {
 
-                    console.log("qjcVoteCount in error");
+                    console.log("qjcVideoPlay in error");
 
                 });
 
             }).error(function (data, status) {
 
-                console.log("qjcVoteCount in error");
+                console.log("qjcVideoPlay in error");
 
             });
         }
 
-        getVote($scope.vote.recentVote);
+        getVote($scope.PlayParams.num);
 
         //监听投票参数变化
-        $scope.$watch('vote', function (newVal, oldVal) {
+        $scope.$watch('PlayParams', function (newVal, oldVal) {
 
-            if (newVal !== oldVal && newVal.recentVote !== oldVal.recentVote) {
-                if (!newVal.recentVote || newVal.recentVote < 1 || newVal.recentVote > $scope.no) {
+            if (newVal !== oldVal && newVal.num !== oldVal.num) {
+                if (!newVal.num || newVal.num < 1 || newVal.num > $scope.no) {
                     return;
                 }
-                getVote($scope.vote.recentVote);
+                getVote($scope.PlayParams.num);
             }
 
         }, true);
