@@ -35,11 +35,11 @@ app.controller('posterdetails', ['$rootScope', '$scope', '$http', function($root
         }
     }, true);
     $scope.columnDefs = [
-        {field: 'name', displayName: '图片', cellTemplate: '<div style="width: 100px;height: 50px;"><img style="width: 110%;margin-left:10px;" src="{{row.entity.picUrl}}" /></div>'},
-        {field: 'create_date', displayName: '创建时间', cellTemplate: "<span style='margin-left:10px;'>{{row.entity.create_date}}</span>"},
-        {field: 'end_date', displayName: '结束时间', cellTemplate: '<span style="margin-left:10px">{{row.entity.end_date}}</span>'},
-        {field: 'plat_times', displayName: '播放量', cellTemplate: '<span style="margin-left:10px">{{row.entity.play_times}}</span>'},
-        {field: 'total', displayName: '评论数', cellTemplate: '<span style="margin-left:10px">{{row.entity.total}}</span>'},
+        {field: 'name', displayName: '图片', cellTemplate: '<div style="width: 110px;margin: 0 auto;"><img style="width: 100%;margin-left:10px;" src="{{row.entity.picUrl}}" /></div>'},
+        {field: 'create_date', displayName: '创建时间', cellTemplate: "<span>{{row.entity.create_date}}</span>"},
+        {field: 'end_date', displayName: '结束时间', cellTemplate: '<span>{{row.entity.end_date}}</span>'},
+        {field: 'plat_times', displayName: '播放量', cellTemplate: '<span>{{row.entity.play_times}}</span>'},
+        {field: 'total', displayName: '评论数', cellTemplate: '<span>{{row.entity.total}}</span>'},
     ];
 
     $scope.gridOptions = {
