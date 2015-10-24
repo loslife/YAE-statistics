@@ -26,7 +26,7 @@ app.controller('videoplaytotal', ['$rootScope', '$scope', '$http', 'utilsService
 
         //获取评论数据
         function getCommentsData(order, num){
-            if(playDataCacheX[order + "_" + num] && playDataCacheY[order + "_" + num]){
+            if(playDataCacheX[order + "_" + num] && playDataCacheY_details[order + "_" + num] && playDataCacheY_appDetails[order + "_" + num] && playDataCacheY_wechatDetails[order + "_" + num]){
                 $scope.play_result_x = playDataCacheX[order + "_" + num];
                 $scope.play_result_y_details = playDataCacheY_details[order + "_" + num];
                 $scope.play_result_y_appDetails = playDataCacheY_appDetails[order + "_" + num];

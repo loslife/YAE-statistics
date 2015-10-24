@@ -34,7 +34,7 @@ app.controller('videoplaytopic', ['$rootScope', '$scope', '$http', 'utilsService
 
         //获取播放数据
         function getTopicPlayData(id, order, num){
-            if(playDataCacheX[id + "_" + order + "_" + num] && playDataCacheY[id + "_" + order + "_" + num]){
+            if(playDataCacheX[id + "_" + order + "_" + num] && playDataCacheY_details[order + "_" + num] && playDataCacheY_appDetails[order + "_" + num] && playDataCacheY_wechatDetails[order + "_" + num]){
                 $scope.play_result_x = playDataCacheX[id + "_" + order + "_" + num];
                 $scope.play_result_y_details = playDataCacheY_details[order + "_" + num];
                 $scope.play_result_y_appDetails = playDataCacheY_appDetails[order + "_" + num];
