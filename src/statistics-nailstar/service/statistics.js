@@ -76,6 +76,12 @@ function users(req, res, next){
             var access_token = body.result;
 
             wxApi.getFans(access_token, null, function(err, body){
+                if(err || !body || body == undefined){
+                    console.log(err);
+                    temp.value = "查询失败";
+                    callback(null);
+                    return;
+                }
                 temp.value = body.total;
                 callback(null);
             });
