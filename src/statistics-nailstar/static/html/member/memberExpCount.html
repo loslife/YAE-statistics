@@ -91,15 +91,23 @@
                                 label: {show: true},
                             },
                         },
+                        markPoint:{
+                            data:[
+                                {type:'max',name:'最大值'},
+                                {type:'min',name:'最小值'},
+                            ],
+                        }
                     },
                     {
                         yAxisIndex: 1,
                         name:'平均经验值',
                         smooth: true,
+                        symbol: 'circle',
                         type:'line',
                         data:{{avg_comments_result_y}},
                         itemStyle:{
                             normal: {
+                                color: ['#23B7E5'],
                                 lineStyle: {
                                     width: 2,
                                     color: '#23B7E5',
@@ -115,6 +123,12 @@
                                 label: {show: true},
                             },
                         },
+                        markPoint:{
+                            data:[
+                                {type:'max',name:'最大值'},
+                                {type:'min',name:'最小值'},
+                            ],
+                        }
                     },
                 ]
         }" style="height: 500px;" class="col-xs-12"></div>
