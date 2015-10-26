@@ -38,7 +38,7 @@
                     dataBackgroundColor:'#efefff',
                 },
                 legend: {
-                    data:['经验值','平均经验值'],
+                    data:['咖币值','平均咖币值'],
                     x : 'left',
                 },
                 grid: {
@@ -59,19 +59,19 @@
                 ],
                 yAxis : [
                     {
-                        name : '经验值',
+                        name : '咖币值',
                         type : 'value',
                         nameTextStyle : {fontSize:15},
                     },
                     {
-                        name : '平均经验值',
+                        name : '平均咖币值',
                         type : 'value',
                         nameTextStyle : {fontSize:15},
                     }
                 ],
                 series : [
                     {
-                        name:'经验值',
+                        name:'咖币值',
                         smooth: true,
                         type:'line',
                         data:{{comments_result_y}},
@@ -91,15 +91,23 @@
                                 label: {show: true},
                             },
                         },
+                        markPoint:{
+                            data:[
+                                {type:'max',name:'最大值'},
+                                {type:'min',name:'最小值'},
+                            ],
+                        }
                     },
                     {
                         yAxisIndex: 1,
-                        name:'平均经验值',
+                        name:'平均咖币值',
                         smooth: true,
+                        symbol: 'circle',
                         type:'line',
                         data:{{avg_comments_result_y}},
                         itemStyle:{
                             normal: {
+                                color: ['#23B7E5'],
                                 lineStyle: {
                                     width: 2,
                                     color: '#23B7E5',
@@ -115,6 +123,12 @@
                                 label: {show: true},
                             },
                         },
+                        markPoint:{
+                            data:[
+                                {type:'max',name:'最大值'},
+                                {type:'min',name:'最小值'},
+                            ],
+                        }
                     },
                 ]
         }" style="height: 500px;" class="col-xs-12"></div>
