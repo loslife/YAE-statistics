@@ -289,7 +289,7 @@ function detailsCommentsCount(req, res, next){
             "comments a join topics b on a.topic_id = b.id where a.reply_to is null " +
             "union " +
             "select a.id 'id' from " +
-            "comments a join comments b on a.id = b.reply_to and a.isHomework = 1 join accounts c on a.account_id = b.id " +
+            "comments a join comments b on a.id = b.reply_to and a.isHomework = 1 join accounts c on a.account_id = c.id " +
             "union " +
             "select a.id 'id' from " +
             "post_comments a join accounts b on a.account_id = b.id) t";
