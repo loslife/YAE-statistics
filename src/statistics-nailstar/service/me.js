@@ -70,7 +70,7 @@ function statistics(req, res, next) {
                 if(result && result[0]){
                     final_result.infos.push({
                         title: "平均每人关注数",
-                        value: (follow / result[0].count * 100).toFixed(2)
+                        value: (follow / result[0].count).toFixed(2)
                     });
                 }
                 nextOne();
