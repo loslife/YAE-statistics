@@ -18,11 +18,25 @@ response:
 		]
 	}
 	
-## 用户资料查询
+## 用户名模糊搜索
 
-url: /svc/dakatongji/findUser
+url: /svc/dakatongji/findUserNickname
 
 response:
+
+	[
+	    {
+	        id: "0dec3780-0b4d-11e5-a235-d951ef48c38d",
+	        nickname: "Kelly",
+	        username: "13957733024"
+	    },
+	    {
+            id: "0dec3780-0b4d-11e5-a235-d951ef48c38d",
+            nickname: "Kelly",
+            username: "13957733024"
+        }
+        ...
+	]
 
 ## 交作业排行榜
 

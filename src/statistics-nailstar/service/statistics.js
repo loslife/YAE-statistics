@@ -5,7 +5,8 @@ var wxApi = require("wechat-toolkit");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
 exports.users = users;
-exports.findUser = findUser;
+exports.findUserNickname = findUserNickname;
+exports.findUserDetails = findUserDetails;
 exports.homeworkRanking = homeworkRanking;
 exports.topicCommentRanking = topicCommentRanking;
 exports.postCommentRanking = postCommentRanking;
@@ -174,9 +175,39 @@ function users(req, res, next){
     }
 }
 
+//用户名模糊搜索
+function findUserNickname(req, res, next){
+
+    var nickname = req.query.nickname;
+    if(!nickname){
+        return next("缺失参数nickname");
+    }
+
+    var sql = "select id,nickname,username from accounts where nickname like '%" + nickname + "%'";
+    dbHelper.execSql(sql, {}, function(err, results){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, results);
+    });
+}
+
 //用户资料查询
-function findUser(req, res, next){
-    
+function findUserDetails(req, res, next){
+
+    var nickname = req.query.nickname;
+    if(!nickname){
+        return next("缺失参数nickname");
+    }
+
+    var sql = "select username,nickname,type,gender,birthday,location,create_date,exp,coin " +
+        "from accounts where nickname like '%" + nickname + "%'";
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result[0]);
+    });
 }
 
 //交作业排行榜

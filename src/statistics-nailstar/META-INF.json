@@ -71,6 +71,14 @@
             "comment": "美甲大咖用户数"
         },
         {
+            "name": "findUserNickname",
+            "path": "/dakatongji/findUserNickname",
+            "method": "get",
+            "auth": false,
+            "impl": "statistics.findUserNickname",
+            "comment": "用户名模糊搜索"
+        },
+        {
             "name": "findUser",
             "path": "/dakatongji/findUser",
             "method": "get",

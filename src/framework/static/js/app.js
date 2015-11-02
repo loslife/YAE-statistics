@@ -21,7 +21,8 @@ var app = angular.module('app', [
         'app.utilsService',
         'ui.echarts',
         'ngSanitize',
-        'ui.select'
+        'ui.select',
+        'angucomplete-alt'
 
     ])
         .run(
@@ -63,6 +64,18 @@ var app = angular.module('app', [
                             deps: ['uiLoad',
                                 function (uiLoad) {
                                     return uiLoad.load(['/statistics-nailstar/js/users/users.js']);
+                                }]
+                        }
+                    })
+
+                    //用户资料查询
+                    .state('app.userDetails', {
+                        url: '/userDetails',
+                        templateUrl: '/statistics-nailstar/html/users/userDetails.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/users/userDetails.js']);
                                 }]
                         }
                     })
