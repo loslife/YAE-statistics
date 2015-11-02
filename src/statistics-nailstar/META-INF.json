@@ -71,6 +71,38 @@
             "comment": "美甲大咖用户数"
         },
         {
+            "name": "findUser",
+            "path": "/dakatongji/findUser",
+            "method": "get",
+            "auth": false,
+            "impl": "statistics.findUser",
+            "comment": "用户资料查询"
+        },
+        {
+            "name": "homeworkRanking",
+            "path": "/dakatongji/homeworkRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "statistics.homeworkRanking",
+            "comment": "交作业排行榜"
+        },
+        {
+            "name": "topicCommentRanking",
+            "path": "/dakatongji/topicCommentRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "statistics.topicCommentRanking",
+            "comment": "视频评论排行榜"
+        },
+        {
+            "name": "postCommentRanking",
+            "path": "/dakatongji/postCommentRanking",
+            "method": "get",
+            "auth": false,
+            "impl": "statistics.postCommentRanking",
+            "comment": "帖子评论排行榜"
+        },
+        {
             "name": "qjc",
             "path": "/dakatongji/qjcPicCount",
             "method": "get",

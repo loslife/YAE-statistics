@@ -5,7 +5,12 @@ var wxApi = require("wechat-toolkit");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
 exports.users = users;
+exports.findUser = findUser;
+exports.homeworkRanking = homeworkRanking;
+exports.topicCommentRanking = topicCommentRanking;
+exports.postCommentRanking = postCommentRanking;
 
+//用户统计详情
 function users(req, res, next){
 
     var obj = {
@@ -167,4 +172,51 @@ function users(req, res, next){
             callback(null);
         });
     }
+}
+
+//用户资料查询
+function findUser(req, res, next){
+    
+}
+
+//交作业排行榜
+function homeworkRanking(req, res, next){
+    var sql = "select b.nickname 'nickname',count(a.id) 'total' " +
+        "from comments a join accounts b on a.account_id = b.id " +
+        "where a.content_pic is not null and a.content_pic <> '' " +
+        "group by a.account_id order by total desc limit 0,50";
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//视频评论排行榜
+function topicCommentRanking(req, res, next){
+    var sql = "select b.nickname 'nickname',count(a.account_id) 'total' " +
+        "from comments a join accounts b on a.account_id = b.id " +
+        "where content_pic is null and reply_to is null " +
+        "group by a.account_id order by total desc limit 0,50";
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//帖子评论排行榜
+function postCommentRanking(req, res, next){
+    var sql = "select b.nickname 'nickname',count(a.account_id) 'total' " +
+        "from post_comments a join accounts b on a.account_id = b.id " +
+        "where reply_to is null " +
+        "group by a.account_id order by total desc limit 0,50";
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
 }
