@@ -67,6 +67,42 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //用户帖子评论排行榜
+                    .state('app.userpostcommentsranking', {
+                        url: '/userpostcommentsranking',
+                        templateUrl: '/statistics-nailstar/html/users/userPostCommentRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/users/userPostCommentRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //用户视频评论排行榜
+                    .state('app.usertopiccommentsranking', {
+                        url: '/usertopiccommentsranking',
+                        templateUrl: '/statistics-nailstar/html/users/userTopicCommentRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/users/userTopicCommentRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //用户交作业排行榜
+                    .state('app.userhomeworkranking', {
+                        url: '/userhomeworkranking',
+                        templateUrl: '/statistics-nailstar/html/users/userHomeworkRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/users/userHomeworkRanking.js']);
+                                }]
+                        }
+                    })
+
                     //求教程投票
                     .state('app.qjcVote', {
                         url: '/qjcVote',
