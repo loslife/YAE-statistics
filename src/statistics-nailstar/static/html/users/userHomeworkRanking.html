@@ -18,16 +18,18 @@
                             <div class="table-responsive ngGrid">
                                 <table class="table table-striped m-b-none">
                                     <thead>
-                                    <tr>
-                                        <th>昵称</th>
-                                        <th>交作业数</th>
-                                    </tr>
+                                        <tr>
+                                            <th>昵称</th>
+                                            <th>交作业数</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="info in infos">
-                                        <td>{{info.nickname}}</td>
-                                        <td>{{info.total}}</td>
-                                    </tr>
+                                        <tr ng-repeat="info in infos">
+                                            <td>
+                                                <a ui-sref="app.userDetails({nickname: '{{info.nickname}}'})">{{info.nickname}}</a>
+                                            </td>
+                                            <td>{{info.total}}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
