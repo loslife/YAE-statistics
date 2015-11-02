@@ -1,4 +1,4 @@
-app.controller('dakausertopiccommentranking', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
+app.controller('usertopiccommentranking', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
 
     $rootScope.promise = $http.get("/svc/dakatongji/topicCommentRanking", {}).success(function(data) {
 
