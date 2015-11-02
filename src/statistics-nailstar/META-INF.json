@@ -79,12 +79,28 @@
             "comment": "用户名模糊搜索"
         },
         {
-            "name": "findUser",
-            "path": "/dakatongji/findUser",
+            "name": "findUserDetails",
+            "path": "/dakatongji/findUserDetails",
             "method": "get",
             "auth": false,
-            "impl": "statistics.findUser",
+            "impl": "statistics.findUserDetails",
             "comment": "用户资料查询"
+        },
+        {
+            "name": "findUserCommentDetails",
+            "path": "/dakatongji/findUserCommentDetails",
+            "method": "get",
+            "auth": false,
+            "impl": "statistics.findUserCommentDetails",
+            "comment": "用户评论分页查询"
+        },
+        {
+            "name": "findUserHomeworkDetails",
+            "path": "/dakatongji/findUserHomeworkDetails",
+            "method": "get",
+            "auth": false,
+            "impl": "statistics.findUserHomeworkDetails",
+            "comment": "用户交作业分页查询"
         },
         {
             "name": "homeworkRanking",

@@ -37,6 +37,76 @@ response:
         }
         ...
 	]
+	
+## 用户资料查询
+
+url: /svc/dakatongji/findUserDetails
+
+query:
+    
+    id=xxxxx
+
+response:
+
+    {
+        "username": "18874882110",
+        "nickname": "微笑的星星",
+        "type": 2,
+        "gender": 1,
+        "birthday": 492969600000,
+        "location": "湖南省 长沙市",
+        "create_date": null,
+        "exp": 60,
+        "coin": 66
+    }
+    
+## 用户评论分页查询
+
+url: /svc/dakatongji/findUserCommentDetails
+
+query:
+    
+    id=xxxxx
+    startIndex=1
+    perPage=10
+
+response:
+
+    {
+        "username": "18874882110",
+        "nickname": "微笑的星星",
+        "type": 2,
+        "gender": 1,
+        "birthday": 492969600000,
+        "location": "湖南省 长沙市",
+        "create_date": null,
+        "exp": 60,
+        "coin": 66
+    }
+    
+## 用户交作业分页查询
+
+url: /svc/dakatongji/findUserHomeworkDetails
+
+query:
+    
+    id=xxxxx
+    startIndex=1
+    perPage=10
+
+response:
+
+    {
+        "username": "18874882110",
+        "nickname": "微笑的星星",
+        "type": 2,
+        "gender": 1,
+        "birthday": 492969600000,
+        "location": "湖南省 长沙市",
+        "create_date": null,
+        "exp": 60,
+        "coin": 66
+    }
 
 ## 交作业排行榜
 
