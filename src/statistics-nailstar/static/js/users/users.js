@@ -1,4 +1,4 @@
-app.controller('dakaUserCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
+app.controller('userCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
 
     $rootScope.promise = $http.get("/svc/dakatongji/users", {}).success(function(data) {
 

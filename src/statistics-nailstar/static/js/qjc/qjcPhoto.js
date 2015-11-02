@@ -1,4 +1,4 @@
-app.controller('dakaQjcPhotoCtrl', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('qjcPhotoCtrl', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init() {
         initPic();

@@ -1,4 +1,4 @@
-app.controller('dakaqjcvideocomments', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('qjcvideocomments', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init() {
         initVote();

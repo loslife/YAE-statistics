@@ -1,4 +1,4 @@
-app.controller('dakaqjcvideoplay', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('qjcvideoplay', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
 
     (function init() {
         qjcVideoPlay();
