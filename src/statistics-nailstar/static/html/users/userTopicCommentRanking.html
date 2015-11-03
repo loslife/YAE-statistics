@@ -26,7 +26,7 @@
                                     <tbody>
                                     <tr ng-repeat="info in infos">
                                         <td>
-                                            <a ui-sref="app.userDetails({nickname: '{{info.nickname}}'})">{{info.nickname}}</a>
+                                            <a ui-sref="app.userDetails({id: '{{info.id}}',username: '{{info.username}}',nickname: '{{info.nickname}}'})">{{info.nickname}}</a>
                                         </td>
                                         <td>{{info.total}}</td>
                                     </tr>

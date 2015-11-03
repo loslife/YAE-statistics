@@ -275,7 +275,7 @@ function findUserHomeworkDetails(req, res, next){
 
 //交作业排行榜
 function homeworkRanking(req, res, next){
-    var sql = "select b.nickname 'nickname',count(a.id) 'total' " +
+    var sql = "select b.id 'id',b.username 'username',b.nickname 'nickname',count(a.id) 'total' " +
         "from comments a join accounts b on a.account_id = b.id " +
         "where a.content_pic is not null and a.content_pic <> '' " +
         "group by a.account_id order by total desc limit 0,50";
@@ -289,7 +289,7 @@ function homeworkRanking(req, res, next){
 
 //视频评论排行榜
 function topicCommentRanking(req, res, next){
-    var sql = "select b.nickname 'nickname',count(a.account_id) 'total' " +
+    var sql = "select b.id 'id',b.username 'username',b.nickname 'nickname',count(a.account_id) 'total' " +
         "from comments a join accounts b on a.account_id = b.id " +
         "where content_pic is null and reply_to is null " +
         "group by a.account_id order by total desc limit 0,50";
@@ -303,7 +303,7 @@ function topicCommentRanking(req, res, next){
 
 //帖子评论排行榜
 function postCommentRanking(req, res, next){
-    var sql = "select b.nickname 'nickname',count(a.account_id) 'total' " +
+    var sql = "select b.id 'id',b.username 'username',b.nickname 'nickname',count(a.account_id) 'total' " +
         "from post_comments a join accounts b on a.account_id = b.id " +
         "where reply_to is null " +
         "group by a.account_id order by total desc limit 0,50";

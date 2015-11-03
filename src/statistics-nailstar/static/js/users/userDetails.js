@@ -1,16 +1,17 @@
-app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
+app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParams', function ($rootScope, $scope, $http, $stateParams) {
 
-    var nickname = getQueryString("nickname");
-    if(nickname){
-        $scope.initialValue = nickname;
-    }
+    $scope.initialValue = {
+        id: $stateParams.id,
+        username: $stateParams.username,
+        nickname: $stateParams.nickname
+    };
 
     $scope.remoteUrlRequestFn = function(str) {
         return {nickname: str};
     };
 
     $scope.userSelected = function(user){
-        console.log(user.description.id);
+        console.log(user.originalObject.id);
 
         $http.get("/svc/dakatongji/findUserDetails" + nickname).success(function (data) {
 

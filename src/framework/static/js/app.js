@@ -70,7 +70,7 @@ var app = angular.module('app', [
 
                     //用户资料查询
                     .state('app.userDetails', {
-                        url: '/userDetails?nickname',
+                        url: '/userDetails?nickname&username&id',
                         templateUrl: '/statistics-nailstar/html/users/userDetails.html',
                         resolve: {
                             deps: ['uiLoad',

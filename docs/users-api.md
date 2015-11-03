@@ -116,10 +116,14 @@ response:
 	
 	[
         {
+          "id": "sdasdas",
+          "username": "sdsdsd",
           "nickname": "Lolo",
           "total": 74
         },
         {
+          "id": "sdasdas",
+          "username": "sdsdsd",
           "nickname": "手机用户0528",
           "total": 27
         }
@@ -134,10 +138,14 @@ response:
 	
 	[
         {
+          "id": "sdasdas",
+          "username": "sdsdsd",
           "nickname": "Lolo",
           "total": 74
         },
         {
+          "id": "sdasdas",
+          "username": "sdsdsd",
           "nickname": "手机用户0528",
           "total": 27
         }
@@ -152,10 +160,14 @@ response:
 	
 	[
         {
+          "id": "sdasdas",
+          "username": "sdsdsd",
           "nickname": "Lolo",
           "total": 74
         },
         {
+          "id": "sdasdas",
+          "username": "sdsdsd",
           "nickname": "手机用户0528",
           "total": 27
         }
