@@ -1,72 +1,56 @@
 <div class="hbox hbox-auto-xs bg-light " ng-init="
-  app.settings.asideFixed = true;
-  app.settings.asideDock = false;
-  app.settings.container = false;
-  app.hideAside = false;
-  app.hideFooter = true;" ng-controller="userDetailsCtrl">
+    app.settings.asideFixed = true;
+    app.settings.asideDock = false;
+    app.settings.container = false;
+    app.hideAside = false;
+    app.hideFooter = true;" ng-controller="userDetailsCtrl">
 
-    <angucomplete-alt id="user"
-                      class="col-md-3"
-                      placeholder="输入昵称查询"
-                      text-searching="正在搜索..."
-                      text-no-results="没有此用户"
-                      pause="400"
-                      minlength="1"
-                      selected-object="userSelected"
-                      remote-url="/svc/dakatongji/findUserNickname"
-                      remote-url-request-formatter="remoteUrlRequestFn"
-                      remote-url-data-field="result"
-                      title-field="username,nickname"
-                      initial-value="initialValue"
-                      match-class="highlight"
-                      input-class="form-control form-control-small" />
-
-    <div class="col" style="width: 100%;">
-
-        <div class="row-row">
-            <div class="cell">
-                <div class="cell-inner">
-                    <div class="wrapper-md pb-0">
-
-                        <div class="panel panel-default">
-
-                            <div class="table-responsive ngGrid">
-                                <table class="table table-striped m-b-none">
-                                    <thead>
-                                        <tr>
-                                            <th>用户名</th>
-                                            <th>昵称</th>
-                                            <th>身份</th>
-                                            <th>性别</th>
-                                            <th>出生日期</th>
-                                            <th>地址</th>
-                                            <th>创建时间</th>
-                                            <th>经验值</th>
-                                            <th>咖币数</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="info in infos">
-                                            <td>{{info.username}}</td>
-                                            <td>{{info.nickname}}</td>
-                                            <td>{{info.type}}</td>
-                                            <td>{{info.gender}}</td>
-                                            <td>{{info.birthday}}</td>
-                                            <td>{{info.location}}</td>
-                                            <td>{{info.create_date}}</td>
-                                            <td>{{info.exp}}</td>
-                                            <td>{{info.coin}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <div >
+        <angucomplete-alt id="user"
+                          class="col-md-3"
+                          placeholder="输入昵称查询"
+                          text-searching="正在搜索..."
+                          text-no-results="没有此用户"
+                          pause="400"
+                          minlength="1"
+                          selected-object="userSelected"
+                          remote-url="/svc/dakatongji/findUserNickname"
+                          remote-url-request-formatter="remoteUrlRequestFn"
+                          remote-url-data-field="result"
+                          title-field="username,nickname"
+                          initial-value="initialValue"
+                          match-class="highlight"
+                          input-class="form-control form-control-small" />
     </div>
 
-</div>
 
+    <table class="table table-striped m-b-none">
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>昵称</th>
+                <th>身份</th>
+                <th>性别</th>
+                <th>出生日期</th>
+                <th>地址</th>
+                <th>创建时间</th>
+                <th>经验值</th>
+                <th>咖币数</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{infos.username}}</td>
+                <td>{{infos.nickname}}</td>
+                <td>{{type}}</td>
+                <td>{{gender}}</td>
+                <td>{{birthday}}</td>
+                <td>{{infos.location}}</td>
+                <td>{{infos.create_date}}</td>
+                <td>{{infos.exp}}</td>
+                <td>{{infos.coin}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
