@@ -7,6 +7,8 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 exports.users = users;
 exports.findUserNickname = findUserNickname;
 exports.findUserDetails = findUserDetails;
+exports.findUserCommentDetails = findUserCommentDetails;
+exports.findUserHomeworkDetails = findUserHomeworkDetails;
 exports.homeworkRanking = homeworkRanking;
 exports.topicCommentRanking = topicCommentRanking;
 exports.postCommentRanking = postCommentRanking;
@@ -195,19 +197,80 @@ function findUserNickname(req, res, next){
 //用户资料查询
 function findUserDetails(req, res, next){
 
-    var nickname = req.query.nickname;
-    if(!nickname){
-        return next("缺失参数nickname");
+    var id = req.query.id;
+    if(!id){
+        return next("缺失参数id");
     }
 
     var sql = "select username,nickname,type,gender,birthday,location,create_date,exp,coin " +
-        "from accounts where nickname like '%" + nickname + "%'";
-    dbHelper.execSql(sql, {}, function(err, result){
+        "from accounts where id = :id";
+    dbHelper.execSql(sql, {id: id}, function(err, result){
         if(err){
             return next(err);
         }
         doResponse(req, res, result[0]);
     });
+
+}
+
+//用户评论分页查询
+function findUserCommentDetails(req, res, next){
+
+    var id = req.query.id;
+    if(!id){
+        return next("缺失参数id");
+    }
+
+    var page = parseInt(req.query.page);
+    if(!page){
+        return next("缺失参数startIndex");
+    }
+
+    var perPage = parseInt(req.query.perPage) || 10;
+    var startIndex = (page - 1) * perPage;
+
+    var sql = "select b.title 'title',a.content 'content',a.create_date 'create_date' " +
+        "from comments a left join topics b on a.topic_id = b.id " +
+        "where a.account_id = :id and a.reply_to is null " +
+        "order by create_date desc " +
+        "limit :startIndex,:perPage";
+    dbHelper.execSql(sql, {id: id,startIndex: startIndex,perPage: perPage}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+
+}
+
+//用户交作业分页查询
+function findUserHomeworkDetails(req, res, next){
+
+    var id = req.query.id;
+    if(!id){
+        return next("缺失参数id");
+    }
+
+    var page = parseInt(req.query.page);
+    if(!page){
+        return next("缺失参数startIndex");
+    }
+
+    var perPage = parseInt(req.query.perPage) || 10;
+    var startIndex = (page - 1) * perPage;
+
+    var sql = "select b.title 'title',a.content 'content',a.create_date 'create_date' " +
+        "from comments a left join topics b on a.topic_id = b.id " +
+        "where a.account_id = :id and a.content_pic is not null and a.content_pic <> '' " +
+        "order by create_date desc " +
+        "limit :startIndex,:perPage";
+    dbHelper.execSql(sql, {id: id,startIndex: startIndex,perPage: perPage}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+
 }
 
 //交作业排行榜
