@@ -441,8 +441,8 @@ var app = angular.module('app', [
                     })
 
                     //轮播图统计
-                    .state('app.dakaposterdetails', {
-                        url: '/dakaposterdetails',
+                    .state('app.posterdetails', {
+                        url: '/posterdetails',
                         templateUrl: '/statistics-nailstar/html/poster/posterDetails.html',
                         resolve: {
                             deps: ['$ocLazyLoad',
