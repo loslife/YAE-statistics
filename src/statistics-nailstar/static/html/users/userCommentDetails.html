@@ -1,0 +1,18 @@
+<div class="hbox hbox-auto-xs bg-light text-center" ng-init="
+    app.settings.asideFixed = true;
+    app.settings.asideDock = false;
+    app.settings.container = false;
+    app.hideAside = false;
+    app.hideFooter = true;" ng-controller="usercommentdetails">
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            用户评论分页查询
+        </div>
+        <div class="table-responsive">
+            <div ng-grid="gridOptions" style="min-height:420px;"></div>
+        </div>
+    </div>
+
+</div>

@@ -116,6 +116,18 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //用户评论分页查询
+                    .state('app.usercommentsdetails', {
+                        url: '/usercommentsdetails',
+                        templateUrl: '/statistics-nailstar/html/users/userCommentDetails.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/users/userCommentDetails.js']);
+                                }]
+                        }
+                    })
+
                     //求教程投票
                     .state('app.qjcVote', {
                         url: '/qjcVote',
