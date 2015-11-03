@@ -1,19 +1,20 @@
 app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParams', function ($rootScope, $scope, $http, $stateParams) {
 
-    $scope.initialValue = {
-        id: $stateParams.id,
-        username: $stateParams.username,
-        nickname: $stateParams.nickname
-    };
+    if($stateParams.id && $stateParams.username && $stateParams.nickname){
+        $scope.initialValue = {
+            id: $stateParams.id,
+            username: $stateParams.username,
+            nickname: $stateParams.nickname
+        };
+    }
 
     $scope.remoteUrlRequestFn = function(str) {
         return {nickname: str};
     };
 
     $scope.userSelected = function(user){
-        console.log(user.originalObject.id);
 
-        $http.get("/svc/dakatongji/findUserDetails?id=" + user.description.id).success(function (data) {
+        $http.get("/svc/dakatongji/findUserDetails?id=" + user.originalObject.id).success(function (data) {
 
             $scope.infos = data.result;
             $scope.birthday = moment($scope.infos.birthday).format("YYYY-MM-DD");//出生日期
@@ -48,18 +49,5 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 
         });
     };
-
-    //字符串处理
-    function getQueryString(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var uri = decodeURIComponent(window.location.hash);
-        var index = uri.indexOf("?");
-        var r =  uri.substr(index).substr(1).match(reg);//转码使中文不是乱码
-        if (r != null){
-            return unescape(r[2]);
-        }else{
-            return false;//找不到就返回false
-        }
-    }
 
 }]);
