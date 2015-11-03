@@ -67,7 +67,7 @@ url: /svc/dakatongji/findUserCommentDetails
 query:
     
     id=xxxxx
-    startIndex=1
+    page=0
     perPage=10
 
 response:
@@ -91,7 +91,7 @@ url: /svc/dakatongji/findUserHomeworkDetails
 query:
     
     id=xxxxx
-    startIndex=1
+    page=0
     perPage=10
 
 response:

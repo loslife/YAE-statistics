@@ -221,21 +221,25 @@ function findUserCommentDetails(req, res, next){
         return next("缺失参数id");
     }
 
-    var startIndex = parseInt(req.query.startIndex);
-    if(!startIndex){
+    var page = parseInt(req.query.page);
+    if(!page){
         return next("缺失参数startIndex");
     }
 
     var perPage = parseInt(req.query.perPage) || 10;
+    var startIndex = (page - 1) * perPage;
 
-    var sql = "select * from comments where account_id = :id and reply_to is null limit :startIndex,:perPage";
+    var sql = "select b.title 'title',a.content 'content',a.create_date 'create_date' " +
+        "from comments a left join topics b on a.topic_id = b.id " +
+        "where a.account_id = :id and a.reply_to is null " +
+        "order by create_date desc " +
+        "limit :startIndex,:perPage";
     dbHelper.execSql(sql, {id: id,startIndex: startIndex,perPage: perPage}, function(err, result){
         if(err){
             return next(err);
         }
         doResponse(req, res, result);
     });
-
 
 }
 
@@ -247,14 +251,19 @@ function findUserHomeworkDetails(req, res, next){
         return next("缺失参数id");
     }
 
-    var startIndex = parseInt(req.query.startIndex);
-    if(!startIndex){
+    var page = parseInt(req.query.page);
+    if(!page){
         return next("缺失参数startIndex");
     }
 
     var perPage = parseInt(req.query.perPage) || 10;
+    var startIndex = (page - 1) * perPage;
 
-    var sql = "select * from comments where account_id = :id and content_pic is not null and content_pic <> '' limit :startIndex,:perPage";
+    var sql = "select b.title 'title',a.content 'content',a.create_date 'create_date' " +
+        "from comments a left join topics b on a.topic_id = b.id " +
+        "where a.account_id = :id and a.content_pic is not null and a.content_pic <> '' " +
+        "order by create_date desc " +
+        "limit :startIndex,:perPage";
     dbHelper.execSql(sql, {id: id,startIndex: startIndex,perPage: perPage}, function(err, result){
         if(err){
             return next(err);
