@@ -73,9 +73,13 @@ var app = angular.module('app', [
                         url: '/userDetails?nickname&username&id',
                         templateUrl: '/statistics-nailstar/html/users/userDetails.html',
                         resolve: {
-                            deps: ['uiLoad',
-                                function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/users/userDetails.js']);
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/users/userDetails.js');
+                                        }
+                                    );
                                 }]
                         }
                     })

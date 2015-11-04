@@ -57,7 +57,7 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 		    }
 	    };
 	    $scope.getPagedDataAsync = function (pageSize, page) {
-		    $http.get('/svc/dakatongji/findUserCommentDetails?id=' + user.originalObject.id + "&page=" + user.originalObject.page + "&perpage=" + user.originalObject.perPage, {}).success(function (data) {
+		    $http.get('/svc/dakatongji/findUserCommentDetails?id=' + user.originalObject.id + "&page=" + page + "&perpage=" + pageSize, {}).success(function (data) {
 			    $scope.setPagingData(data.result);
 		    });
 	    };
@@ -75,17 +75,12 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 	    }, true);
 	    $scope.columnDefs = [
 		    //{field: 'name', displayName: '图片', cellTemplate: '<div style="width: 110px;margin: 0 auto;"><img style="width: 100%;margin-left:10px;" src="{{row.entity.picUrl}}" /></div>'},
-		    {field: 'username', displayName: '用户名', cellTemplate: "<span>{{row.entity.username}}</span>"},
-		    {field: 'nickname', displayName: '昵称', cellTemplate: "<span>{{row.entity.nickname}}</span>"},
-		    {field: 'type', displayName: '身份', cellTemplate: "<span>{{row.entity.type}}</span>"},
-		    {field: 'gender', displayName: '性别', cellTemplate: "<span>{{row.entity.gender}}</span>"},
-		    {field: 'birthday', displayName: '出生日期', cellTemplate: "<span>{{row.entity.birthday}}</span>"},
-		    {field: 'location', displayName: '地址', cellTemplate: "<span>{{row.entity.location}}</span>"},
-		    {field: 'create_date', displayName: '创建日期', cellTemplate: '<span>{{row.entity.create_date}}</span>'},
-		    {field: 'exp', displayName: '经验值', cellTemplate: '<span>{{row.entity.exp}}</span>'},
-		    {field: 'coin', displayName: '咖币数', cellTemplate: '<span>{{row.entity.coin}}</span>'},
+		    {field: 'title', displayName: '标题', cellTemplate: "<span>{{row.entity.title}}</span>"},
+		    {field: 'content', displayName: '内容', cellTemplate: "<span>{{row.entity.content}}</span>"},
+		    {field: 'create_date', displayName: '创建时间', cellTemplate: '<span>{{row.entity.create_date}}</span>'},
 	    ];
 
+        $scope.myData = [];
 	    $scope.gridOptions = {
 		    data: 'myData',
 		    columnDefs: $scope.columnDefs,
@@ -95,9 +90,9 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 		    pagingOptions: $scope.pagingOptions,
 		    filterOptions: $scope.filterOptions,
 		    multiSelect: false,
-		    //i18n: 'zh_cn'
+		    i18n: 'zh_cn'
 	    };
-	    //window.ngGrid.i18n['zh_cn'] = yilos_i18n.resource;
+	    window.ngGrid.i18n['zh_cn'] = yilos_i18n.resource;
 
     };
 
