@@ -4851,3 +4851,12 @@ a.text-#000000:hover {
 .pt-12px {
   padding-top: 12px !important;
 }
+
+.ngViewport.ng-scope{
+  height: auto !important;
+  overflow-y: hidden;
+}
+
+.ngTopPanel.ng-scope, .ngHeaderContainer{
+  width: auto !important;
+}
