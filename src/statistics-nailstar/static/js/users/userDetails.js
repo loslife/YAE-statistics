@@ -40,8 +40,10 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
         });
 
 		$scope.getPagedDataAsync(user.originalObject.id, $scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+        $scope.getPageDataCountAsync(user.originalObject.id);
 
 		$scope.getPagedDataAsyncHomework(user.originalObject.id, $scope.pagingOptionsHomework.pageSize, $scope.pagingOptionsHomework.currentPage);
+        $scope.getPageDataCountAsyncHomework(user.originalObject.id);
 
     };
 
@@ -53,8 +55,8 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 	};
 	$scope.totalServerItems = 0;
 	$scope.pagingOptions = {
-		pageSizes: [20, 50, 100],
-		pageSize: 20,
+		pageSizes: [10, 20, 50],
+		pageSize: 10,
 		currentPage: 1
 	};
 	$scope.setPagingData = function(data){
@@ -70,8 +72,8 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 		});
 	};
 
-    $scope.getPageDataCountAsync = function () {
-        var url = "/sales/install/getInstallRecordCount?id=" + $stateParams.id;
+    $scope.getPageDataCountAsync = function (id) {
+        var url = "/svc/dakatongji/findUserCommentDetailsCount?id=" + id;
         $http.get(url).success(function(data){
             if(data.code == 0){
                 $scope.totalServerItems = data.result.count;
@@ -119,8 +121,8 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
     };
     $scope.totalServerItemsHomework = 0;
     $scope.pagingOptionsHomework = {
-        pageSizes: [20, 50, 100],
-        pageSize: 20,
+        pageSizes: [10, 20, 50],
+        pageSize: 10,
         currentPage: 1
     };
     $scope.setPagingDataHomework = function(data){
@@ -136,8 +138,8 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
         });
     };
 
-    $scope.getPageDataCountAsyncHomework = function () {
-        var url = "/sales/install/getInstallRecordCount?id=" + $stateParams.id;
+    $scope.getPageDataCountAsyncHomework = function (id) {
+        var url = "/svc/dakatongji/findUserHomeworkDetailsCount?id=" + id;
         $http.get(url).success(function(data){
             if(data.code == 0){
                 $scope.totalServerItemsHomework = data.result.count;
