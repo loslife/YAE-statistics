@@ -67,10 +67,17 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 	$scope.getPagedDataAsync = function (id, pageSize, page) {
 		$http.get('/svc/dakatongji/findUserCommentDetails?id=' + id + "&page=" + page + "&perpage=" + pageSize, {}).success(function (data) {
 			$scope.setPagingData(data.result);
-
-
 		});
 	};
+
+    $scope.getPageDataCountAsync = function () {
+        var url = "/sales/install/getInstallRecordCount?id=" + $stateParams.id;
+        $http.get(url).success(function(data){
+            if(data.code == 0){
+                $scope.totalServerItems = data.result.count;
+            }
+        });
+    };
 
 	$scope.$watch('pagingOptions', function (newVal, oldVal) {
 		if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
@@ -83,7 +90,7 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 		}
 	}, true);
 	$scope.columnDefs = [
-		{field: 'title', displayName: '标题', cellTemplate: "<span>{{row.entity.title}}</span>"},
+		{field: 'title', headerCellClass: 'blue', displayName: '标题', cellTemplate: "<span>{{row.entity.title}}</span>"},
 		{field: 'content', displayName: '内容', cellTemplate: "<span>{{row.entity.content}}</span>"},
 		{field: 'create_date', displayName: '创建时间', cellTemplate: '<span>{{row.entity.create_date|date:"yyyy-MM-dd hh:mm"}}</span>'},
 	];
@@ -94,9 +101,11 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 		columnDefs: $scope.columnDefs,
 		enablePaging: true,
 		showFooter: true,
+        enableSorting: true,
 		rowHeight:60,
 		pagingOptions: $scope.pagingOptions,
 		filterOptions: $scope.filterOptions,
+        totalServerItems: 'totalServerItems',
 		multiSelect: false,
 		i18n: 'zh_cn'
 	};
@@ -127,6 +136,15 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
         });
     };
 
+    $scope.getPageDataCountAsyncHomework = function () {
+        var url = "/sales/install/getInstallRecordCount?id=" + $stateParams.id;
+        $http.get(url).success(function(data){
+            if(data.code == 0){
+                $scope.totalServerItemsHomework = data.result.count;
+            }
+        });
+    };
+
     $scope.$watch('pagingOptionsHomework', function (newVal, oldVal) {
         if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
             $scope.getPagedDataAsyncHomework($scope.pagingOptionsHomework.pageSize, $scope.pagingOptionsHomework.currentPage);
@@ -153,6 +171,7 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
         rowHeight:60,
         pagingOptions: $scope.pagingOptionsHomework,
         filterOptions: $scope.filterOptionsHomework,
+        totalServerItems: 'totalServerItems',
         multiSelect: false,
         i18n: 'zh_cn'
     };
