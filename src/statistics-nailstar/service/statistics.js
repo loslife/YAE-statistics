@@ -259,7 +259,7 @@ function findUserHomeworkDetails(req, res, next){
     var perPage = parseInt(req.query.perPage) || 10;
     var startIndex = (page - 1) * perPage;
 
-    var sql = "select b.title 'title',a.content 'content',a.create_date 'create_date' " +
+    var sql = "select b.title 'title',a.content 'content',a.content_pic 'pic',a.create_date 'create_date' " +
         "from comments a left join topics b on a.topic_id = b.id " +
         "where a.account_id = :id and a.content_pic is not null and a.content_pic <> '' " +
         "order by create_date desc " +
