@@ -154,7 +154,7 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
     $scope.columnDefsHomework = [
         {field: 'title', displayName: '标题', cellTemplate: "<span>{{row.entity.title}}</span>"},
         {field: 'content', displayName: '内容', cellTemplate: "<span>{{row.entity.content}}</span>"},
-        {field: 'pic', displayName: '图片', cellTemplate: '<div style="width: 110px;margin: 0 auto;"><img style="width: 100%;margin-left:10px;" src="{{row.entity.pic}}" /></div>'},
+        {field: 'pic', displayName: '图片', cellTemplate: '<div style="width: 110px;margin: 0 auto;"><img style="width: 53%;margin-left:10px;" src="{{row.entity.pic}}" /></div>'},
         {field: 'create_date', displayName: '创建时间', cellTemplate: '<span>{{row.entity.create_date|date:"yyyy-MM-dd hh:mm"}}</span>'},
     ];
 
