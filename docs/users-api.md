@@ -60,6 +60,20 @@ response:
         "coin": 66
     }
     
+## 用户评论总数
+
+url: /svc/dakatongji/findUserCommentDetailsCount
+
+query:
+    
+    id=xxxxx
+
+response:
+
+    {
+        count: 100
+    }
+    
 ## 用户评论分页查询
 
 url: /svc/dakatongji/findUserCommentDetails
@@ -85,6 +99,20 @@ response:
         }
         ...
     ]
+    
+## 用户交作业总数
+
+url: /svc/dakatongji/findUserHomeworkDetailsCount
+
+query:
+    
+    id=xxxxx
+
+response:
+
+    {
+        count: 100
+    }
     
 ## 用户交作业分页查询
 

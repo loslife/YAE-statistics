@@ -87,12 +87,28 @@
             "comment": "用户资料查询"
         },
         {
+            "name": "findUserCommentDetailsCount",
+            "path": "/dakatongji/findUserCommentDetailsCount",
+            "method": "get",
+            "auth": false,
+            "impl": "statistics.findUserCommentDetailsCount",
+            "comment": "用户评论总数"
+        },
+        {
             "name": "findUserCommentDetails",
             "path": "/dakatongji/findUserCommentDetails",
             "method": "get",
             "auth": false,
             "impl": "statistics.findUserCommentDetails",
             "comment": "用户评论分页查询"
+        },
+        {
+            "name": "findUserHomeworkDetailsCount",
+            "path": "/dakatongji/findUserHomeworkDetailsCount",
+            "method": "get",
+            "auth": false,
+            "impl": "statistics.findUserHomeworkDetailsCount",
+            "comment": "用户交作业总数"
         },
         {
             "name": "findUserHomeworkDetails",

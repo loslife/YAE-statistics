@@ -7,7 +7,9 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 exports.users = users;
 exports.findUserNickname = findUserNickname;
 exports.findUserDetails = findUserDetails;
+exports.findUserCommentDetailsCount = findUserCommentDetailsCount;
 exports.findUserCommentDetails = findUserCommentDetails;
+exports.findUserHomeworkDetailsCount = findUserHomeworkDetailsCount;
 exports.findUserHomeworkDetails = findUserHomeworkDetails;
 exports.homeworkRanking = homeworkRanking;
 exports.topicCommentRanking = topicCommentRanking;
@@ -213,6 +215,24 @@ function findUserDetails(req, res, next){
 
 }
 
+//用户评论总数
+function findUserCommentDetailsCount(req, res, next){
+
+    var id = req.query.id;
+    if(!id){
+        return next("缺失参数id");
+    }
+
+    var sql = "select count(1) 'count' " +
+        "from comments where account_id = :id and reply_to is null";
+    dbHelper.execSql(sql, {id: id}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result[0]);
+    });
+}
+
 //用户评论分页查询
 function findUserCommentDetails(req, res, next){
 
@@ -241,6 +261,24 @@ function findUserCommentDetails(req, res, next){
         doResponse(req, res, result);
     });
 
+}
+
+//用户交作业总数
+function findUserHomeworkDetailsCount(req, res, next){
+
+    var id = req.query.id;
+    if(!id){
+        return next("缺失参数id");
+    }
+
+    var sql = "select count(1) 'count' " +
+        "from comments where account_id = :id and content_pic is not null and content_pic <> ''";
+    dbHelper.execSql(sql, {id: id}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result[0]);
+    });
 }
 
 //用户交作业分页查询
