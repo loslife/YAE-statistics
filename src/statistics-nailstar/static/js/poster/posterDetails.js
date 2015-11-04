@@ -24,6 +24,16 @@ app.controller('posterdetails', ['$rootScope', '$scope', '$http', function($root
     };
     $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
 
+    $scope.getPageDateCountAsync = function (){
+        var url = "/svc/dakatongji/postersCount";
+        $http.get(url).success(function(data){
+            if(data.code == 0){
+                $scope.totalServerItems = data.result.count;
+            }
+        })
+    };
+    $scope.getPageDateCountAsync();
+
     $scope.$watch('pagingOptions', function (newVal, oldVal) {
         if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
             $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
@@ -50,6 +60,7 @@ app.controller('posterdetails', ['$rootScope', '$scope', '$http', function($root
         rowHeight:60,
         pagingOptions: $scope.pagingOptions,
         filterOptions: $scope.filterOptions,
+        totalServerItems: 'totalServerItems',
         multiSelect: false,
         i18n: 'zh_cn'
     };
