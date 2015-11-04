@@ -22,3 +22,13 @@ response:
           "total": 42
         }
     ]
+    
+## 轮播图数据总数
+
+url: /svc/dakatongji/postersCount
+    
+response:
+
+	{
+        "count": 6
+    }

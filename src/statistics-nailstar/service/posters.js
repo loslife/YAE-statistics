@@ -3,6 +3,7 @@ var async = require("async");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
 exports.posters = posters;
+exports.postersCount = postersCount;
 
 //轮播图数据统计
 function posters(req, res, next) {
@@ -20,5 +21,17 @@ function posters(req, res, next) {
             return next(err);
         }
         doResponse(req, res, result);
+    });
+}
+
+//轮播图数据总数
+function postersCount(req, res, next) {
+
+    var sql = "select count(1) 'count' from posters";
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result[0]);
     });
 }

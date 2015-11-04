@@ -341,6 +341,14 @@
             "auth": false,
             "impl": "posters.posters",
             "comment": "轮播图数据统计"
+        },
+        {
+            "name": "postersCount",
+            "path": "/dakatongji/postersCount",
+            "method": "get",
+            "auth": false,
+            "impl": "posters.postersCount",
+            "comment": "轮播图数据总数"
         }
     ],
     "ejsviews": [
