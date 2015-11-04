@@ -12,19 +12,13 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
         return {nickname: str};
     };
 
+    var id;
     $scope.userSelected = function(user){
 
-        $http.get("/svc/dakatongji/findUserDetails?id=" + user.originalObject.id).success(function (data) {
+        id = user.originalObject.id;
+        $http.get("/svc/dakatongji/findUserDetails?id=" + id).success(function (data) {
 
             $scope.infos = data.result;
-
-            if($scope.infos.birthday){
-                $scope.infos.userBirthdaty = moment($scope.infos.birthday).format("YYYY-MM-DD");//出生日期
-            }
-
-            if($scope.infos.creat_date){
-                $scope.infos.UserCreatedate = moment($scope.infos.creat_date).format("YYYY-MM-DD");//创建时间
-            }
 
             var status = ['', '美甲店主', '美甲师', '美甲从业者', '美甲消费者', '美甲老师', '其他'];
             var sex = ['其他', '女', '男'];
@@ -39,11 +33,11 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 
         });
 
-		$scope.getPagedDataAsync(user.originalObject.id, $scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-        $scope.getPageDataCountAsync(user.originalObject.id);
+		$scope.getPagedDataAsync(id, $scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+        $scope.getPageDataCountAsync(id);
 
-		$scope.getPagedDataAsyncHomework(user.originalObject.id, $scope.pagingOptionsHomework.pageSize, $scope.pagingOptionsHomework.currentPage);
-        $scope.getPageDataCountAsyncHomework(user.originalObject.id);
+		$scope.getPagedDataAsyncHomework(id, $scope.pagingOptionsHomework.pageSize, $scope.pagingOptionsHomework.currentPage);
+        $scope.getPageDataCountAsyncHomework(id);
 
     };
 
@@ -83,12 +77,12 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 
 	$scope.$watch('pagingOptions', function (newVal, oldVal) {
 		if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-			$scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+			$scope.getPagedDataAsync(id, $scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
 		}
 	}, true);
 	$scope.$watch('filterOptions', function (newVal, oldVal) {
 		if (newVal !== oldVal) {
-			$scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+			$scope.getPagedDataAsync(id, $scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
 		}
 	}, true);
 	$scope.columnDefs = [
@@ -149,12 +143,12 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 
     $scope.$watch('pagingOptionsHomework', function (newVal, oldVal) {
         if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-            $scope.getPagedDataAsyncHomework($scope.pagingOptionsHomework.pageSize, $scope.pagingOptionsHomework.currentPage);
+            $scope.getPagedDataAsyncHomework(id, $scope.pagingOptionsHomework.pageSize, $scope.pagingOptionsHomework.currentPage);
         }
     }, true);
     $scope.$watch('filterOptionsHomework', function (newVal, oldVal) {
         if (newVal !== oldVal) {
-            $scope.getPagedDataAsyncHomework($scope.pagingOptionsHomework.pageSize, $scope.pagingOptionsHomework.currentPage);
+            $scope.getPagedDataAsyncHomework(id, $scope.pagingOptionsHomework.pageSize, $scope.pagingOptionsHomework.currentPage);
         }
     }, true);
     $scope.columnDefsHomework = [
@@ -173,7 +167,7 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
         rowHeight:60,
         pagingOptions: $scope.pagingOptionsHomework,
         filterOptions: $scope.filterOptionsHomework,
-        totalServerItems: 'totalServerItems',
+        totalServerItems: 'totalServerItemsHomework',
         multiSelect: false,
         i18n: 'zh_cn'
     };
