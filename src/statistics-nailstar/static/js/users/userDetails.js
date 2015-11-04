@@ -45,6 +45,7 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 
     };
 
+    //用户评论分页查询
 
 	$scope.filterOptions = {
 		filterText: "",
@@ -66,6 +67,8 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 	$scope.getPagedDataAsync = function (id, pageSize, page) {
 		$http.get('/svc/dakatongji/findUserCommentDetails?id=' + id + "&page=" + page + "&perpage=" + pageSize, {}).success(function (data) {
 			$scope.setPagingData(data.result);
+
+
 		});
 	};
 
@@ -80,10 +83,9 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
 		}
 	}, true);
 	$scope.columnDefs = [
-		//{field: 'name', displayName: '图片', cellTemplate: '<div style="width: 110px;margin: 0 auto;"><img style="width: 100%;margin-left:10px;" src="{{row.entity.picUrl}}" /></div>'},
 		{field: 'title', displayName: '标题', cellTemplate: "<span>{{row.entity.title}}</span>"},
 		{field: 'content', displayName: '内容', cellTemplate: "<span>{{row.entity.content}}</span>"},
-		{field: 'create_date', displayName: '创建时间', cellTemplate: '<span>{{row.entity.create_date}}</span>'},
+		{field: 'create_date', displayName: '创建时间', cellTemplate: '<span>{{row.entity.create_date|date:"yyyy-MM-dd hh:mm"}}</span>'},
 	];
 
 	$scope.myData = [];
