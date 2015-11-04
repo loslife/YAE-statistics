@@ -5,31 +5,35 @@
     app.hideAside = false;
     app.hideFooter = true;" ng-controller="userDetailsCtrl">
 
-    <tabset class="tab-container">
-        <tab>
-            <tab-heading>
-                查询用户
-            </tab-heading>
-            <div >
-                <angucomplete-alt id="user"
-                                  class="col-md-3"
-                                  placeholder="输入昵称查询"
-                                  text-searching="正在搜索..."
-                                  text-no-results="没有此用户"
-                                  pause="400"
-                                  minlength="1"
-                                  selected-object="userSelected"
-                                  remote-url="/svc/dakatongji/findUserNickname"
-                                  remote-url-request-formatter="remoteUrlRequestFn"
-                                  remote-url-data-field="result"
-                                  title-field="username,nickname"
-                                  initial-value="initialValue"
-                                  match-class="highlight"
-                                  input-class="form-control form-control-small" style="margin-bottom: 15px;margin-top: 15px;padding-left: 0px;" />
-            </div>
+    <div >
+        <angucomplete-alt id="user"
+                          class="col-md-3"
+                          style = "margin-top: 15px;margin-left: 5px;"
+                          placeholder="输入昵称查询"
+                          text-searching="正在搜索..."
+                          text-no-results="没有此用户"
+                          pause="400"
+                          minlength="1"
+                          selected-object="userSelected"
+                          remote-url="/svc/dakatongji/findUserNickname"
+                          remote-url-request-formatter="remoteUrlRequestFn"
+                          remote-url-data-field="result"
+                          title-field="username,nickname"
+                          initial-value="initialValue"
+                          match-class="highlight"
+                          input-class="form-control form-control-small" style="margin-bottom: 15px;margin-top: 15px;padding-left: 0px;" />
+    </div>
 
-            <table class="table table-striped m-b-none">
-                <thead>
+    <div class="wrapper-md" style="margin-top: 40px;">
+        <tabset class="tab-container">
+            <tab>
+                <tab-heading>
+                    查询用户
+                </tab-heading>
+
+
+                <table class="table table-striped m-b-none">
+                    <thead>
                     <tr>
                         <th>用户名</th>
                         <th>昵称</th>
@@ -41,8 +45,8 @@
                         <th>经验值</th>
                         <th>咖币数</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td>{{infos.username}}</td>
                         <td>{{infos.nickname}}</td>
@@ -54,37 +58,40 @@
                         <td>{{infos.exp}}</td>
                         <td>{{infos.coin}}</td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
-        </tab>
+            </tab>
 
-        <tab>
-            <tab-heading>
-                用户评论分页查询
-            </tab-heading>
-            <div class="panel panel-default text-center" style="margin-top: 25px;">
-                <div class="panel-heading" style="background-color: #3d89cc;color: #fff;font-size: 20px">
+            <tab>
+                <tab-heading>
                     用户评论分页查询
+                </tab-heading>
+                <div class="panel panel-default text-center" style="margin-top: 25px;">
+                    <div class="panel-heading" style="background-color: #3d89cc;color: #fff;font-size: 20px">
+                        用户评论分页查询
+                    </div>
+                    <div class="table-responsive">
+                        <div ng-grid="gridOptions" style="min-height:420px;"></div>
+                    </div>
                 </div>
-                <div class="table-responsive">
-                    <div ng-grid="gridOptions" style="min-height:420px;"></div>
-                </div>
-            </div>
-        </tab>
+            </tab>
 
-        <tab>
-            <tab-heading>
-                用户交作业分页查询
-            </tab-heading>
-            <div class="panel panel-default text-center" style="margin-top: 25px;">
-                <div class="panel-heading" style="background-color: #3d89cc;color: #fff;font-size: 20px">
+            <tab>
+                <tab-heading>
                     用户交作业分页查询
+                </tab-heading>
+                <div class="panel panel-default text-center" style="margin-top: 25px;">
+                    <div class="panel-heading" style="background-color: #3d89cc;color: #fff;font-size: 20px">
+                        用户交作业分页查询
+                    </div>
+                    <div class="table-responsive">
+                        <div ng-grid="gridOptionsHomework" style="min-height:420px;"></div>
+                    </div>
                 </div>
-                <div class="table-responsive">
-                    <div ng-grid="gridOptionsHomework" style="min-height:420px;"></div>
-                </div>
-            </div>
-        </tab>
-    </tabset>
+            </tab>
+        </tabset>
+    </div>
+
+
 </div>
