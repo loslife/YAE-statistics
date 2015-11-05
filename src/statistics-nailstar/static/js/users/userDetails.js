@@ -9,7 +9,7 @@ app.controller('userDetailsCtrl', ['$rootScope', '$scope', '$http', '$stateParam
     }
 
     $scope.remoteUrlRequestFn = function(str) {
-        return {nickname: str};
+        return {param: str};
     };
 
     var id;

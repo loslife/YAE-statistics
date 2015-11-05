@@ -5,7 +5,7 @@ var wxApi = require("wechat-toolkit");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
 exports.users = users;
-exports.findUserNickname = findUserNickname;
+exports.findUserByParam = findUserByParam;
 exports.findUserDetails = findUserDetails;
 exports.findUserCommentDetailsCount = findUserCommentDetailsCount;
 exports.findUserCommentDetails = findUserCommentDetails;
@@ -179,15 +179,15 @@ function users(req, res, next){
     }
 }
 
-//用户名模糊搜索
-function findUserNickname(req, res, next){
+//用户模糊搜索
+function findUserByParam(req, res, next){
 
-    var nickname = req.query.nickname;
-    if(!nickname){
-        return next("缺失参数nickname");
+    var param = req.query.param;
+    if(!param){
+        return next("缺失参数param");
     }
 
-    var sql = "select id,nickname,username from accounts where nickname like '%" + nickname + "%'";
+    var sql = "select id,nickname,username from accounts where nickname like '%" + param + "%' or username like '%" + param + "%'";
     dbHelper.execSql(sql, {}, function(err, results){
         if(err){
             return next(err);
