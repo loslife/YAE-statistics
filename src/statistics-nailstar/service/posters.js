@@ -23,7 +23,7 @@ function posters(req, res, next) {
         "left join videos d on c.video_id = d.id " +
         "left join comments e on b.id = e.topic_id " +
         "group by a.id " +
-        "order by a.create_date desc limit :startIndex,:perPage";
+        "order by (1 - ISNULL(a.end_date)),a.end_date desc limit :startIndex,:perPage";
     dbHelper.execSql(sql, {startIndex: startIndex,perPage: perPage}, function(err, result){
         if(err){
             return next(err);
