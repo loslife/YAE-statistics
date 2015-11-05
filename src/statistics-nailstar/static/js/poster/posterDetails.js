@@ -6,8 +6,8 @@ app.controller('posterdetails', ['$rootScope', '$scope', '$http', function($root
     };
     $scope.totalServerItems = 0;
     $scope.pagingOptions = {
-        pageSizes: [20, 50, 100],
-        pageSize: 20,
+        pageSizes: [10, 20, 50],
+        pageSize: 10,
         currentPage: 1
     };
     $scope.setPagingData = function(data){
@@ -18,7 +18,7 @@ app.controller('posterdetails', ['$rootScope', '$scope', '$http', function($root
         }
     };
     $scope.getPagedDataAsync = function (pageSize, page) {
-        $http.get('/svc/dakatongji/posters', {}).success(function (data) {
+        $http.get('/svc/dakatongji/posters?perPage=' + pageSize + "&page=" + page, {}).success(function (data) {
             $scope.setPagingData(data.result);
         });
     };

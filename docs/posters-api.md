@@ -2,6 +2,11 @@
 
 url: /svc/dakatongji/posters
     
+query:
+
+    page=0
+    perPage=10
+    
 response:
 
 	[
