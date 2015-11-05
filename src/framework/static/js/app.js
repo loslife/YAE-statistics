@@ -48,7 +48,7 @@ var app = angular.module('app', [
                 app.value      = $provide.value;
 
                 $urlRouterProvider
-                    .otherwise('/app/users');
+                    .otherwise('/login/signin');
                 $stateProvider
                     .state('app', {
                         abstract: true,
@@ -459,6 +459,20 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+                    .state('login', {
+                        url: '/login',
+                        template: '<div ui-view class="fade-in-right-big smooth"></div>'
+                    })
+                    .state('login.signin', {
+                        url: '/signin',
+                        templateUrl: '/statistics-nailstar/html/signin.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/login.js']);
+                                }]
+                        }
+                    })
             }
         ]
     )
@@ -569,8 +583,19 @@ var app = angular.module('app', [
             $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
             $httpProvider.interceptors.push('timestampMarker');
         }])
+        .factory('sessionChecker', ["$location", function ($location) {
+            var sessionChecker = {
+                responseError: function (response) {
+                    if (response.status == 401) {
+                        $location.path('/login/signin');
+                        return;
+                    }
+                    return response;
+                }
+            };
+            return sessionChecker;
+        }]);
 
-    ;
 app.factory('timestampMarker', ["$location",function($location) {
     var timestampMarker = {
         responseError: function(response) {

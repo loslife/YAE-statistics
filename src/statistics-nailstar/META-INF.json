@@ -15,10 +15,24 @@
     },
     "services": [
         {
+            "name": "stat_login",
+            "path": "/user/login",
+            "method": "post",
+            "auth": false,
+            "impl": "auth.login",
+            "comment": "用户登录"
+        },{
+            "name": "stat_logout",
+            "path": "/user/logout",
+            "method": "get",
+            "auth": false,
+            "impl": "auth.logout",
+            "comment": "用户退出"
+        },{
             "name": "comments",
             "path": "/dakatongji/comments",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "statistics.comments",
             "comment": "美甲大咖评论数"
         },
@@ -26,7 +40,7 @@
             "name": "play",
             "path": "/dakatongji/getplayAll",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "play.getplayAll",
             "comment": "美甲大咖总播放数"
         },
@@ -34,7 +48,7 @@
             "name": "play",
             "path": "/dakatongji/getplayByCate",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "play.getplayByCate",
             "comment": "美甲大咖系列播放数"
         },
@@ -42,7 +56,7 @@
             "name": "play",
             "path": "/dakatongji/getplayByTopic",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "play.getplayByTopic",
             "comment": "美甲大咖分期播放数"
         },
@@ -50,7 +64,7 @@
             "name": "getCategories",
             "path": "/dakatongji/getCategories",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "common.getCategories",
             "comment": "获取视频分类列表接口"
         },
@@ -58,7 +72,7 @@
             "name": "getTopics",
             "path": "/dakatongji/getTopics",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "common.getTopics",
             "comment": "获取视频主题列表接口"
         },
@@ -66,7 +80,7 @@
             "name": "users",
             "path": "/dakatongji/users",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "statistics.users",
             "comment": "美甲大咖用户数"
         },
@@ -74,7 +88,7 @@
             "name": "findUserByParam",
             "path": "/dakatongji/findUserByParam",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "statistics.findUserByParam",
             "comment": "用户模糊搜索"
         },
@@ -82,7 +96,7 @@
             "name": "findUserDetails",
             "path": "/dakatongji/findUserDetails",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "statistics.findUserDetails",
             "comment": "用户资料查询"
         },
@@ -90,7 +104,7 @@
             "name": "findUserCommentDetailsCount",
             "path": "/dakatongji/findUserCommentDetailsCount",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "statistics.findUserCommentDetailsCount",
             "comment": "用户评论总数"
         },
@@ -98,7 +112,7 @@
             "name": "findUserCommentDetails",
             "path": "/dakatongji/findUserCommentDetails",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "statistics.findUserCommentDetails",
             "comment": "用户评论分页查询"
         },
@@ -106,7 +120,7 @@
             "name": "findUserHomeworkDetailsCount",
             "path": "/dakatongji/findUserHomeworkDetailsCount",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "statistics.findUserHomeworkDetailsCount",
             "comment": "用户交作业总数"
         },
@@ -114,7 +128,7 @@
             "name": "findUserHomeworkDetails",
             "path": "/dakatongji/findUserHomeworkDetails",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "statistics.findUserHomeworkDetails",
             "comment": "用户交作业分页查询"
         },
@@ -122,7 +136,7 @@
             "name": "homeworkRanking",
             "path": "/dakatongji/homeworkRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "statistics.homeworkRanking",
             "comment": "交作业排行榜"
         },
@@ -130,7 +144,7 @@
             "name": "topicCommentRanking",
             "path": "/dakatongji/topicCommentRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "statistics.topicCommentRanking",
             "comment": "视频评论排行榜"
         },
@@ -138,7 +152,7 @@
             "name": "postCommentRanking",
             "path": "/dakatongji/postCommentRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "statistics.postCommentRanking",
             "comment": "帖子评论排行榜"
         },
@@ -146,7 +160,7 @@
             "name": "qjc",
             "path": "/dakatongji/qjcPicCount",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "qjc.qjcPicCount",
             "comment": "求教程每期上传图片数量统计接口"
         },
@@ -154,7 +168,7 @@
             "name": "qjc",
             "path": "/dakatongji/qjcVoteCount",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "qjc.qjcVoteCount",
             "comment": "求教程每期投票总数统计接口"
         },
@@ -162,7 +176,7 @@
             "name": "getNewestActivity",
             "path": "/dakatongji/getNewestActivity",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "qjc.getNewestActivity",
             "comment": "获取最新活动期数"
         },
@@ -170,7 +184,7 @@
             "name": "qjcPlayCount",
             "path": "/dakatongji/qjcPlayCount",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "qjc.qjcPlayCount",
             "comment": "求教程视频播放数"
         },
@@ -178,7 +192,7 @@
             "name": "qjcCommentsCount",
             "path": "/dakatongji/qjcCommentsCount",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "qjc.qjcCommentsCount",
             "comment": "求教程视频评论数"
         },
@@ -186,7 +200,7 @@
             "name": "comments",
             "path": "/dakatongji/getCommentsAll",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "comments.getCommentsAll",
             "comment": "美甲大咖总评论数"
         },
@@ -194,7 +208,7 @@
             "name": "comments",
             "path": "/dakatongji/getCommentsByCate",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "comments.getCommentsByCate",
             "comment": "美甲大咖系列评论数"
         },
@@ -202,7 +216,7 @@
             "name": "comments",
             "path": "/dakatongji/getCommentsByTopic",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "comments.getCommentsByTopic",
             "comment": "美甲大咖分期评论数"
         },
@@ -210,7 +224,7 @@
             "name": "me",
             "path": "/dakatongji/me/statistics",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "me.statistics",
             "comment": "我的页面数据统计"
         },
@@ -218,7 +232,7 @@
             "name": "me",
             "path": "/dakatongji/me/fansRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "me.fansRanking",
             "comment": "粉丝数排行榜"
         },
@@ -226,7 +240,7 @@
             "name": "me",
             "path": "/dakatongji/me/followsRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "me.followsRanking",
             "comment": "关注数排行榜"
         },
@@ -234,7 +248,7 @@
             "name": "me",
             "path": "/dakatongji/me/followCount",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "me.followCount",
             "comment": "每日新增关注数"
         },
@@ -242,7 +256,7 @@
             "name": "me",
             "path": "/dakatongji/me/detailsLikeRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "me.detailsLikeRanking",
             "comment": "点赞排行榜"
         },
@@ -250,7 +264,7 @@
             "name": "me",
             "path": "/dakatongji/me/detailsLikeCount",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "me.detailsLikeCount",
             "comment": "每日点赞数"
         },
@@ -258,7 +272,7 @@
             "name": "me",
             "path": "/dakatongji/me/detailsCommentsRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "me.detailsCommentsRanking",
             "comment": "评论排行榜"
         },
@@ -266,7 +280,7 @@
             "name": "me",
             "path": "/dakatongji/me/detailsCommentsCount",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "me.detailsCommentsCount",
             "comment": "每日评论数"
         },
@@ -274,7 +288,7 @@
             "name": "member",
             "path": "/dakatongji/member/expRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "member.expRanking",
             "comment": "经验值排行榜"
         },
@@ -282,7 +296,7 @@
             "name": "member",
             "path": "/dakatongji/member/coinRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "member.coinRanking",
             "comment": "咖币排行榜"
         },
@@ -290,7 +304,7 @@
             "name": "member",
             "path": "/dakatongji/member/expAndCoinAnalyse",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "member.expAndCoinAnalyse",
             "comment": "注册用户经验、咖币的总数和平均数"
         },
@@ -298,7 +312,7 @@
             "name": "member",
             "path": "/dakatongji/member/expAndCoinCount",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "member.expAndCoinCount",
             "comment": "注册用户每日获得经验、咖币的总数和平均数"
         },
@@ -306,7 +320,7 @@
             "name": "member",
             "path": "/dakatongji/member/targetRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "member.targetRanking",
             "comment": "经验指标获取排行榜"
         },
@@ -314,7 +328,7 @@
             "name": "communities",
             "path": "/dakatongji/communities/staticits",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "communities.staticits",
             "comment": "圈子数据统计"
         },
@@ -322,7 +336,7 @@
             "name": "communities",
             "path": "/dakatongji/communities/communitiesRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "communities.communitiesRanking",
             "comment": "圈子活跃度排名"
         },
@@ -330,7 +344,7 @@
             "name": "communities",
             "path": "/dakatongji/communities/teacherCommunitiesRanking",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "communities.teacherCommunitiesRanking",
             "comment": "老师（官方）圈子活跃度排名"
         },
@@ -338,7 +352,7 @@
             "name": "posters",
             "path": "/dakatongji/posters",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "posters.posters",
             "comment": "轮播图数据统计"
         },
@@ -346,7 +360,7 @@
             "name": "postersCount",
             "path": "/dakatongji/postersCount",
             "method": "get",
-            "auth": false,
+            "auth": "nailstar-cms",
             "impl": "posters.postersCount",
             "comment": "轮播图数据总数"
         }
