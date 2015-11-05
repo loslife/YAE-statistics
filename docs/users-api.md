@@ -20,7 +20,11 @@ response:
 	
 ## 用户名模糊搜索
 
-url: /svc/dakatongji/findUserNickname
+url: /svc/dakatongji/findUserByParam
+
+query:
+    
+    param=xxxx
 
 response:
 
