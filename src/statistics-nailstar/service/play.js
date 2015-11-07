@@ -10,7 +10,7 @@ exports.getplayByTopic = getplayByTopic;
 function getplayAll(req, res, next){
 
     var order = req.query["order"] || 0;
-    var num = parseInt(req.query["num"]) || 10;
+    var num = (parseInt(req.query["num"]) || 10) - 1;
 
     var obj = {
         totalCount: 0,
@@ -167,7 +167,7 @@ function getplayByCate(req, res, next) {
     }
 
     var order = req.query["order"] || 0;
-    var num = parseInt(req.query["num"]) || 10;
+    var num = (parseInt(req.query["num"]) || 10) - 1;
 
     var sqls = getCateSqlsByOrder(order, num);
 
@@ -327,7 +327,7 @@ function getplayByTopic(req, res, next){
     }
 
     var order = req.query["order"] || 0;
-    var num = parseInt(req.query["num"]) || 10;
+    var num = (parseInt(req.query["num"]) || 10) - 1;
 
     var sqls = getTopicSqlsByOrder(order, num);
 
