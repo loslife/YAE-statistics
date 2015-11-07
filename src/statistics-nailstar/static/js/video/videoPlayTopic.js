@@ -34,11 +34,14 @@ app.controller('videoplaytopic', ['$rootScope', '$scope', '$http', 'utilsService
 
         //获取播放数据
         function getTopicPlayData(id, order, num){
-            if(playDataCacheX[id + "_" + order + "_" + num] && playDataCacheY_details[order + "_" + num] && playDataCacheY_appDetails[order + "_" + num] && playDataCacheY_wechatDetails[order + "_" + num]){
+            if(playDataCacheX[id + "_" + order + "_" + num]
+                && playDataCacheY_details[id + "_" + order + "_" + num]
+                && playDataCacheY_appDetails[id + "_" + order + "_" + num]
+                && playDataCacheY_wechatDetails[id + "_" + order + "_" + num]){
                 $scope.play_result_x = playDataCacheX[id + "_" + order + "_" + num];
-                $scope.play_result_y_details = playDataCacheY_details[order + "_" + num];
-                $scope.play_result_y_appDetails = playDataCacheY_appDetails[order + "_" + num];
-                $scope.play_result_y_wechatDetails = playDataCacheY_wechatDetails[order + "_" + num];
+                $scope.play_result_y_details = playDataCacheY_details[id + "_" + order + "_" + num];
+                $scope.play_result_y_appDetails = playDataCacheY_appDetails[id + "_" + order + "_" + num];
+                $scope.play_result_y_wechatDetails = playDataCacheY_wechatDetails[id + "_" + order + "_" + num];
                 return;
             }
 
@@ -58,9 +61,9 @@ app.controller('videoplaytopic', ['$rootScope', '$scope', '$http', 'utilsService
                 playDataCacheX[id + "_" + order + "_" + num] = rs;
                 $scope.play_result_x = rs;
 
-                playDataCacheY_details[order + "_" + num] = ls_details;
-                playDataCacheY_appDetails[order + "_" + num] = ls_appDetails;
-                playDataCacheY_wechatDetails[order + "_" + num] = ls_wechatDetails;
+                playDataCacheY_details[id + "_" + order + "_" + num] = ls_details;
+                playDataCacheY_appDetails[id + "_" + order + "_" + num] = ls_appDetails;
+                playDataCacheY_wechatDetails[id + "_" + order + "_" + num] = ls_wechatDetails;
                 $scope.play_result_y_details = ls_details;
                 $scope.play_result_y_appDetails = ls_appDetails;
                 $scope.play_result_y_wechatDetails = ls_wechatDetails;
