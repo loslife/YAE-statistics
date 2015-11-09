@@ -16,10 +16,10 @@
     ],
     "dataServer": {
         "mysql": {
-            "ip": "yilosdev.mysql.rds.aliyuncs.com",
+            "ip": "xxxx",
             "port": 3306,
-            "user": "yilos_dev",
-            "password": "xxxxx",
+            "user": "xxxx",
+            "password": "xxxx",
             "dbName": "nailstar"
         }
     },
