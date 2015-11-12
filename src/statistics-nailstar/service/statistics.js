@@ -243,7 +243,7 @@ function findUserCommentDetails(req, res, next){
 
     var page = parseInt(req.query.page);
     if(!page){
-        return next("缺失参数startIndex");
+        return next("缺失参数page");
     }
 
     var perPage = parseInt(req.query.perPage) || 10;

@@ -10,7 +10,7 @@ exports.getCommentsByTopic = getCommentsByTopic;
 function getCommentsAll(req, res, next) {
 
     var order = req.query["order"] || 0;
-    var num = parseInt(req.query["num"]) || 10;
+    var num = (parseInt(req.query["num"]) || 10) - 1;
 
     var sqls = getAllSqlsByOrder(order, num);
 
@@ -110,7 +110,7 @@ function getCommentsByCate(req, res, next){
     }
 
     var order = req.query["order"] || 0;
-    var num = parseInt(req.query["num"]) || 10;
+    var num = (parseInt(req.query["num"]) || 10) - 1;
 
     var sqls = getCateSqlsByOrder(order, num);
 
@@ -203,7 +203,7 @@ function getCommentsByTopic(req, res, next){
     }
 
     var order = req.query["order"] || 0;
-    var num = parseInt(req.query["num"]) || 10;
+    var num = (parseInt(req.query["num"]) || 10) - 1;
 
     var sqls = getTopicSqlsByOrder(order, num);
 
