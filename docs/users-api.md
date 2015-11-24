@@ -211,3 +211,21 @@ response:
         }
         ...
     ]
+    
+## 注册用户统计
+
+url: /svc/dakatongji/registerDetailsCount
+
+query:
+    
+    num=20
+    
+response:
+	
+	[
+        {
+          "count": 1,
+          "time": "20151106"
+        }
+        ...
+    ]

@@ -68,6 +68,18 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //注册用户详情
+                    .state('app.registerDetails', {
+                        url: '/registerDetails',
+                        templateUrl: '/statistics-nailstar/html/users/registerDetails.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/users/registerDetails.js']);
+                                }]
+                        }
+                    })
+
                     //用户资料查询
                     .state('app.userDetails', {
                         url: '/userDetails?nickname&username&id',

@@ -14,6 +14,7 @@ exports.findUserHomeworkDetails = findUserHomeworkDetails;
 exports.homeworkRanking = homeworkRanking;
 exports.topicCommentRanking = topicCommentRanking;
 exports.postCommentRanking = postCommentRanking;
+exports.registerDetailsCount = registerDetailsCount;
 
 //用户统计详情
 function users(req, res, next){
@@ -345,6 +346,24 @@ function postCommentRanking(req, res, next){
         "from post_comments a join accounts b on a.account_id = b.id " +
         "where reply_to is null " +
         "group by a.account_id order by total desc limit 0,50";
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//注册用户统计
+function registerDetailsCount(req, res, next){
+
+    var num = (parseInt(req.query["num"]) || 10) - 1;
+
+    var sql = "select count(id) 'count',from_unixtime(create_date/1000, '%Y%m%d') 'time' from accounts " +
+        "where from_unixtime(create_date/1000, '%Y%m%d') " +
+        "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
+        "group by time ";
+
     dbHelper.execSql(sql, {}, function(err, result){
         if(err){
             return next(err);

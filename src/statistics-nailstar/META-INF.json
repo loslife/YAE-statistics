@@ -85,6 +85,14 @@
             "comment": "美甲大咖用户数"
         },
         {
+            "name": "registerDetailsCount",
+            "path": "/dakatongji/registerDetailsCount",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "statistics.registerDetailsCount",
+            "comment": "注册用户统计"
+        },
+        {
             "name": "findUserByParam",
             "path": "/dakatongji/findUserByParam",
             "method": "get",
