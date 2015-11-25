@@ -357,6 +357,22 @@
             "comment": "老师（官方）圈子活跃度排名"
         },
         {
+            "name": "communities",
+            "path": "/dakatongji/communities/communitiesPostsCount",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "communities.communitiesPostsCount",
+            "comment": "每日圈子发帖数"
+        },
+        {
+            "name": "communities",
+            "path": "/dakatongji/communities/communitiesCommentsCount",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "communities.communitiesCommentsCount",
+            "comment": "每日圈子评论数"
+        },
+        {
             "name": "posters",
             "path": "/dakatongji/posters",
             "method": "get",

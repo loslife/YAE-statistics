@@ -5,6 +5,8 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 exports.staticits = staticits;
 exports.communitiesRanking = communitiesRanking;
 exports.teacherCommunitiesRanking = teacherCommunitiesRanking;
+exports.communitiesPostsCount = communitiesPostsCount;
+exports.communitiesCommentsCount = communitiesCommentsCount;
 
 // 点赞数
 // 阅读量
@@ -242,4 +244,42 @@ function teacherCommunitiesRanking(req, res, next){
                 return rankByEntry;
         }
     }
+}
+
+//每日圈子发帖数
+function communitiesPostsCount(req, res, next){
+
+    var num = (parseInt(req.query["num"]) || 10) - 1;
+
+    var sql = "select count(id) 'count',from_unixtime(create_date/1000, '%Y%m%d') 'time' from posts " +
+        "where from_unixtime(create_date/1000, '%Y%m%d') " +
+        "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
+        "group by time ";
+
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+
+}
+
+//每日圈子评论数
+function communitiesCommentsCount(req, res, next){
+
+    var num = (parseInt(req.query["num"]) || 10) - 1;
+
+    var sql = "select count(id) 'count',from_unixtime(create_date/1000, '%Y%m%d') 'time' from post_comments " +
+        "where from_unixtime(create_date/1000, '%Y%m%d') " +
+        "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
+        "group by time ";
+
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+
 }
