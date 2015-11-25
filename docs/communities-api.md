@@ -82,3 +82,60 @@ response:
           "count": 0
         }
     ]
+    
+## 获取所有圈子列表
+
+url: /svc/dakatongji/communities/getAllcommunities
+
+response:
+
+    [
+        {
+          "id": "00c58b90-70c6-11e5-9799-9b6e5163da77",
+          "name": "动人美丽"
+        },
+        {
+          "id": "01b23770-73e5-11e5-9ed7-19235bf26c7c",
+          "name": "你好美女勾"
+        }
+        ...
+    ]
+    
+## 单个圈子发帖数
+
+url: /svc/dakatongji/communities/communitiesPostsSingleCount
+
+query: 
+
+    id=xxxx
+    num=20
+
+response:
+
+    [
+        {
+          "count": 1,
+          "time": "20151125"
+        }
+        ...
+    ]
+    
+    
+## 单个圈子评论数
+
+url: /svc/dakatongji/communities/communitiesCommentsSingleCount
+
+query: 
+
+    id=xxxx
+    num=20
+
+response:
+
+    [
+        {
+          "count": 1,
+          "time": "20151125"
+        }
+        ...
+    ]

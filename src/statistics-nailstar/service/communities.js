@@ -7,6 +7,9 @@ exports.communitiesRanking = communitiesRanking;
 exports.teacherCommunitiesRanking = teacherCommunitiesRanking;
 exports.communitiesPostsCount = communitiesPostsCount;
 exports.communitiesCommentsCount = communitiesCommentsCount;
+exports.getAllcommunities = getAllcommunities;
+exports.communitiesPostsSingleCount = communitiesPostsSingleCount;
+exports.communitiesCommentsSingleCount = communitiesCommentsSingleCount;
 
 // 点赞数
 // 阅读量
@@ -282,4 +285,63 @@ function communitiesCommentsCount(req, res, next){
         doResponse(req, res, result);
     });
 
+}
+
+//获取所有圈子列表
+function getAllcommunities(req, res, next){
+
+    var sql = "select id,name from communities";
+
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//单个圈子发帖数
+function communitiesPostsSingleCount(req, res, next){
+
+    var id = req.query["id"];
+    if(!id){
+        return next("缺失参数id");
+    }
+    var num = (parseInt(req.query["num"]) || 10) - 1;
+
+    var sql = "select count(id) 'count',from_unixtime(create_date/1000, '%Y%m%d') 'time' " +
+        "from posts " +
+        "where community_id = :id and from_unixtime(create_date/1000, '%Y%m%d') " +
+        "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
+        "group by time ";
+
+    dbHelper.execSql(sql, {id: id}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//单个圈子评论数
+function communitiesCommentsSingleCount(req, res, next){
+
+    var id = req.query["id"];
+    if(!id){
+        return next("缺失参数id");
+    }
+    var num = (parseInt(req.query["num"]) || 10) - 1;
+
+    var sql = "select count(a.id) 'count',from_unixtime(a.create_date/1000, '%Y%m%d') 'time' " +
+        "from post_comments a join posts b on a.post_id = b.id " +
+        "where b.community_id = :id and from_unixtime(a.create_date/1000, '%Y%m%d') " +
+        "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
+        "group by time ";
+
+    dbHelper.execSql(sql, {id: id}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
 }

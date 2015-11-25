@@ -373,6 +373,30 @@
             "comment": "每日圈子评论数"
         },
         {
+            "name": "communities",
+            "path": "/dakatongji/communities/getAllcommunities",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "communities.getAllcommunities",
+            "comment": "获取所有圈子列表"
+        },
+        {
+            "name": "communities",
+            "path": "/dakatongji/communities/communitiesPostsSingleCount",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "communities.communitiesPostsSingleCount",
+            "comment": "单个圈子发帖数"
+        },
+        {
+            "name": "communities",
+            "path": "/dakatongji/communities/communitiesCommentsSingleCount",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "communities.communitiesCommentsSingleCount",
+            "comment": "单个圈子评论数"
+        },
+        {
             "name": "posters",
             "path": "/dakatongji/posters",
             "method": "get",
