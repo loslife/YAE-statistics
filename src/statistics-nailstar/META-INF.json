@@ -374,6 +374,14 @@
         },
         {
             "name": "communities",
+            "path": "/dakatongji/communities/communitiesReadCount",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "communities.communitiesReadCount",
+            "comment": "每日圈子浏览数"
+        },
+        {
+            "name": "communities",
             "path": "/dakatongji/communities/getAllcommunities",
             "method": "get",
             "auth": "nailstar-cms",
@@ -395,6 +403,14 @@
             "auth": "nailstar-cms",
             "impl": "communities.communitiesCommentsSingleCount",
             "comment": "单个圈子评论数"
+        },
+        {
+            "name": "communities",
+            "path": "/dakatongji/communities/communitiesReadSingleCount",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "communities.communitiesReadSingleCount",
+            "comment": "单个圈子浏览数"
         },
         {
             "name": "posters",

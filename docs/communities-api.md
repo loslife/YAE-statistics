@@ -83,6 +83,48 @@ response:
         }
     ]
     
+## 每日圈子发帖数
+
+url: /svc/dakatongji/communities/communitiesPostsCount
+
+response:
+    
+    [
+        {
+          "count": 1,
+          "time": "20151125"
+        }
+        ...
+    ]
+    
+## 每日圈子评论数
+
+url: /svc/dakatongji/communities/communitiesCommentsCount
+
+response:
+    
+    [
+        {
+          "count": 1,
+          "time": "20151125"
+        }
+        ...
+    ]
+    
+## 每日圈子浏览数
+
+url: /svc/dakatongji/communities/communitiesReadCount
+
+response:
+    
+    [
+        {
+          "count": 1,
+          "time": "20151125"
+        }
+        ...
+    ]
+    
 ## 获取所有圈子列表
 
 url: /svc/dakatongji/communities/getAllcommunities
@@ -124,6 +166,25 @@ response:
 ## 单个圈子评论数
 
 url: /svc/dakatongji/communities/communitiesCommentsSingleCount
+
+query: 
+
+    id=xxxx
+    num=20
+
+response:
+
+    [
+        {
+          "count": 1,
+          "time": "20151125"
+        }
+        ...
+    ]
+    
+## 单个圈子评论数
+
+url: /svc/dakatongji/communities/communitiesReadSingleCount
 
 query: 
 

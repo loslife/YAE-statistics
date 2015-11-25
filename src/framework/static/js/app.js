@@ -408,6 +408,18 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //每日圈子浏览数
+                    .state('app.communitiesReadCount', {
+                        url: '/communitiesReadCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesReadCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesReadCount.js']);
+                                }]
+                        }
+                    })
+
                     //单个圈子发帖数
                     .state('app.communitiesPostsSingleCount', {
                         url: '/communitiesPostsSingleCount',
@@ -428,6 +440,18 @@ var app = angular.module('app', [
                             deps: ['uiLoad',
                                 function (uiLoad) {
                                     return uiLoad.load(['/statistics-nailstar/js/communities/communitiesCommentsSingleCount.js']);
+                                }]
+                        }
+                    })
+
+                    //单个圈子浏览数
+                    .state('app.communitiesReadSingleCount', {
+                        url: '/communitiesReadSingleCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesReadSingleCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesReadSingleCount.js']);
                                 }]
                         }
                     })
