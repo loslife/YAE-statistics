@@ -372,7 +372,7 @@ var app = angular.module('app', [
                         }
                     })
 
-                    //圈子活跃度排名
+                    //官方圈活跃度排名
                     .state('app.communitiesTeacherRanking', {
                         url: '/communitiesTeacherRanking',
                         templateUrl: '/statistics-nailstar/html/communities/communitiesTeacherRanking.html',
@@ -380,6 +380,54 @@ var app = angular.module('app', [
                             deps: ['uiLoad',
                                 function (uiLoad) {
                                     return uiLoad.load(['/statistics-nailstar/js/communities/communitiesTeacherRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //每日圈子发帖数
+                    .state('app.communitiesPostsCount', {
+                        url: '/communitiesPostsCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesPostsCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesPostsCount.js']);
+                                }]
+                        }
+                    })
+
+                    //每日圈子评论数
+                    .state('app.communitiesCommentsCount', {
+                        url: '/communitiesCommentsCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesCommentsCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesCommentsCount.js']);
+                                }]
+                        }
+                    })
+
+                    //单个圈子发帖数
+                    .state('app.communitiesPostsSingleCount', {
+                        url: '/communitiesPostsSingleCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesPostsSingleCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesPostsSingleCount.js']);
+                                }]
+                        }
+                    })
+
+                    //单个圈子评论数
+                    .state('app.communitiesCommentsSingleCount', {
+                        url: '/communitiesCommentsSingleCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesCommentsSingleCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesCommentsSingleCount.js']);
                                 }]
                         }
                     })
