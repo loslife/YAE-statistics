@@ -12,6 +12,7 @@ exports.getAllcommunities = getAllcommunities;
 exports.communitiesPostsSingleCount = communitiesPostsSingleCount;
 exports.communitiesCommentsSingleCount = communitiesCommentsSingleCount;
 exports.communitiesReadSingleCount = communitiesReadSingleCount;
+exports.communitiesPostShareCount = communitiesPostShareCount;
 
 // 点赞数
 // 阅读量
@@ -379,6 +380,29 @@ function communitiesReadSingleCount(req, res, next){
     var sql = "select count(a.id) 'count',from_unixtime(a.action_date/1000, '%Y%m%d') 'time' " +
         "from post_actions a join posts b on a.post_id = b.id " +
         "where a.action_type = 1 and b.community_id = :id and from_unixtime(a.action_date/1000, '%Y%m%d') " +
+        "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
+        "group by time order by time desc ";
+
+    dbHelper.execSql(sql, {id: id}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//帖子转发数
+function communitiesPostShareCount(req, res, next){
+
+    var id = req.query["id"];
+    if(!id){
+        return next("缺失参数id");
+    }
+    var num = (parseInt(req.query["num"]) || 10) - 1;
+
+    var sql = "select count(a.id) 'count',from_unixtime(a.action_date/1000, '%Y%m%d') 'time' " +
+        "from post_actions a join posts b on a.post_id = b.id " +
+        "where a.action_type = 3 and b.community_id = :id and from_unixtime(a.action_date/1000, '%Y%m%d') " +
         "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
         "group by time order by time desc ";
 

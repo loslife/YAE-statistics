@@ -421,6 +421,14 @@
             "comment": "单个圈子浏览数"
         },
         {
+            "name": "communities",
+            "path": "/dakatongji/communities/communitiesPostShareCount",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "communities.communitiesPostShareCount",
+            "comment": "帖子转发数"
+        },
+        {
             "name": "posters",
             "path": "/dakatongji/posters",
             "method": "get",

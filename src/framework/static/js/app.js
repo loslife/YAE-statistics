@@ -456,6 +456,18 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //帖子转发数
+                    .state('app.communitiesPostShareCount', {
+                        url: '/communitiesPostShareCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesPostShareCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesPostShareCount.js']);
+                                }]
+                        }
+                    })
+
                     //视频系列评论统计
                     .state('app.videoCommentsCates', {
                         url: '/videoCommentsCates',

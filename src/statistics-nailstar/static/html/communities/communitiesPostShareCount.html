@@ -1,0 +1,117 @@
+<div class="hbox hbox-auto-xs bg-light col-md-8 " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="communitiesPostShareCount">
+
+    <div style="margin-left: 35px; margin-top: 20px;">
+        <div style="margin-top: 2px">
+            <span>选择圈子：</span>
+            <ui-select ng-model="community.selected" theme="select2" ng-disabled="disabled" on-select="changeCommunity($item, $modal)" style="min-width: 300px;">
+                <ui-select-match placeholder="请选择一个圈子">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="community in communities | propsFilter: {id: $select.search, name: $select.search}">
+                    <div ng-bind-html="community.name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <label style="margin-left: 28px;">数量：</label><input style="margin-left: 3px; padding-left: 7px; width: 50px" class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="height: 24px; padding: 0 4px;" ng-model="CateParams.num" ng-keydown="CateParams.keyDown()">
+        <button type="button" class="btn btn-default btn-xs" style="height: 26px;margin-top: -3px;margin-left: 3px;" ng-click="CateParams.changeNum()">Go!</button><br/>
+    </div>
+    <div class="col-xs-12">
+        <div e-chart ui-options="{
+            color: ['#23B7E5'],
+            title:{
+                text:'帖子转发数',
+                subtext:'数据来自——美甲大咖',
+                x : 'center',
+            },
+            tooltip: {
+                show: true,
+                trigger: 'axis',
+                enterable: true,
+            },
+            toolbox:{
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: true},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            dataZoom:{
+                show:true,
+                realtime:true,
+                start: 3,
+                end: 97,
+                handleColor:'#008acd',
+                dataBackgroundColor:'#efefff',
+            },
+            legend: {
+                data:['转发数'],
+                x : 'left',
+            },
+            grid: {
+                y: 80,
+                y2: 100,
+            },
+            xAxis : [
+                {
+                    name : '日期',
+                    type : 'category',
+                    data : {{result_x}},
+                    nameTextStyle : {fontSize:15},
+                    axisLabel:{
+                        show: true,
+                        rotate: 35,
+                    }
+                },
+            ],
+            yAxis : [
+                {
+                    name : '转发数',
+                    type : 'value',
+                    nameTextStyle : {fontSize:15},
+                }
+            ],
+            series : [
+                {
+                    name:'转发数',
+                    smooth: true,
+                    type:'line',
+                    data:{{result_y}},
+                    itemStyle:{
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                color: '#23B7E5',
+                                shadowColor : 'rgba(0,0,0,0.5)',
+                                shadowBlur: 10,
+                                shadowOffsetX: 8,
+                                shadowOffsetY: 8,
+                            },
+                            barBorderRadius: 4,
+                            label: {show: true},
+                        },
+                        emphasis:{
+                            label: {show: true},
+                        },
+                    },
+                    markPoint:{
+                        data:[
+                            {type:'max',name:'最大值'},
+                            {type:'min',name:'最小值'},
+                        ],
+                    },
+                    markLine:{
+                        data:[
+                            {type:'average',name:'平均值'}
+                        ],
+                    },
+                },
+            ]
+    }" style="height: 500px;" class="col-xs-12"></div>
+    </div>
+</div>
