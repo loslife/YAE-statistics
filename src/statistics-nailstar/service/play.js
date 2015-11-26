@@ -5,6 +5,7 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 exports.getplayAll = getplayAll;
 exports.getplayByCate = getplayByCate;
 exports.getplayByTopic = getplayByTopic;
+exports.getVideoShare = getVideoShare;
 
 //美甲大咖总播放数
 function getplayAll(req, res, next){
@@ -469,4 +470,21 @@ function getplayByTopic(req, res, next){
                 return [sql_total_by_day, sql_order_by_day, sql_app_order_by_day, sql_wechat_order_by_day];
         }
     }
+}
+
+//视频转发数
+function getVideoShare(req, res, next){
+
+    var sql = "select count(a.id) 'value',b.title 'title' " +
+        "from topic_actions a join topics b on a.topic_id = b.id " +
+        "where a.action_type = 4 " +
+        "group by a.topic_id " +
+        "order by value desc";
+
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
 }

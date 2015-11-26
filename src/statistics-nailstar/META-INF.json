@@ -61,6 +61,14 @@
             "comment": "美甲大咖分期播放数"
         },
         {
+            "name": "play",
+            "path": "/dakatongji/getVideoShare",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "play.getVideoShare",
+            "comment": "视频转发数"
+        },
+        {
             "name": "getCategories",
             "path": "/dakatongji/getCategories",
             "method": "get",
