@@ -362,7 +362,7 @@ function registerDetailsCount(req, res, next){
     var sql = "select count(id) 'count',from_unixtime(create_date/1000, '%Y%m%d') 'time' from accounts " +
         "where from_unixtime(create_date/1000, '%Y%m%d') " +
         "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
-        "group by time ";
+        "group by time order by time desc";
 
     dbHelper.execSql(sql, {}, function(err, result){
         if(err){
