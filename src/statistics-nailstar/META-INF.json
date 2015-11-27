@@ -437,6 +437,14 @@
             "comment": "帖子转发数"
         },
         {
+            "name": "communities",
+            "path": "/dakatongji/communities/communitiesEntryRanking",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "communities.communitiesEntryRanking",
+            "comment": "圈子点击数排行榜"
+        },
+        {
             "name": "posters",
             "path": "/dakatongji/posters",
             "method": "get",
@@ -451,6 +459,22 @@
             "auth": "nailstar-cms",
             "impl": "posters.postersCount",
             "comment": "轮播图数据总数"
+        },
+        {
+            "name": "commodity",
+            "path": "/dakatongji/commodity/commodityTopicCount",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "commodity.commodityTopicCount",
+            "comment": "视频中商品点击数"
+        },
+        {
+            "name": "commodity",
+            "path": "/dakatongji/commodity/commodityShopCount",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "commodity.commodityShopCount",
+            "comment": "商城中商品点击数"
         }
     ],
     "ejsviews": [

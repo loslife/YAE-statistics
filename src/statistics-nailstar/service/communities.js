@@ -13,6 +13,7 @@ exports.communitiesPostsSingleCount = communitiesPostsSingleCount;
 exports.communitiesCommentsSingleCount = communitiesCommentsSingleCount;
 exports.communitiesReadSingleCount = communitiesReadSingleCount;
 exports.communitiesPostShareCount = communitiesPostShareCount;
+exports.communitiesEntryRanking = communitiesEntryRanking;
 
 // 点赞数
 // 阅读量
@@ -407,6 +408,23 @@ function communitiesPostShareCount(req, res, next){
         "group by time order by time desc ";
 
     dbHelper.execSql(sql, {id: id}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//圈子点击数排行榜
+function communitiesEntryRanking(req, res, next){
+
+    var sql = "select b.name 'title',count(a.id) 'value' " +
+        "from community_actions a join communities b on a.community_id = b.id " +
+        "where a.action_type = 1 " +
+        "group by a.community_id " +
+        "order by value desc";
+
+    dbHelper.execSql(sql, {}, function(err, result){
         if(err){
             return next(err);
         }

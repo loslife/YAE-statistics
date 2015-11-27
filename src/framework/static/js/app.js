@@ -468,6 +468,18 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //帖子转发数
+                    .state('app.communitiesEntryRanking', {
+                        url: '/communitiesEntryRanking',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesEntryRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesEntryRanking.js']);
+                                }]
+                        }
+                    })
+
                     //视频系列评论统计
                     .state('app.videoCommentsCates', {
                         url: '/videoCommentsCates',
@@ -579,10 +591,44 @@ var app = angular.module('app', [
                                 }]
                         }
                     })
+
+                    //视频中商品点击数
+                    .state('app.commodityTopicCount', {
+                        url: '/commodityTopicCount',
+                        templateUrl: '/statistics-nailstar/html/commodity/commodityTopicCount.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/commodity/commodityTopicCount.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
+                    //商城中商品点击数
+                    .state('app.commodityShopCount', {
+                        url: '/commodityShopCount',
+                        templateUrl: '/statistics-nailstar/html/commodity/commodityShopCount.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/commodity/commodityShopCount.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
                     .state('login', {
                         url: '/login',
                         template: '<div ui-view class="fade-in-right-big smooth"></div>'
                     })
+
                     .state('login.signin', {
                         url: '/signin',
                         templateUrl: '/statistics-nailstar/html/signin.html',
