@@ -504,6 +504,18 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //视频转发统计
+                    .state('app.videoCateRanking', {
+                        url: '/videoCateRanking',
+                        templateUrl: '/statistics-nailstar/html/video/videoCateRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoCateRanking.js']);
+                                }]
+                        }
+                    })
+
                     //视频总评论统计
                     .state('app.videoCommentsTotal', {
                         url: '/videoCommentsTotal',

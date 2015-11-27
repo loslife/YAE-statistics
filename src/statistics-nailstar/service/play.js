@@ -6,6 +6,7 @@ exports.getplayAll = getplayAll;
 exports.getplayByCate = getplayByCate;
 exports.getplayByTopic = getplayByTopic;
 exports.getVideoShare = getVideoShare;
+exports.getCateRanking = getCateRanking;
 
 //美甲大咖总播放数
 function getplayAll(req, res, next){
@@ -480,6 +481,19 @@ function getVideoShare(req, res, next){
         "where a.action_type = 4 " +
         "group by a.topic_id " +
         "order by value desc";
+
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//板块点击数排行榜
+function getCateRanking(req, res, next){
+
+    var sql = "select name 'title',click_count 'value' from topic_categories order by click_count desc";
 
     dbHelper.execSql(sql, {}, function(err, result){
         if(err){

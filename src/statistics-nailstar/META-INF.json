@@ -69,6 +69,14 @@
             "comment": "视频转发数"
         },
         {
+            "name": "play",
+            "path": "/dakatongji/getCateRanking",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "play.getCateRanking",
+            "comment": "板块点击数排行榜"
+        },
+        {
             "name": "getCategories",
             "path": "/dakatongji/getCategories",
             "method": "get",
