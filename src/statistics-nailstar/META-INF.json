@@ -445,6 +445,14 @@
             "comment": "圈子点击数排行榜"
         },
         {
+            "name": "communities",
+            "path": "/dakatongji/communities/communitiesStayTime",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "communities.communitiesStayTime",
+            "comment": "圈子平均停留时长"
+        },
+        {
             "name": "posters",
             "path": "/dakatongji/posters",
             "method": "get",

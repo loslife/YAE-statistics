@@ -512,6 +512,18 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //圈子平均停留时长
+                    .state('app.communitiesStayTime', {
+                        url: '/communitiesStayTime',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesStayTime.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesStayTime.js']);
+                                }]
+                        }
+                    })
+
                     //视频系列评论统计
                     .state('app.videoCommentsCates', {
                         url: '/videoCommentsCates',
