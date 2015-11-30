@@ -1,0 +1,22 @@
+<div class="hbox hbox-auto-xs bg-light col-md-8 " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="showPicAndTxtCtrl">
+
+    <div style="margin-left: 35px; margin-top: 20px;">
+    	<div class="btn btn-info" style="margin-left: 20px" ng-click="goBack()">返回上级</div>
+		<div class="wrapper-md ng-scope">
+            <div class="row">
+                <div class="col-lg-3" ng-repeat="img in data.pictures">
+                    <div class="panel panel-default">
+                        <div class="panel-body"><img class="img-full" src="{{img.url}}" alt=""></div>
+                        <div class="panel-body">{{data.articles[$index]}}</div>
+                        <p class="text-center"><label class="label bg-danger m-l-xs">{{$index +1}}</label></p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

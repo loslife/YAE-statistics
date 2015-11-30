@@ -507,6 +507,14 @@
             "auth": "nailstar-cms",
             "impl": "index.indexStayTime",
             "comment": "首页平均停留时长"
+        },
+        {
+            "name": "getPicAndTxt",
+            "path": "/dakatongji/topic/:topicId",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "common.getPicAndTxt",
+            "comment": "获取主题图文"
         }
     ],
     "ejsviews": [
