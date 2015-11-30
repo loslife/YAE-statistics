@@ -700,6 +700,22 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //搜索美甲帮数据
+                    .state('app.meijia', {
+                        url: '/meijia',
+                        templateUrl: '/statistics-nailstar/html/meijia/meijia.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/meijia/meijia.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
                     .state('login', {
                         url: '/login',
                         template: '<div ui-view class="fade-in-right-big smooth"></div>'
