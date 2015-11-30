@@ -684,6 +684,22 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //获取主题中的图文
+                    .state('app.showPicAndTx', {
+                        url: '/showPicAndTx/:topicId',
+                        templateUrl: '/statistics-nailstar/html/video/showPicAndTxt.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/video/showPicAndTxt.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
                     .state('login', {
                         url: '/login',
                         template: '<div ui-view class="fade-in-right-big smooth"></div>'

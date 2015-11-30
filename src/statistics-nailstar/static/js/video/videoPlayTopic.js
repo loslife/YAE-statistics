@@ -1,4 +1,4 @@
-app.controller('videoplaytopic', ['$rootScope', '$scope', '$http', 'utilsService', function ($rootScope, $scope, $http, utilsService) {
+app.controller('videoplaytopic', ['$rootScope', '$scope', '$http', 'utilsService','$location','$state', function ($rootScope, $scope, $http,utilsService,$location, $state) {
 
     (function init(){
         initCates();
@@ -104,5 +104,11 @@ app.controller('videoplaytopic', ['$rootScope', '$scope', '$http', 'utilsService
             $scope.params.topicId = item.id;
         };
 
+        //查看图文
+        $scope.showPicAndTxt = function() {
+            $state.go('app.showPicAndTx', {
+                topicId: $scope.params.topicId
+            });
+        };
     }
 }]);
