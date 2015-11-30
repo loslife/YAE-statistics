@@ -46,9 +46,10 @@ function getPostsWithKey (req,res,next) {
 
 //根据日期获取类别
 function getPostsWithDate(req,res,next) {
-	var page    = req.query.page;
-	var perPage = req.query.perPage;
-	var date    = req.query.date;
+	var page       = req.query.page;
+	var perPage    = req.query.perPage;
+	var start_date = req.query.start_date;
+	var end_date   = req.query.end_date;
 	
 	var startIndex 	= (page-1)*perPage;
 	var result 		= {
