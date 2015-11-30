@@ -878,7 +878,7 @@ body {
   }
 }
 html {
-  background: url('../img/bg.jpg');
+  /*background: url('../img/bg.jpg');*/
   background-attachment: fixed;
   background-size: cover;
 }
@@ -4850,4 +4850,13 @@ a.text-#000000:hover {
 /***********修改 SB Admin 2 模板默认的样式 end**************/
 .pt-12px {
   padding-top: 12px !important;
+}
+
+.ngViewport.ng-scope{
+  height: auto !important;
+  overflow-y: hidden;
+}
+
+.ngTopPanel.ng-scope, .ngHeaderContainer{
+  width: auto !important;
 }

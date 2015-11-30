@@ -2,7 +2,7 @@
 <html lang="zh-cn" data-ng-app="app">
 <head lang="zh-cn" >
     <meta charset="utf-8" />
-    <title>乐斯客户管理系统</title>
+    <title>美甲大咖数据统计系统</title>
     <meta name="description" content="app, web app, responsive, responsive layout, admin, admin panel, admin dashboard, flat, flat ui, ui kit, AngularJS, ui route, charts, widgets, components" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" />
     <link rel="stylesheet" href="css/font.css" type="text/css" />
     <link rel="stylesheet" href="css/app.css" type="text/css" />
+    <link rel="stylesheet" href="css/select.css" type="text/css" />
+    <link rel="stylesheet" href="css/select2.css" type="text/css" />
+    <link rel="stylesheet" href="css/angucomplete-alt.css" type="text/css" />
 </head>
 <body ng-controller="AppCtrl">
 <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view></div>
@@ -27,6 +30,7 @@
 <script src="js/libs/angular/angular-animate.js"></script>
 <script src="js/libs/angular/angular-resource.js"></script>
 <script src="js/libs/angular/angular-ui-router.js"></script>
+<script src="js/libs/echarts-all.js"></script>
 <script src="js/libs/angular/ngStorage.js"></script>
 <script src="js/libs/angular/ocLazyLoad.js"></script>
 <script src="js/libs/angular/ui-bootstrap-tpls.js"></script>
@@ -34,18 +38,33 @@
 <script src="js/libs/async.min.js"></script>
 <script src="js/libs/underscore.js"></script>
 <script src="js/utils.js"></script>
+<script src="js/yilos/yilos_extend.js"></script>
 <script src="js/angular/angular-translate.js"></script>
 <script src="js/angular/ui-jq.js"></script>
+<script src="js/angular/ui-echarts.js"></script>
+<script src="js/angular/angular-sanitize.min.js"></script>
+<script src="js/angular/select.js"></script>
 <script src="js/angular/ui-load.js"></script>
 <script src="js/angular/ui-validate.js"></script>
+<script src="js/angular/angucomplete-alt.min.js"></script>
 <script src="http://cdn.bootcss.com/angular-i18n/1.2.15/angular-locale_zh-cn.js"></script>
+<script src="../statistics-nailstar/js/utils.js"></script>
 <!-- App -->
 <script src="js/app.js"></script>
 <script src="js/services.js"></script>
 <script src="js/controllers.js"></script>
 <script src="js/filters.js"></script>
 <script src="js/directives.js"></script>
+<!-- baidu -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?f153ebf71b94ebd2ee69fb3e0968df23";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 <!-- Lazy loading -->
-
 </body>
 </html>

@@ -1,35 +1,425 @@
 <ul class="nav">
+    <li>
+        <a href class="auto">
+          <span class="pull-right text-muted">
+              <i class="fa fa-fw fa-angle-right text"></i>
+              <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>
+            <i class="glyphicon glyphicon-stats icon-users text-primary-dker"></i>
+            <span class="font-bold">用户指标</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.users">
+                    <span>用户统计详情</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.registerDetails">
+                    <span>注册用户统计</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.userDetails">
+                    <span>用户资料查询</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
 
+<ul class="nav">
+    <li>
+        <a href class="auto">
+          <span class="pull-right text-muted">
+              <i class="fa fa-fw fa-angle-right text"></i>
+              <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>
+            <i class="glyphicon  icon-picture fa fa-group text-primary-dker"></i>
+            <span class="font-bold">轮播图</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.posterdetails">
+                    <span>轮播图数据统计</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<ul class="nav">
   <li>
       <a href class="auto">
-      <span class="pull-right text-muted">
-        <i class="fa fa-fw fa-angle-right text"></i>
-        <i class="fa fa-fw fa-angle-down text-active"></i>
-      </span>
-          <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
-          <span class="font-bold" translate="aside.nav.daka">美甲大咖</span>
+          <span class="pull-right text-muted">
+              <i class="fa fa-fw fa-angle-right text"></i>
+              <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>
+          <i class="glyphicon glyphicon-stats icon-camcorder text-primary-dker"></i>
+          <span class="font-bold">视频详情</span>
       </a>
       <ul class="nav nav-sub dk">
           <li ui-sref-active="active">
-              <a ui-sref="app.dakacomments">
-                  <span>视频评论</span>
+              <a ui-sref="app.videoPlayTotal">
+                  <span>总播放统计</span>
               </a>
           </li>
       </ul>
       <ul class="nav nav-sub dk">
           <li ui-sref-active="active">
-              <a ui-sref="app.dakaplay">
-                  <span>视频播放</span>
+              <a ui-sref="app.videoPlayCates">
+                  <span>系列播放统计</span>
               </a>
           </li>
       </ul>
       <ul class="nav nav-sub dk">
           <li ui-sref-active="active">
-              <a ui-sref="app.dakausers">
-                  <span>用户统计</span>
+              <a ui-sref="app.videoPlayTopic">
+                  <span>主题播放统计</span>
+              </a>
+          </li>
+      </ul>
+      <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+              <a ui-sref="app.videoCommentsTotal">
+                  <span>总评论统计</span>
+              </a>
+          </li>
+      </ul>
+      <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+              <a ui-sref="app.videoCommentsCates">
+                  <span>系列评论统计</span>
+              </a>
+          </li>
+      </ul>
+      <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+              <a ui-sref="app.videoCommentsTopic">
+                  <span>主题评论统计</span>
+              </a>
+          </li>
+      </ul>
+      <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+              <a ui-sref="app.usertopiccommentsranking">
+                  <span>评论排行榜</span>
+              </a>
+          </li>
+      </ul>
+      <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+              <a ui-sref="app.userhomeworkranking">
+                  <span>交作业排行榜</span>
+              </a>
+          </li>
+      </ul>
+      <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+              <a ui-sref="app.videoShareCount">
+                  <span>视频转发统计</span>
+              </a>
+          </li>
+      </ul>
+      <ul class="nav nav-sub dk">
+          <li ui-sref-active="active">
+              <a ui-sref="app.videoCateRanking">
+                  <span>板块点击数</span>
               </a>
           </li>
       </ul>
   </li>
+</ul>
 
+<ul class="nav">
+    <li>
+        <a href class="auto">
+            <span class="pull-right text-muted">
+              <i class="fa fa-fw fa-angle-right text"></i>
+              <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="icon-notebook glyphicon glyphicon-stats text-primary-dker"></i>
+            <span class="font-bold">求教程</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.qjcPhoto">
+                    <span>图片上传统计</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.qjcVote">
+                    <span>图片投票统计</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.qjcVideoPlay">
+                    <span>视频播放统计</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.qjcVideoComments">
+                    <span>视频评论统计</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<ul class="nav">
+    <li>
+        <a href class="auto">
+            <span class="pull-right text-muted">
+              <i class="fa fa-fw fa-angle-right text"></i>
+              <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="icon-user glyphicon glyphicon-stats text-primary-dker"></i>
+            <span class="font-bold">我的</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.meAction">
+                    <span>我的行为统计</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.meFansRanking">
+                    <span>粉丝数排行榜</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.meFollowsRanking">
+                    <span>关注数排行榜</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.meLikeRanking">
+                    <span>点赞排行榜</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.meCommentsRanking">
+                    <span>评论排行榜</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.meFollowsCount">
+                    <span>每日关注统计</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.meLikeCount">
+                    <span>每日点赞统计</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.meCommentsCount">
+                    <span>每日评论统计</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<ul class="nav">
+    <li>
+        <a href class="auto">
+          <span class="pull-right text-muted">
+              <i class="fa fa-fw fa-angle-right text"></i>
+              <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>
+            <i class="glyphicon glyphicon-stats fa fa-list-ul text-primary-dker"></i>
+            <span class="font-bold">会员体系</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.memberExpAndCoin">
+                    <span>会员体系详情</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.memberExpAnalyse">
+                    <span>经验获取途径排行</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.memberExpRanking">
+                    <span>经验值排行榜</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.memberExpCount">
+                    <span>每日经验统计</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.memberCoinRanking">
+                    <span>咖币排行榜</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.memberCoinCount">
+                    <span>每日咖币统计</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<ul class="nav">
+    <li>
+        <a href class="auto">
+          <span class="pull-right text-muted">
+              <i class="fa fa-fw fa-angle-right text"></i>
+              <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>
+            <i class="glyphicon glyphicon-stats fa fa-group text-primary-dker"></i>
+            <span class="font-bold">圈子</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.communitiesStaticits">
+                    <span>圈子数据详情</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.communitiesRanking">
+                    <span>圈子活跃度排名</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.communitiesTeacherRanking">
+                    <span>官方圈活跃度排名</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.communitiesPostsCount">
+                    <span>每日圈子发帖数</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.communitiesCommentsCount">
+                    <span>每日圈子评论数</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.communitiesReadCount">
+                    <span>每日圈子浏览数</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.communitiesPostsSingleCount">
+                    <span>单个圈子发帖数</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.communitiesCommentsSingleCount">
+                    <span>单个圈子评论数</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.communitiesReadSingleCount">
+                    <span>单个圈子浏览数</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.userpostcommentsranking">
+                    <span>帖子评论排行榜</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.communitiesPostShareCount">
+                    <span>帖子转发数</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.communitiesEntryRanking">
+                    <span>圈子点击数排行榜</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<ul class="nav">
+    <li>
+        <a href class="auto">
+          <span class="pull-right text-muted">
+              <i class="fa fa-fw fa-angle-right text"></i>
+              <i class="fa fa-fw fa-angle-down text-active"></i>
+          </span>
+            <i class="glyphicon  icon-picture fa fa-group text-primary-dker"></i>
+            <span class="font-bold">商城</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.commodityTopicCount">
+                    <span>视频中商品点击数</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-sub dk">
+            <li ui-sref-active="active">
+                <a ui-sref="app.commodityShopCount">
+                    <span>商城中商品点击数</span>
+                </a>
+            </li>
+        </ul>
+    </li>
 </ul>

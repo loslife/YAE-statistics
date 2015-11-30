@@ -17,7 +17,13 @@ var app = angular.module('app', [
         'app.filters',
         'app.services',
         'app.directives',
-        'app.controllers'
+        'app.controllers',
+        'app.utilsService',
+        'ui.echarts',
+        'ngSanitize',
+        'ui.select',
+        'angucomplete-alt'
+
     ])
         .run(
         [          '$rootScope', '$state', '$stateParams',
@@ -42,40 +48,594 @@ var app = angular.module('app', [
                 app.value      = $provide.value;
 
                 $urlRouterProvider
-                    .otherwise('/app/dakacomments');
+                    .otherwise('/login/signin');
                 $stateProvider
                     .state('app', {
                         abstract: true,
                         url: '/app',
                         templateUrl: 'tpl/app.html'
                     })
-                    .state('app.dakacomments', {
-                        url: '/dakacomments',
-                        templateUrl: '/statistics-nailstar/comments.html',
+
+                    //用户详情统计
+                    .state('app.users', {
+                        url: '/users',
+                        templateUrl: '/statistics-nailstar/html/users/users.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/comments.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/users/users.js']);
                                 }]
                         }
                     })
-                    .state('app.dakaplay', {
-                        url: '/dakaplay',
-                        templateUrl: '/statistics-nailstar/play.html',
+
+                    //注册用户详情
+                    .state('app.registerDetails', {
+                        url: '/registerDetails',
+                        templateUrl: '/statistics-nailstar/html/users/registerDetails.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/play.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/users/registerDetails.js']);
                                 }]
                         }
                     })
-                    .state('app.dakausers', {
-                        url: '/dakausers',
-                        templateUrl: '/statistics-nailstar/users.html',
+
+                    //用户资料查询
+                    .state('app.userDetails', {
+                        url: '/userDetails?nickname&username&id',
+                        templateUrl: '/statistics-nailstar/html/users/userDetails.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/users/userDetails.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
+                    //用户帖子评论排行榜
+                    .state('app.userpostcommentsranking', {
+                        url: '/userpostcommentsranking',
+                        templateUrl: '/statistics-nailstar/html/users/userPostCommentRanking.html',
                         resolve: {
                             deps: ['uiLoad',
                                 function (uiLoad) {
-                                    return uiLoad.load(['/statistics-nailstar/js/users.js']);
+                                    return uiLoad.load(['/statistics-nailstar/js/users/userPostCommentRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //用户视频评论排行榜
+                    .state('app.usertopiccommentsranking', {
+                        url: '/usertopiccommentsranking',
+                        templateUrl: '/statistics-nailstar/html/users/userTopicCommentRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/users/userTopicCommentRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //用户交作业排行榜
+                    .state('app.userhomeworkranking', {
+                        url: '/userhomeworkranking',
+                        templateUrl: '/statistics-nailstar/html/users/userHomeworkRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/users/userHomeworkRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //求教程投票
+                    .state('app.qjcVote', {
+                        url: '/qjcVote',
+                        templateUrl: '/statistics-nailstar/html/qjc/qjcVote.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/qjc/qjcVote.js']);
+                                }]
+                        }
+                    })
+
+                    //求教程传图
+                    .state('app.qjcPhoto', {
+                        url: '/qjcPhoto',
+                        templateUrl: '/statistics-nailstar/html/qjc/qjcPhoto.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/qjc/qjcPhoto.js']);
+                                }]
+                        }
+                    })
+
+                    //求教程视频评论
+                    .state('app.qjcVideoComments', {
+                        url: '/qjcVideoComments',
+                        templateUrl: '/statistics-nailstar/html/qjc/qjcVideoComments.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/qjc/qjcVideoComments.js']);
+                                }]
+                        }
+                    })
+
+                    //求教程视频播放
+                    .state('app.qjcVideoPlay', {
+                        url: '/qjcVideoPlay',
+                        templateUrl: '/statistics-nailstar/html/qjc/qjcVideoPlay.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/qjc/qjcVideoPlay.js']);
+                                }]
+                        }
+                    })
+
+                    //我的行为统计
+                    .state('app.meAction', {
+                        url: '/meAction',
+                        templateUrl: '/statistics-nailstar/html/me/meAction.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meAction.js']);
+                                }]
+                        }
+                    })
+
+                    //我的粉丝排行
+                    .state('app.meFansRanking', {
+                        url: '/meFansRanking',
+                        templateUrl: '/statistics-nailstar/html/me/meFansRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meFansRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //我的关注排行
+                    .state('app.meFollowsRanking', {
+                        url: '/meFollowsRanking',
+                        templateUrl: '/statistics-nailstar/html/me/meFollowsRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meFollowsRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //我的关注统计
+                    .state('app.meFollowsCount', {
+                        url: '/meFollowsCount',
+                        templateUrl: '/statistics-nailstar/html/me/meFollowsCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meFollowsCount.js']);
+                                }]
+                        }
+                    })
+
+                    //我的点赞排行榜
+                    .state('app.meLikeRanking', {
+                        url: '/meLikeRanking',
+                        templateUrl: '/statistics-nailstar/html/me/meLikeRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meLikeRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //我的评论排行榜
+                    .state('app.meCommentsRanking', {
+                        url: '/meCommentsRanking',
+                        templateUrl: '/statistics-nailstar/html/me/meCommentsRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meCommentsRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //我的分时点赞统计
+                    .state('app.meLikeCount', {
+                        url: '/meLikeCount',
+                        templateUrl: '/statistics-nailstar/html/me/meLikeCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meLikeCount.js']);
+                                }]
+                        }
+                    })
+
+                    //我的分时评论统计
+                    .state('app.meCommentsCount', {
+                        url: '/meCommentsCount',
+                        templateUrl: '/statistics-nailstar/html/me/meCommentsCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/me/meCommentsCount.js']);
+                                }]
+                        }
+                    })
+
+                    //会员经验值排行榜
+                    .state('app.memberExpRanking', {
+                        url: '/memberExpRanking',
+                        templateUrl: '/statistics-nailstar/html/member/memberExpRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberExpRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //会员咖币排行榜
+                    .state('app.memberCoinRanking', {
+                        url: '/memberCoinRanking',
+                        templateUrl: '/statistics-nailstar/html/member/memberCoinRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberCoinRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //会员经验总数和平均数
+                    .state('app.memberExpCount', {
+                        url: '/memberExpCount',
+                        templateUrl: '/statistics-nailstar/html/member/memberExpCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberExpCount.js']);
+                                }]
+                        }
+                    })
+
+                    //会员咖币总数和平均数
+                    .state('app.memberCoinCount', {
+                        url: '/memberCoinCount',
+                        templateUrl: '/statistics-nailstar/html/member/memberCoinCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberCoinCount.js']);
+                                }]
+                        }
+                    })
+
+                    //会员经验咖币总数和平均数
+                    .state('app.memberExpAndCoin', {
+                        url: '/memberExpAndCoin',
+                        templateUrl: '/statistics-nailstar/html/member/memberExpAndCoin.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberExpAndCoin.js']);
+                                }]
+                        }
+                    })
+
+                    //会员经验指标获取排行榜
+                    .state('app.memberExpAnalyse', {
+                        url: '/memberExpAnalyse',
+                        templateUrl: '/statistics-nailstar/html/member/memberExpAnalyse.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/member/memberExpAnalyse.js']);
+                                }]
+                        }
+                    })
+
+                    //圈子数据统计
+                    .state('app.communitiesStaticits', {
+                        url: '/communitiesStaticits',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesStaticits.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesStaticits.js']);
+                                }]
+                        }
+                    })
+
+                    //圈子活跃度排名
+                    .state('app.communitiesRanking', {
+                        url: '/communitiesRanking',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //官方圈活跃度排名
+                    .state('app.communitiesTeacherRanking', {
+                        url: '/communitiesTeacherRanking',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesTeacherRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesTeacherRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //每日圈子发帖数
+                    .state('app.communitiesPostsCount', {
+                        url: '/communitiesPostsCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesPostsCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesPostsCount.js']);
+                                }]
+                        }
+                    })
+
+                    //每日圈子评论数
+                    .state('app.communitiesCommentsCount', {
+                        url: '/communitiesCommentsCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesCommentsCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesCommentsCount.js']);
+                                }]
+                        }
+                    })
+
+                    //每日圈子浏览数
+                    .state('app.communitiesReadCount', {
+                        url: '/communitiesReadCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesReadCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesReadCount.js']);
+                                }]
+                        }
+                    })
+
+                    //单个圈子发帖数
+                    .state('app.communitiesPostsSingleCount', {
+                        url: '/communitiesPostsSingleCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesPostsSingleCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesPostsSingleCount.js']);
+                                }]
+                        }
+                    })
+
+                    //单个圈子评论数
+                    .state('app.communitiesCommentsSingleCount', {
+                        url: '/communitiesCommentsSingleCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesCommentsSingleCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesCommentsSingleCount.js']);
+                                }]
+                        }
+                    })
+
+                    //单个圈子浏览数
+                    .state('app.communitiesReadSingleCount', {
+                        url: '/communitiesReadSingleCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesReadSingleCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesReadSingleCount.js']);
+                                }]
+                        }
+                    })
+
+                    //帖子转发数
+                    .state('app.communitiesPostShareCount', {
+                        url: '/communitiesPostShareCount',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesPostShareCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesPostShareCount.js']);
+                                }]
+                        }
+                    })
+
+                    //帖子转发数
+                    .state('app.communitiesEntryRanking', {
+                        url: '/communitiesEntryRanking',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesEntryRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesEntryRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //视频系列评论统计
+                    .state('app.videoCommentsCates', {
+                        url: '/videoCommentsCates',
+                        templateUrl: '/statistics-nailstar/html/video/videoCommentsCates.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoCommentsCates.js']);
+                                }]
+                        }
+                    })
+
+                    //视频分期评论统计
+                    .state('app.videoCommentsTopic', {
+                        url: '/videoCommentsTopic',
+                        templateUrl: '/statistics-nailstar/html/video/videoCommentsTopic.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoCommentsTopic.js']);
+                                }]
+                        }
+                    })
+
+                    //视频转发统计
+                    .state('app.videoShareCount', {
+                        url: '/videoShareCount',
+                        templateUrl: '/statistics-nailstar/html/video/videoShareCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoShareCount.js']);
+                                }]
+                        }
+                    })
+
+                    //视频转发统计
+                    .state('app.videoCateRanking', {
+                        url: '/videoCateRanking',
+                        templateUrl: '/statistics-nailstar/html/video/videoCateRanking.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoCateRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //视频总评论统计
+                    .state('app.videoCommentsTotal', {
+                        url: '/videoCommentsTotal',
+                        templateUrl: '/statistics-nailstar/html/video/videoCommentsTotal.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoCommentsTotal.js']);
+                                }]
+                        }
+                    })
+
+                    //视频分期播放
+                    .state('app.videoPlayTopic', {
+                        url: '/videoPlayTopic',
+                        templateUrl: '/statistics-nailstar/html/video/videoPlayTopic.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoPlayTopic.js']);
+                                }]
+                        }
+                    })
+
+                    //视频系列播放
+                    .state('app.videoPlayCates', {
+                        url: '/videoPlayCates',
+                        templateUrl: '/statistics-nailstar/html/video/videoPlayCates.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoPlayCates.js']);
+                                }]
+                        }
+                    })
+
+                    //视频总播放统计
+                    .state('app.videoPlayTotal', {
+                        url: '/videoPlayTotal',
+                        templateUrl: '/statistics-nailstar/html/video/videoPlayTotal.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/videoPlayTotal.js']);
+                                }]
+                        }
+                    })
+
+                    //轮播图统计
+                    .state('app.posterdetails', {
+                        url: '/posterdetails',
+                        templateUrl: '/statistics-nailstar/html/poster/posterDetails.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/poster/posterDetails.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
+                    //视频中商品点击数
+                    .state('app.commodityTopicCount', {
+                        url: '/commodityTopicCount',
+                        templateUrl: '/statistics-nailstar/html/commodity/commodityTopicCount.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/commodity/commodityTopicCount.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
+                    //商城中商品点击数
+                    .state('app.commodityShopCount', {
+                        url: '/commodityShopCount',
+                        templateUrl: '/statistics-nailstar/html/commodity/commodityShopCount.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/commodity/commodityShopCount.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
+                    .state('login', {
+                        url: '/login',
+                        template: '<div ui-view class="fade-in-right-big smooth"></div>'
+                    })
+
+                    .state('login.signin', {
+                        url: '/signin',
+                        templateUrl: '/statistics-nailstar/html/signin.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/login.js']);
                                 }]
                         }
                     })
@@ -114,6 +674,12 @@ var app = angular.module('app', [
                 'js/jquery/charts/flot/jquery.flot.resize.js',
                 'js/jquery/charts/flot/jquery.flot.tooltip.min.js',
                 'js/jquery/charts/flot/jquery.flot.spline.js',
+                'js/jquery/charts/flot/jquery.flot.time.min.js',
+                'js/jquery/charts/flot/jquery.flot.categories.js',
+                'js/jquery/charts/flot/jquery.flot.navigate.js',
+                'js/jquery/charts/flot/jquery.flot.canvas.js',
+                'js/jquery/charts/flot/jquery.flot.axislabels.js',
+                'js/jquery/charts/flot/jquery.flot.symbol.js',
                 'js/jquery/charts/flot/jquery.flot.orderBars.js',
                 'js/jquery/charts/flot/jquery.flot.pie.min.js'],
             slimScroll:     ['js/jquery/slimscroll/jquery.slimscroll.min.js'],
@@ -183,8 +749,19 @@ var app = angular.module('app', [
             $httpProvider.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
             $httpProvider.interceptors.push('timestampMarker');
         }])
+        .factory('sessionChecker', ["$location", function ($location) {
+            var sessionChecker = {
+                responseError: function (response) {
+                    if (response.status == 401) {
+                        $location.path('/login/signin');
+                        return;
+                    }
+                    return response;
+                }
+            };
+            return sessionChecker;
+        }]);
 
-    ;
 app.factory('timestampMarker', ["$location",function($location) {
     var timestampMarker = {
         responseError: function(response) {

@@ -1,0 +1,192 @@
+<div class="hbox hbox-auto-xs bg-light col-md-8 " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="videoplaytopic">
+
+    <div style="margin-left: 35px; margin-top: 20px;">
+        <div style="margin-top: 2px">
+            <span>选择主题：</span>
+            <ui-select ng-model="topic.selected" theme="select2" ng-disabled="disabled" on-select="changeTopic($item, $modal)" style="min-width: 300px;">
+                <ui-select-match placeholder="请选择一个主题">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="topic in topics | propsFilter: {id: $select.search, name: $select.search}">
+                    <div ng-bind-html="topic.name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div style="margin-top: 2px">
+            <span>选择维度：</span>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" name="optionsRadios" ng-model="params.order" value="0">
+                    日
+                </label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" name="optionsRadios" ng-model="params.order" value="1">
+                    周
+                </label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" name="optionsRadios" ng-model="params.order" value="2">
+                    月
+                </label>
+            </div>
+        </div>
+        <label style="margin-left: 28px;">数量：</label><input style="margin-left: 3px; padding-left: 7px; width: 50px" class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="height: 24px; padding: 0 4px;" ng-model="params.num" ng-keydown="params.keyDown()">
+        <button type="button" class="btn btn-default btn-xs" style="height: 26px;margin-top: -3px;margin-left: 3px;" ng-click="params.changeNum()">Go!</button><br/>
+    </div>
+    <div class="col-xs-12">
+        <div e-chart ui-options="{
+            title:{
+                text:'主题播放统计',
+                subtext:'数据来自——美甲大咖',
+                x : 'center',
+            },
+            tooltip: {
+                show: true,
+                trigger: 'axis',
+                enterable: true,
+            },
+            toolbox:{
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: true},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            dataZoom:{
+                show:true,
+                realtime:true,
+                start: 3,
+                end: 97,
+                handleColor:'#008acd',
+                dataBackgroundColor:'#efefff',
+            },
+            legend: {
+                data:['总播放数', 'app播放数', '微信播放数'],
+                x : 'left',
+            },
+            grid: {
+                y: 80,
+                y2: 100,
+            },
+            xAxis : [
+                {
+                    name : '日期',
+                    type : 'category',
+                    data : {{play_result_x}},
+                    nameTextStyle : {fontSize:15},
+                    axisLabel:{
+                        show: true,
+                        rotate: 35,
+                    }
+                },
+            ],
+            yAxis : [
+                {
+                    name : '播放数',
+                    type : 'value',
+                    nameTextStyle : {fontSize:15},
+                }
+            ],
+            series : [
+                {
+                    name:'总播放数',
+                    smooth: true,
+                    type:'line',
+                    symbol: 'circle',
+                    data:{{play_result_y_details}},
+                    itemStyle:{
+                        normal: {
+                            color: ['#23B7E5'],
+                            lineStyle: {
+                                width: 2,
+                                shadowColor : 'rgba(0,0,0,0.5)',
+                                shadowBlur: 10,
+                                shadowOffsetX: 8,
+                                shadowOffsetY: 8,
+                            },
+                            barBorderRadius: 4,
+                            label: {show: true},
+                        },
+                        emphasis:{
+                            label: {show: true},
+                        },
+                    },
+                    markPoint:{
+                        data:[
+                            {type:'max',name:'最大值'},
+                            {type:'min',name:'最小值'},
+                        ],
+                    }
+                },
+                {
+                    name:'app播放数',
+                    smooth: true,
+                    type:'line',
+                    symbol: 'circle',
+                    data:{{play_result_y_appDetails}},
+                    itemStyle:{
+                        normal: {
+                            color:  '#6495ed',
+                            lineStyle: {
+                                width: 2,
+                                shadowColor : 'rgba(0,0,0,0.5)',
+                                shadowBlur: 10,
+                                shadowOffsetX: 8,
+                                shadowOffsetY: 8,
+                            },
+                            barBorderRadius: 4,
+                        },
+                        emphasis:{
+                            label: {show: true},
+                        },
+                    },
+                    markPoint:{
+                        data:[
+                            {type:'max',name:'最大值'},
+                            {type:'min',name:'最小值'},
+                        ],
+                    }
+                },
+                {
+                    name:'微信播放数',
+                    smooth: true,
+                    symbol: 'circle',
+                    type:'line',
+                    data:{{play_result_y_wechatDetails}},
+                    itemStyle:{
+                        normal: {
+                            color:  '#1e90ff',
+                            lineStyle: {
+                                width: 2,
+                                shadowColor : 'rgba(0,0,0,0.5)',
+                                shadowBlur: 10,
+                                shadowOffsetX: 8,
+                                shadowOffsetY: 8,
+                            },
+                            barBorderRadius: 4,
+                        },
+                        emphasis:{
+                            label: {show: true},
+                        },
+                    },
+                    markPoint:{
+                        data:[
+                            {type:'max',name:'最大值'},
+                            {type:'min',name:'最小值'},
+                        ],
+                    }
+                }
+            ]
+    }" style="height: 500px;" class="col-xs-12"></div>
+        <div class="col-xs-12" style="margin-top: 20px;margin-left: 5px;">注：前期的版本只统计app播放量，未统计微信播放量，2.0版本后期都进行了统计。</div>
+    </div>
+</div>

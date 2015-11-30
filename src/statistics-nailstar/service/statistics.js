@@ -1,145 +1,29 @@
-var mysql = require('mysql');
 var _ = require("underscore");
 var request = require("request");
 var async = require("async");
 var wxApi = require("wechat-toolkit");
+var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
-var databaseParams = {
-    host     : 'yilosdev.mysql.rds.aliyuncs.com',
-    user     : 'yilos_dev',
-    password : 'yilos_dev',
-    database : 'nailstar'
-};
-
-var dbPool = mysql.createPool(databaseParams);
-
-exports.comments = comments;
-exports.play = play;
 exports.users = users;
+exports.findUserByParam = findUserByParam;
+exports.findUserDetails = findUserDetails;
+exports.findUserCommentDetailsCount = findUserCommentDetailsCount;
+exports.findUserCommentDetails = findUserCommentDetails;
+exports.findUserHomeworkDetailsCount = findUserHomeworkDetailsCount;
+exports.findUserHomeworkDetails = findUserHomeworkDetails;
+exports.homeworkRanking = homeworkRanking;
+exports.topicCommentRanking = topicCommentRanking;
+exports.postCommentRanking = postCommentRanking;
+exports.registerDetailsCount = registerDetailsCount;
 
-function comments(req, res, next){
-
-    var sql1 = "select count(1) as total from comments";
-
-    var sql2 = "select from_unixtime(create_date/1000, '%Y-%m-%d') as 'days', count(1) as 'count'" +
-        " from comments group by days order by days desc limit 0, 30";
-
-    dbPool.getConnection(function(err, connection) {
-
-        if(err){
-            console.log(err);
-            next(err);
-            connection.release();
-            return;
-        }
-
-        var obj = {
-            totalCount: 0,
-            details: []
-        };
-
-        connection.query(sql1, function(err, rows) {
-
-            if(err){
-                console.log(err);
-                next(err);
-                connection.release();
-                return;
-            }
-
-            obj.totalCount = rows[0].total;
-
-            connection.query(sql2, function(err, rows){
-
-                if(err){
-                    console.log(err);
-                    next(err);
-                    connection.release();
-                    return;
-                }
-
-                _.each(rows, function(row){
-
-                    var temp = {
-                        date: row.days,
-                        count: row.count
-                    };
-
-                    obj.details.push(temp);
-                });
-
-                connection.release();
-                doResponse(req, res, obj);
-            });
-        });
-    });
-}
-
-function play(req, res, next){
-
-    var sql1 = "select count(1) as total from topic_actions";
-
-    var sql2 = "select from_unixtime(create_date/1000, '%Y-%m-%d') as 'days', count(id) as 'count'" +
-        " from topic_actions where action_type = 1 group by days order by days desc limit 0, 30";
-
-    dbPool.getConnection(function(err, connection) {
-
-        if(err){
-            console.log(err);
-            next(err);
-            connection.release();
-            return;
-        }
-
-        var obj = {
-            totalCount: 0,
-            details: []
-        };
-
-        connection.query(sql1, function(err, rows) {
-
-            if(err){
-                console.log(err);
-                next(err);
-                connection.release();
-                return;
-            }
-
-            obj.totalCount = rows[0].total;
-
-            connection.query(sql2, function(err, rows){
-
-                if(err){
-                    console.log(err);
-                    next(err);
-                    connection.release();
-                    return;
-                }
-
-                _.each(rows, function(row){
-
-                    var temp = {
-                        date: row.days,
-                        count: row.count
-                    };
-
-                    obj.details.push(temp);
-                });
-
-                connection.release();
-                doResponse(req, res, obj);
-            });
-        });
-    });
-}
-
+//用户统计详情
 function users(req, res, next){
 
     var obj = {
         infos: []
     };
 
-    async.series([_queryRegister, _queryWechat, _queryUmeng], function(err){
+    async.parallel([_queryRegister, _queryWechat, _queryUmeng, _queryDownload], function(err){
 
         if(err){
             console.log(err);
@@ -157,7 +41,7 @@ function users(req, res, next){
 
         var sql = "select count(1) as total from accounts";
 
-        dbPool.getConnection(function(err, connection) {
+        dbHelper.execSql(sql, {}, function(err, rows) {
 
             if(err){
                 console.log(err);
@@ -166,20 +50,8 @@ function users(req, res, next){
                 return;
             }
 
-            connection.query(sql, function(err, rows) {
-
-                if(err){
-                    console.log(err);
-                    connection.release();
-                    temp.value = "查询失败";
-                    callback(null);
-                    return;
-                }
-
-                temp.value = rows[0].total;
-                connection.release();
-                callback(null);
-            });
+            temp.value = rows[0].total;
+            callback(null);
         });
     }
 
@@ -215,6 +87,12 @@ function users(req, res, next){
             var access_token = body.result;
 
             wxApi.getFans(access_token, null, function(err, body){
+                if(err || !body || body == undefined || !body.total || body.total == undefined){
+                    console.log(err);
+                    temp.value = "查询失败";
+                    callback(null);
+                    return;
+                }
                 temp.value = body.total;
                 callback(null);
             });
@@ -238,6 +116,7 @@ function users(req, res, next){
         var ava = {
             title: "过去7天平均日使用时长"
         };
+
 
         obj.infos.push(install);
         obj.infos.push(weekA);
@@ -277,4 +156,218 @@ function users(req, res, next){
             }
         });
     }
+
+    function _queryDownload(callback){
+        var temp = {
+            title: "视频下载数"
+        };
+        obj.infos.push(temp);
+
+        var sql = "select count(1) as total from topic_actions where action_type = 5";
+
+        dbHelper.execSql(sql, {}, function(err, rows) {
+
+            if(err){
+                console.log(err);
+                temp.value = "查询失败";
+                callback(null);
+                return;
+            }
+
+            temp.value = rows[0].total;
+            callback(null);
+        });
+    }
+}
+
+//用户模糊搜索
+function findUserByParam(req, res, next){
+
+    var param = req.query.param;
+    if(!param){
+        return next("缺失参数param");
+    }
+
+    var sql = "select id,nickname,username from accounts where nickname like '%" + param + "%' or username like '%" + param + "%'";
+    dbHelper.execSql(sql, {}, function(err, results){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, results);
+    });
+}
+
+//用户资料查询
+function findUserDetails(req, res, next){
+
+    var id = req.query.id;
+    if(!id){
+        return next("缺失参数id");
+    }
+
+    var sql = "select username,nickname,type,gender,birthday,location,create_date,exp,coin " +
+        "from accounts where id = :id";
+    dbHelper.execSql(sql, {id: id}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result[0]);
+    });
+
+}
+
+//用户评论总数
+function findUserCommentDetailsCount(req, res, next){
+
+    var id = req.query.id;
+    if(!id){
+        return next("缺失参数id");
+    }
+
+    var sql = "select count(1) 'count' " +
+        "from comments where account_id = :id and reply_to is null";
+    dbHelper.execSql(sql, {id: id}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result[0]);
+    });
+}
+
+//用户评论分页查询
+function findUserCommentDetails(req, res, next){
+
+    var id = req.query.id;
+    if(!id){
+        return next("缺失参数id");
+    }
+
+    var page = parseInt(req.query.page);
+    if(!page){
+        return next("缺失参数page");
+    }
+
+    var perPage = parseInt(req.query.perPage) || 10;
+    var startIndex = (page - 1) * perPage;
+
+    var sql = "select b.title 'title',a.content 'content',a.create_date 'create_date' " +
+        "from comments a left join topics b on a.topic_id = b.id " +
+        "where a.account_id = :id and a.reply_to is null " +
+        "order by create_date desc " +
+        "limit :startIndex,:perPage";
+    dbHelper.execSql(sql, {id: id,startIndex: startIndex,perPage: perPage}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+
+}
+
+//用户交作业总数
+function findUserHomeworkDetailsCount(req, res, next){
+
+    var id = req.query.id;
+    if(!id){
+        return next("缺失参数id");
+    }
+
+    var sql = "select count(1) 'count' " +
+        "from comments where account_id = :id and content_pic is not null and content_pic <> ''";
+    dbHelper.execSql(sql, {id: id}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result[0]);
+    });
+}
+
+//用户交作业分页查询
+function findUserHomeworkDetails(req, res, next){
+
+    var id = req.query.id;
+    if(!id){
+        return next("缺失参数id");
+    }
+
+    var page = parseInt(req.query.page);
+    if(!page){
+        return next("缺失参数page");
+    }
+
+    var perPage = parseInt(req.query.perPage) || 10;
+    var startIndex = (page - 1) * perPage;
+
+    var sql = "select b.title 'title',a.content 'content',a.content_pic 'pic',a.create_date 'create_date' " +
+        "from comments a left join topics b on a.topic_id = b.id " +
+        "where a.account_id = :id and a.content_pic is not null and a.content_pic <> '' " +
+        "order by create_date desc " +
+        "limit :startIndex,:perPage";
+    dbHelper.execSql(sql, {id: id,startIndex: startIndex,perPage: perPage}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+
+}
+
+//交作业排行榜
+function homeworkRanking(req, res, next){
+    var sql = "select b.id 'id',b.username 'username',b.nickname 'nickname',count(a.id) 'total' " +
+        "from comments a join accounts b on a.account_id = b.id " +
+        "where a.content_pic is not null and a.content_pic <> '' " +
+        "group by a.account_id order by total desc limit 0,50";
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//视频评论排行榜
+function topicCommentRanking(req, res, next){
+    var sql = "select b.id 'id',b.username 'username',b.nickname 'nickname',count(a.account_id) 'total' " +
+        "from comments a join accounts b on a.account_id = b.id " +
+        "where content_pic is null and reply_to is null " +
+        "group by a.account_id order by total desc limit 0,50";
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//帖子评论排行榜
+function postCommentRanking(req, res, next){
+    var sql = "select b.id 'id',b.username 'username',b.nickname 'nickname',count(a.account_id) 'total' " +
+        "from post_comments a join accounts b on a.account_id = b.id " +
+        "where reply_to is null " +
+        "group by a.account_id order by total desc limit 0,50";
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
+}
+
+//注册用户统计
+function registerDetailsCount(req, res, next){
+
+    var num = (parseInt(req.query["num"]) || 10) - 1;
+
+    var sql = "select count(id) 'count',from_unixtime(create_date/1000, '%Y%m%d') 'time' from accounts " +
+        "where from_unixtime(create_date/1000, '%Y%m%d') " +
+        "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
+        "group by time order by time desc";
+
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
 }

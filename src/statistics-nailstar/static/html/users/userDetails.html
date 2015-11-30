@@ -1,0 +1,97 @@
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+    app.settings.asideFixed = true;
+    app.settings.asideDock = false;
+    app.settings.container = false;
+    app.hideAside = false;
+    app.hideFooter = true;" ng-controller="userDetailsCtrl">
+
+    <div >
+        <angucomplete-alt id="user"
+                          class="col-md-3"
+                          style = "margin-top: 15px;margin-left: 5px;"
+                          placeholder="输入用户名或昵称查询"
+                          text-searching="正在搜索..."
+                          text-no-results="没有此用户"
+                          pause="400"
+                          minlength="1"
+                          selected-object="userSelected"
+                          remote-url="/svc/dakatongji/findUserByParam"
+                          remote-url-request-formatter="remoteUrlRequestFn"
+                          remote-url-data-field="result"
+                          title-field="username,nickname"
+                          initial-value="initialValue"
+                          match-class="highlight"
+                          input-class="form-control form-control-small" style="margin-bottom: 15px;margin-top: 15px;padding-left: 0px;" />
+    </div>
+
+    <div class="wrapper-md" style="margin-top: 40px;">
+        <tabset class="tab-container">
+            <tab>
+                <tab-heading>
+                    查询用户资料
+                </tab-heading>
+
+
+                <table class="table table-striped m-b-none">
+                    <thead>
+                    <tr>
+                        <th>用户名</th>
+                        <th>昵称</th>
+                        <th>身份</th>
+                        <th>性别</th>
+                        <th>出生日期</th>
+                        <th>地址</th>
+                        <th>创建时间</th>
+                        <th>经验值</th>
+                        <th>咖币数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{infos.username}}</td>
+                        <td>{{infos.nickname}}</td>
+                        <td>{{infos.userType}}</td>
+                        <td>{{infos.userGender}}</td>
+                        <td>{{infos.birthday | date:"yyyy-MM-dd"}}</td>
+                        <td>{{infos.location}}</td>
+                        <td>{{infos.create_date | date:"yyyy-MM-dd"}}</td>
+                        <td>{{infos.exp}}</td>
+                        <td>{{infos.coin}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </tab>
+
+            <tab>
+                <tab-heading>
+                    用户评论详情
+                </tab-heading>
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading" style="background-color: #3d89cc;color: #fff;font-size: 20px">
+                        用户评论详情
+                    </div>
+                    <div class="table-responsive">
+                        <div ng-grid="gridOptions" style="min-height:420px;"></div>
+                    </div>
+                </div>
+            </tab>
+
+            <tab>
+                <tab-heading>
+                    用户交作业详情
+                </tab-heading>
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading" style="background-color: #3d89cc;color: #fff;font-size: 20px">
+                        用户交作业详情
+                    </div>
+                    <div class="table-responsive">
+                        <div ng-grid="gridOptionsHomework" style="min-height:420px;"></div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+
+
+</div>

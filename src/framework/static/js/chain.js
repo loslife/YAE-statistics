@@ -17,7 +17,10 @@ var app = angular.module('app', [
             'app.filters',
             'app.services',
             'app.directives',
-            'app.controllers'
+            'app.controllers',
+            'ui.echarts',
+            'ngSanitize',
+            'ui.select'
         ])
         .run(
             [          '$rootScope', '$state', '$stateParams',
@@ -452,6 +455,12 @@ var app = angular.module('app', [
                 'js/jquery/charts/flot/jquery.flot.resize.js',
                 'js/jquery/charts/flot/jquery.flot.tooltip.min.js',
                 'js/jquery/charts/flot/jquery.flot.spline.js',
+                'js/jquery/charts/flot/jquery.flot.time.min.js',
+                'js/jquery/charts/flot/jquery.flot.categories.js',
+                'js/jquery/charts/flot/jquery.flot.navigate.js',
+                'js/jquery/charts/flot/jquery.flot.canvas.js',
+                'js/jquery/charts/flot/jquery.flot.axislabels.js',
+                'js/jquery/charts/flot/jquery.flot.symbol.js',
                 'js/jquery/charts/flot/jquery.flot.orderBars.js',
                 'js/jquery/charts/flot/jquery.flot.pie.min.js'],
             slimScroll:     ['js/jquery/slimscroll/jquery.slimscroll.min.js'],
