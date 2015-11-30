@@ -668,6 +668,22 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //商城中商品点击数
+                    .state('app.commodityStayTime', {
+                        url: '/commodityStayTime',
+                        templateUrl: '/statistics-nailstar/html/commodity/commodityStayTime.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/commodity/commodityStayTime.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
                     .state('login', {
                         url: '/login',
                         template: '<div ui-view class="fade-in-right-big smooth"></div>'

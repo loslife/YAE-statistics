@@ -485,6 +485,14 @@
             "comment": "商城中商品点击数"
         },
         {
+            "name": "commodity",
+            "path": "/dakatongji/commodity/commodityStayTime",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "commodity.commodityStayTime",
+            "comment": "商城平均停留时长"
+        },
+        {
             "name": "index",
             "path": "/dakatongji/index/indexRollTimes",
             "method": "get",
