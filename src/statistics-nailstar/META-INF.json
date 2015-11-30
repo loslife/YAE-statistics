@@ -483,6 +483,14 @@
             "auth": "nailstar-cms",
             "impl": "index.indexRollTimes",
             "comment": "首页滚屏次数"
+        },
+        {
+            "name": "index",
+            "path": "/dakatongji/index/indexStayTime",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "index.indexStayTime",
+            "comment": "首页平均停留时长"
         }
     ],
     "ejsviews": [

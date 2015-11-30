@@ -112,6 +112,22 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //首页平均停留时长统计
+                    .state('app.indexStayTime', {
+                        url: '/indexStayTime',
+                        templateUrl: '/statistics-nailstar/html/index/indexStayTime.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/index/indexStayTime.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
                     //用户帖子评论排行榜
                     .state('app.userpostcommentsranking', {
                         url: '/userpostcommentsranking',

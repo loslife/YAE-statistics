@@ -1,0 +1,101 @@
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;" ng-controller="indexStayTime">
+
+
+    <label style="margin-left: 35px;margin-top: 16px;">选择数量：</label><input class="ngPagerCurrent ng-valid ng-valid-number ng-valid-min ng-dirty" min="1" max="85" type="number" style="width:50px;height: 24px; padding: 0 4px;" ng-model="params.num"><br/>
+    <div class="col-xs-12">
+        <div e-chart ui-options="{
+                title:{
+                    text:'首页平均停留时长',
+                    subtext:'数据来自——美甲大咖',
+                    x : 'center',
+                },
+                tooltip: {
+                    show: true,
+                    trigger: 'axis',
+                    enterable: true,
+                },
+                toolbox:{
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: true},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                dataZoom:{
+                    show:true,
+                    realtime:true,
+                    start: 3,
+                    end: 97,
+                    handleColor:'#008acd',
+                    dataBackgroundColor:'#efefff',
+                },
+                legend: {
+                    data:['秒'],
+                    x : 'left',
+                },
+                grid: {
+                    y: 80,
+                    y2: 100,
+                },
+                xAxis : [
+                    {
+                        name : '日期',
+                        type : 'category',
+                        data : {{result_x}},
+                        nameTextStyle : {fontSize:15},
+                        axisLabel:{
+                            show: true,
+                            rotate: 35,
+                        }
+                    },
+                ],
+                yAxis : [
+                    {
+                        name : '秒',
+                        type : 'value',
+                        nameTextStyle : {fontSize:15},
+                    }
+                ],
+                series : [
+                    {
+                        name:'秒',
+                        smooth: true,
+                        type:'line',
+                        symbol: 'circle',
+                        data:{{result_y}},
+                        itemStyle:{
+                            normal: {
+                                color: ['#23B7E5'],
+                                lineStyle: {
+                                    width: 2,
+                                    shadowColor : 'rgba(0,0,0,0.5)',
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 8,
+                                    shadowOffsetY: 8,
+                                },
+                                barBorderRadius: 4,
+                                label: {show: true},
+                            },
+                            emphasis:{
+                                label: {show: true},
+                            },
+                        },
+                        markPoint:{
+                            data:[
+                                {type:'max',name:'最大值'},
+                                {type:'min',name:'最小值'},
+                            ],
+                        }
+                    }
+                ]
+        }" style="height: 500px;" class="col-xs-12"></div>
+    </div>
+</div>
