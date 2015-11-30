@@ -475,6 +475,14 @@
             "auth": "nailstar-cms",
             "impl": "commodity.commodityShopCount",
             "comment": "商城中商品点击数"
+        },
+        {
+            "name": "index",
+            "path": "/dakatongji/index/indexRollTimes",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "index.indexRollTimes",
+            "comment": "首页滚屏次数"
         }
     ],
     "ejsviews": [

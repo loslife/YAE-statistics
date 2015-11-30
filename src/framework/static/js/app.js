@@ -96,6 +96,22 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //首页滚屏次数统计
+                    .state('app.indexRollTimes', {
+                        url: '/indexRollTimes',
+                        templateUrl: '/statistics-nailstar/html/index/indexRollTimes.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/index/indexRollTimes.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
                     //用户帖子评论排行榜
                     .state('app.userpostcommentsranking', {
                         url: '/userpostcommentsranking',
