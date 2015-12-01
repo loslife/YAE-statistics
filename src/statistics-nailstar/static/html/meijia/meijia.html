@@ -1,0 +1,59 @@
+<div class="hbox hbox-auto-xs bg-light col-md-8 " ng-init="
+    app.settings.asideFixed = true;
+    app.settings.asideDock = false;
+    app.settings.container = false;
+    app.hideAside = false;
+    app.hideFooter = true;" ng-controller="meijiaCtrl">
+        
+        <div style="margin-bottom: 25px; margin-top: 25px;">
+            <div style="margin-top: 2px">
+                <span style="font-size: 18px;">选择美甲系列:</span>
+                <div class="btn-group dropdown" style="margin-bottom: 2px;">
+                    <div style="width: 300px;">
+                        <select class="form-control" required ng-model="goodsNew.show.cate" ng-change="chooseCate(goodsNew.show.cate)">
+                            <option value="null">--选择商品类别--</option>
+                            <option ng-repeat="cate in goodsNew.show.cates" value="{{cate}}">{{cate.category_name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-2">
+                        <label>选择起始日期：</label>
+                        <p class="input-group">
+                          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="sdt" is-open="sopened" datepicker-options="sdateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="sopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <label>选择截止日期：</label>
+                        <p class="input-group">
+                          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="edt" is-open="eopened" datepicker-options="edateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                    </div>
+                    <div class="col-md-6"></div>
+                    <div class="input-group col-md-2" style="padding-right: 15px;padding-top: 30px;">
+                        <input type="text"  class="form-control input-sm no-border rounded padder ng-pristine ng-valid" placeholder="输入商品名称、描述" ng-model="goodsList.show.key">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-sm rounded" ng-click="gosearch(goodsList.show.key)"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">美甲数据统计</div>
+        <div class="table-responsive">
+            <!-- <div ng-grid="gridOptions" style="min-height:420px;"></div> -->
+        </div>
+    </div>
+
+</div>
