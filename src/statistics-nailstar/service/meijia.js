@@ -6,6 +6,7 @@ exports.getCates         = getCates;
 exports.getPostsWithCate = getPostsWithCate;
 exports.getPostsWithKey  = getPostsWithKey;
 exports.getPostsWithDate = getPostsWithDate;
+exports.getPostImg		 = getPostImg;
 
 //获取类别列表
 function getCates (req,res,next) {
@@ -29,6 +30,40 @@ function getPostsWithCate (req,res,next) {
 		pageData:'',
 		count:0
 	};
+
+	async.parallel([getCount, getData], function (err) {
+		if(err){
+            callback(err);
+            return;
+        }
+        doResponse(req, res, result);
+	});
+
+	function getCount (callback) {
+		var sql  = "select count(1) count from meijia_cates a left join meijia_posts b on a.id=b.cate_id where a.id=:cate_id";
+
+		dbHelper.execSql(sql,{cate_id: cate_id},function (data) {
+			if(err){
+				callback(err);
+				return;
+			}
+			result.count = data[0].count;
+			callback(null);
+		});
+	}
+
+	function getData (callback) {
+		var sql = "select a.name 'cate_name',b.id 'post_id',b.title,b.nickname,b.avatar,create_time,b.content from meijia_cates a left join meijia_posts b on a.id=b.cate_id where a.id=:cate_id";
+
+		dbHelper.execSql(sql,{cate_id: cate_id},function (data) {
+			if(err){
+				callback(err);
+				return;
+			}
+			result.pageData = data;
+			callback(null);
+		});
+	}
 }
 
 //根据关键字（标题、内容、作者）获取类别
@@ -42,6 +77,40 @@ function getPostsWithKey (req,res,next) {
 		pageData:'',
 		count:0
 	};
+
+	async.parallel([getCount, getData], function (err) {
+		if(err){
+            callback(err);
+            return;
+        }
+        doResponse(req, res, result);
+	});
+
+	function getCount (callback) {
+		var sql  = "select count(1) count from meijia_cates a left join meijia_posts b on a.id=b.cate_id where b.title like '%"+key+"%' or b.nickname like '%"+key+"%' or b.content like '%"+key+"%'";
+
+		dbHelper.execSql(sql,{cate_id: cate_id},function (data) {
+			if(err){
+				callback(err);
+				return;
+			}
+			result.count = data[0].count;
+			callback(null);
+		});
+	}
+
+	function getData (callback) {
+		var sql = "select a.name 'cate_name',b.id 'post_id',b.title,b.nickname,b.avatar,create_time,b.content from meijia_cates a left join meijia_posts b on a.id=b.cate_id where b.title like '%"+key+"%' or b.nickname like '%"+key+"%' or b.content like '%"+key+"%' order by abs(length(b.title)-length(:key)),abs(length(b.nickname)-length(:key)),abs(length(b.content)-length(:key)) limit :startIndex,:perPage";
+
+		dbHelper.execSql(sql,{key: key,startIndex: startIndex, perPage: parseInt(perPage)},function (data) {
+			if(err){
+				callback(err);
+				return;
+			}
+			result.pageData = data;
+			callback(null);
+		});
+	}
 }
 
 //根据日期获取类别
@@ -56,4 +125,53 @@ function getPostsWithDate(req,res,next) {
 		pageData:'',
 		count:0
 	};
+
+	async.parallel([getCount, getData], function (err) {
+		if(err){
+            callback(err);
+            return;
+        }
+        doResponse(req, res, result);
+	});
+
+	function getCount (callback) {
+		var sql  = "select count(1) count from meijia_cates a left join meijia_posts b on a.id=b.cate_id where b.create_time>=:start_date and b.create_time<=:end_date";
+
+		dbHelper.execSql(sql,{cate_id: cate_id},function (data) {
+			if(err){
+				callback(err);
+				return;
+			}
+			result.count = data[0].count;
+			callback(null);
+		});
+	}
+
+	function getData (callback) {
+		var sql = "select a.name 'cate_name',b.id 'post_id',b.title,b.nickname,b.avatar,create_time,b.content from meijia_cates a left join meijia_posts b on a.id=b.cate_id where b.create_time>=:start_date and b.create_time<=:end_date order by b.create_time limit :startIndex,:perPage";
+
+		dbHelper.execSql(sql,{key: key,startIndex: startIndex, perPage: parseInt(perPage)},function (data) {
+			if(err){
+				callback(err);
+				return;
+			}
+			result.pageData = data;
+			callback(null);
+		});
+	}
+}
+
+//根据id 获取帖子图片
+function getPostImg(req,res,next) {
+	var post_id = req.params["post_id"];
+
+	var sql = "select b.url from meijia_posts a left join meijia_post_images b on a.id=b.post_id where a.id=:post_id";
+
+	dbHelper.execSql(sql,{post_id: post_id},function (data) {
+		if(err){
+			callback(err);
+			return;
+		}
+		doResponse(req, res, {imgages: data});
+	});
 }
