@@ -6,13 +6,12 @@
     app.hideFooter = true;" ng-controller="meijiaCtrl">
         
         <div style="margin-bottom: 25px; margin-top: 25px;">
-            <div style="margin-top: 2px">
-                <span style="font-size: 18px;">选择美甲系列:</span>
+            <div style="margin-top: 2px;padding-left: 20px;padding-right: 20px;">
+                <span style="font-size: 18px;">选择数据类别:</span>
                 <div class="btn-group dropdown" style="margin-bottom: 2px;">
                     <div style="width: 300px;">
-                        <select class="form-control" required ng-model="goodsNew.show.cate" ng-change="chooseCate(goodsNew.show.cate)">
-                            <option value="null">--选择商品类别--</option>
-                            <option ng-repeat="cate in goodsNew.show.cates" value="{{cate}}">{{cate.category_name}}</option>
+                        <select class="form-control" ng-model="initData.show.cate_id" ng-options="cate.cate_id as cate.cate_name for cate in initData.cates" required ng-change="selectCate(initData.show.cate_id)">
+                            <option value="">--选择数据类别--</option>
                         </select>
                     </div>
                 </div>
@@ -35,25 +34,56 @@
                           </span>
                         </p>
                     </div>
-                    <div class="col-md-6"></div>
+                    <div class="col-md-1">
+                         <button type="button" style="margin-top:25px;" class="btn btn-primary" ng-click="getsearchDate(1,20)">日期搜索</button>   
+                    </div>
+                    <div class="col-md-5"></div>
                     <div class="input-group col-md-2" style="padding-right: 15px;padding-top: 30px;">
-                        <input type="text"  class="form-control input-sm no-border rounded padder ng-pristine ng-valid" placeholder="输入商品名称、描述" ng-model="goodsList.show.key">
+                        <input type="text"  class="form-control input-sm no-border rounded padder ng-pristine ng-valid" placeholder="输入标题、描述、内容" ng-model="initData.show.key">
                         <span class="input-group-btn">
-                            <button type="submit" class="btn btn-sm rounded" ng-click="gosearch(goodsList.show.key)"><i class="fa fa-search"></i></button>
+                            <button type="submit" class="btn btn-sm rounded" ng-click="gosearch(initData.show.key,1,20)"><i class="fa fa-search"></i></button>
                         </span>
                     </div>
                 </div>
-                
-
             </div>
         </div>
 
-
-        <div class="panel panel-default">
-            <div class="panel-heading">美甲数据统计</div>
-        <div class="table-responsive">
-            <!-- <div ng-grid="gridOptions" style="min-height:420px;"></div> -->
+        <div class="wrapper-md">
+            <div class="panel panel-default">
+                <div class="panel-heading">美甲数据统计</div>
+                <div class="table-responsive">
+                    <div ng-grid="gridOptions" style="text-align: center;font-size: 14px;"></div>
+                </div>
+             </div>
         </div>
-    </div>
+        <!-- 查看详情 -->
+        <div class="modal fade showPost" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">查看帖子详情</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="wrapper-md ng-scope">
+                            <div class="row">
+                                <div class="col-lg-3" ng-repeat="img in initData.show.imgs">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body"><img class="img-full" src="{{img.url}}" alt=""></div>
+                                        <p class="text-center"><label class="label bg-danger m-l-xs">{{$index +1}}</label></p>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">{{initData.show.content}}</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
 
 </div>

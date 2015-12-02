@@ -709,8 +709,8 @@ var app = angular.module('app', [
                                 function( $ocLazyLoad ){
                                     return $ocLazyLoad.load('ngGrid').then(
                                         function(){
-                                            return $ocLazyLoad.load('/statistics-nailstar/js/meijia/meijia.js');
-                                        }
+                                            return $ocLazyLoad.load(['/statistics-nailstar/js/meijia/meijia.js'
+                                        ]);}
                                     );
                                 }]
                         }

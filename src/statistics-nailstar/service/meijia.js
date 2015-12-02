@@ -42,7 +42,7 @@ function getPostsWithCate (req,res,next) {
 	function getCount (callback) {
 		var sql  = "select count(1) count from meijia_cates a left join meijia_posts b on a.id=b.cate_id where a.id=:cate_id";
 
-		dbHelper.execSql(sql,{cate_id: cate_id},function (data) {
+		dbHelper.execSql(sql,{cate_id: cate_id},function (err,data) {
 			if(err){
 				callback(err);
 				return;
@@ -53,9 +53,9 @@ function getPostsWithCate (req,res,next) {
 	}
 
 	function getData (callback) {
-		var sql = "select a.name 'cate_name',b.id 'post_id',b.title,b.nickname,b.avatar,create_time,b.content from meijia_cates a left join meijia_posts b on a.id=b.cate_id where a.id=:cate_id";
+		var sql = "select a.name 'cate_name',b.id 'post_id',b.title,b.nickname,b.avatar,create_time,b.content from meijia_cates a left join meijia_posts b on a.id=b.cate_id where a.id=:cate_id limit :startIndex,:perPage";
 
-		dbHelper.execSql(sql,{cate_id: cate_id},function (data) {
+		dbHelper.execSql(sql,{cate_id: cate_id,startIndex: startIndex, perPage: parseInt(perPage)},function (err,data) {
 			if(err){
 				callback(err);
 				return;
@@ -89,7 +89,7 @@ function getPostsWithKey (req,res,next) {
 	function getCount (callback) {
 		var sql  = "select count(1) count from meijia_cates a left join meijia_posts b on a.id=b.cate_id where b.title like '%"+key+"%' or b.nickname like '%"+key+"%' or b.content like '%"+key+"%'";
 
-		dbHelper.execSql(sql,{cate_id: cate_id},function (data) {
+		dbHelper.execSql(sql,{key:key},function (err,data) {
 			if(err){
 				callback(err);
 				return;
@@ -102,7 +102,7 @@ function getPostsWithKey (req,res,next) {
 	function getData (callback) {
 		var sql = "select a.name 'cate_name',b.id 'post_id',b.title,b.nickname,b.avatar,create_time,b.content from meijia_cates a left join meijia_posts b on a.id=b.cate_id where b.title like '%"+key+"%' or b.nickname like '%"+key+"%' or b.content like '%"+key+"%' order by abs(length(b.title)-length(:key)),abs(length(b.nickname)-length(:key)),abs(length(b.content)-length(:key)) limit :startIndex,:perPage";
 
-		dbHelper.execSql(sql,{key: key,startIndex: startIndex, perPage: parseInt(perPage)},function (data) {
+		dbHelper.execSql(sql,{key: key,startIndex: startIndex, perPage: parseInt(perPage)},function (err,data) {
 			if(err){
 				callback(err);
 				return;
@@ -119,7 +119,6 @@ function getPostsWithDate(req,res,next) {
 	var perPage    = req.query.perPage;
 	var start_date = req.query.start_date;
 	var end_date   = req.query.end_date;
-	
 	var startIndex 	= (page-1)*perPage;
 	var result 		= {
 		pageData:'',
@@ -135,9 +134,9 @@ function getPostsWithDate(req,res,next) {
 	});
 
 	function getCount (callback) {
-		var sql  = "select count(1) count from meijia_cates a left join meijia_posts b on a.id=b.cate_id where b.create_time>=:start_date and b.create_time<=:end_date";
+		var sql  = "select count(1) count from meijia_cates a left join meijia_posts b on a.id=b.cate_id where b.create_time > :start_date and b.create_time < :end_date";
 
-		dbHelper.execSql(sql,{cate_id: cate_id},function (data) {
+		dbHelper.execSql(sql,{start_date:start_date,end_date:end_date},function (err,data) {
 			if(err){
 				callback(err);
 				return;
@@ -148,9 +147,9 @@ function getPostsWithDate(req,res,next) {
 	}
 
 	function getData (callback) {
-		var sql = "select a.name 'cate_name',b.id 'post_id',b.title,b.nickname,b.avatar,create_time,b.content from meijia_cates a left join meijia_posts b on a.id=b.cate_id where b.create_time>=:start_date and b.create_time<=:end_date order by b.create_time limit :startIndex,:perPage";
+		var sql = "select a.name 'cate_name',b.id 'post_id',b.title,b.nickname,b.avatar,create_time,b.content from meijia_cates a left join meijia_posts b on a.id=b.cate_id where b.create_time > :start_date and b.create_time < :end_date order by b.create_time limit :startIndex,:perPage";
 
-		dbHelper.execSql(sql,{key: key,startIndex: startIndex, perPage: parseInt(perPage)},function (data) {
+		dbHelper.execSql(sql,{start_date:start_date,end_date:end_date,startIndex: startIndex, perPage: parseInt(perPage)},function (err,data) {
 			if(err){
 				callback(err);
 				return;
@@ -167,11 +166,11 @@ function getPostImg(req,res,next) {
 
 	var sql = "select b.url from meijia_posts a left join meijia_post_images b on a.id=b.post_id where a.id=:post_id";
 
-	dbHelper.execSql(sql,{post_id: post_id},function (data) {
+	dbHelper.execSql(sql,{post_id: post_id},function (err,data) {
 		if(err){
 			callback(err);
 			return;
 		}
-		doResponse(req, res, {imgages: data});
+		doResponse(req, res, {images: data});
 	});
 }
