@@ -47,6 +47,25 @@
                 </div>
             </div>
         </div>
+        
+        <div id="fileupload">
+            <noscript>
+                <input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/">
+            </noscript>
+            <div class="row fileupload-buttonbar">
+                <div class="col-lg-7">
+                    <span class="btn btn-default fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>选择图片文件</span>
+                        <input type="file" name="files[]" multiple>
+                    </span>
+                </div>
+            </div>
+            <table role="presentation" class="table table-striped">
+                <tbody class="files"></tbody>
+            </table>
+        </div>
+        
 
         <div class="wrapper-md">
             <div class="panel panel-default">
@@ -84,6 +103,58 @@
                 </div>
             </div>
         </div>
-    
-
 </div>
+
+<!--图片上传模板-->
+<script id="template-upload" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade" style="height:150px">
+        <td>
+            <div>
+                <ul style="list-style:none;height:100px;width:auto" class="col-sm-6">
+                    <li><span class="preview"></span></li>
+                    <li><div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-success" style="width:0%;"></div></div></li>
+                </ul>
+                <ul style="list-style:none" class="col-sm-6">
+                    <li >
+                        {% if (!i && !o.options.autoUpload) { %}
+                        <button class="btn btn-primary start col-sm-12" disabled>
+                            <i class="glyphicon glyphicon-upload"></i>
+                            <span>上传</span>
+                        </button>
+                        {% } %}
+                        {% if (!i) { %}
+                        <button class="btn btn-default cancel col-sm-12" style="margin-top:12px">
+                            <i class="glyphicon glyphicon-ban-circle"></i>
+                            <span>取消上传</span>
+                        </button>
+                        {% } %}
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    {% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-download fade uplpadimg">
+            <td>
+            {%=file.upload_date%}
+                <span class="preview">
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                </span>
+                <input type="hidden" name="pictureId" value={%=file.id%}/>
+                <input type="hidden" name="pictureId" value={%=file.url%}/>
+            </td>
+            <td>
+                <button class="btn btn-default cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>删除</span>
+                </button>
+            </td>
+        </tr>
+        {% } %}
+</script>

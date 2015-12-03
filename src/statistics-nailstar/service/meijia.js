@@ -1,12 +1,16 @@
 var _                    = require("underscore");
 var async                = require("async");
 var dbHelper             = require(FRAMEWORKPATH + "/utils/dbHelper");
+var ossClient = require(FRAMEWORKPATH + "/utils/ossClient");
+var materialDao = require("./materialDao");
+var fs = require('fs');
 
 exports.getCates         = getCates;
 exports.getPostsWithCate = getPostsWithCate;
 exports.getPostsWithKey  = getPostsWithKey;
 exports.getPostsWithDate = getPostsWithDate;
 exports.getPostImg		 = getPostImg;
+exports.uploadPicture	 = uploadPicture;
 
 //获取类别列表
 function getCates (req,res,next) {
@@ -173,4 +177,63 @@ function getPostImg(req,res,next) {
 		}
 		doResponse(req, res, {images: data});
 	});
+}
+
+//上传图片接口
+function uploadPicture(req, res, next){
+    req.form.on('progress', function (bytesReceived, bytesExpected) {
+    });
+    req.form.on('end', function () {
+        var filePath = req.files.files[0].path;
+        picfile ={
+            size: req.files.files[0].size,
+            url:"",
+            upload_date:(new Date()).getTime()
+        };
+        async.series([upload2Oss,add2Db,deleteTempFile],function(error){
+            if(error){
+                logger.error(error);
+                next(error);
+            }else{
+                doResponse(req, res, {
+                    files:[picfile]
+                });
+            }
+        })
+
+
+        function upload2Oss(nextStep){
+            ossClient.putPictureObjectToOss(filePath,function(error,ossObject){
+                if(error){
+                    nextStep(error);
+                    return;
+                }else{
+                    picfile.url = ossObject.oss_url;
+                    nextStep(null);
+                }
+            });
+        }
+        function add2Db(nextStep){
+            materialDao.addPicture(picfile,function(error){
+                if(error){
+                    nextStep(error);
+                }else{
+                    nextStep(null, {
+                        files:[picfile]
+                    });
+                }
+            });
+        }
+        function deleteTempFile(nextStep){
+            fs.unlink(filePath, function (error) {
+                if (error) {
+                    logger.error("删除文件：" + filePath + "失败");
+                    logger.error(error);
+                    nextStep(error);
+                    return;
+                }
+                nextStep(null);
+            });
+        }
+    });
 }

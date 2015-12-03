@@ -227,7 +227,7 @@ app.controller('meijiaCtrl', ['$rootScope', '$scope', '$http', 'utilsService','$
         {field: 'content', displayName: '描述', cellTemplate: '<span>{{row.entity.content}}</span>'},
         {field: 'nickname', displayName: '作者',cellTemplate: '<span>{{row.entity.nickname}}</span>'},
         {field: 'create_time', displayName: '时间',cellTemplate: '<span>{{row.entity.create_time |date:"yyyy-MM-dd hh:mm"}}</span>'},
-        {field: '', displayName: '操作', cellTemplate: '<span class="label bg-info" data-toggle="modal" data-target=".showPost" ng-click="showPost(row.entity.post_id,row.entity.content)">查看详情</span>'}
+        {field: '', displayName: '操作', cellTemplate: '<span class="label bg-info" data-toggle="modal" data-target=".showPost" ng-click="showPost(row.entity.post_id,row.entity.content)">查看详情</span>&nbsp;&nbsp;&nbsp;<span class="label bg-success" data-toggle="modal" data-target=".editPost" ng-click="editPost()">转发帖子</span>'}
     ];
     $scope.gridOptions = {
         data: 'myData',
@@ -252,10 +252,40 @@ app.controller('meijiaCtrl', ['$rootScope', '$scope', '$http', 'utilsService','$
             console.log($scope.initData.show.imgs);
         });
     }
+   
+    //上传视频
+    $scope.addinitUploadWidget = function(){
+        $('#fileupload').fileupload({
+            url: '/svc/picture/upload',
+            prependFiles:"html",
+            getFilesFromResponse:getThumb_pic_urlFromResponse,
+            acceptFileTypes: /(\.|\/)(jpg|png)$/i,
+            formData:function () {
+                return [];
+            }
+        }).bind('fileuploadfinished',function(e,data){
+                 // $(".uplpadimg").hide();
+            })
+            .addClass('fileupload-processing');
 
-    //格式化事件
-    function fromeDate (date) {
-        
-    }
+        function getThumb_pic_urlFromResponse(data){
+            console.log(data.result.result.files[0].url); 
+            $scope.digestScope();
+            return data.result.result.files;
+        }       
+    };
+    $scope.addinitUploadWidget();
+
+    $scope.digestScope = function () {
+        setTimeout(function() {
+            try {
+                $scope.$digest();
+            }
+            catch(e) {
+                console.log(e);
+            }
+        });
+    };
+
 
 }]);

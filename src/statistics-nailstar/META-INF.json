@@ -555,6 +555,14 @@
             "auth": "nailstar-cms",
             "impl": "meijia.getPostImg",
             "comment": "根据美甲帖子获取图片"
+        },
+        {
+            "name": "pictureUpload",
+            "path": "/picture/upload",
+            "method": "post",
+            "auth": "nailstar-cms",
+            "impl": "meijia.uploadPicture",
+            "comment": "上传图片"
         }
     ],
     "ejsviews": [
