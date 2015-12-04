@@ -8,9 +8,18 @@ app.controller('meijiaCtrl', ['$rootScope', '$scope', '$http', 'utilsService','$
         show:{
             key:'',
             cate_id:'',
-            post_id:'',
             imgs:'',
-            content:''
+            num:1
+        },
+        add:{
+            community_id:'',
+            nickname:'',
+            creator_id:'',
+            title:'',
+            is_hot:0,
+            is_top:0,
+            content:'',
+            imgs:[]
         }
     }
 
@@ -227,7 +236,7 @@ app.controller('meijiaCtrl', ['$rootScope', '$scope', '$http', 'utilsService','$
         {field: 'content', displayName: '描述', cellTemplate: '<span>{{row.entity.content}}</span>'},
         {field: 'nickname', displayName: '作者',cellTemplate: '<span>{{row.entity.nickname}}</span>'},
         {field: 'create_time', displayName: '时间',cellTemplate: '<span>{{row.entity.create_time |date:"yyyy-MM-dd hh:mm"}}</span>'},
-        {field: '', displayName: '操作', cellTemplate: '<span class="label bg-info" data-toggle="modal" data-target=".showPost" ng-click="showPost(row.entity.post_id,row.entity.content)">查看详情</span>&nbsp;&nbsp;&nbsp;<span class="label bg-success" data-toggle="modal" data-target=".editPost" ng-click="editPost()">转发帖子</span>'}
+        {field: '', displayName: '操作', cellTemplate: '<span class="label bg-success" data-toggle="modal" data-target=".editPost" ng-click="editPost(row.entity)">转发帖子</span>'}
     ];
     $scope.gridOptions = {
         data: 'myData',
@@ -243,17 +252,84 @@ app.controller('meijiaCtrl', ['$rootScope', '$scope', '$http', 'utilsService','$
     };
     window.ngGrid.i18n['zh_cn'] = yilos_i18n.resource;
 
-    //点击查看详情按钮
-    $scope.showPost = function (post_id,content) {
-        $scope.initData.show.content = content;
-        var url = "/svc/dakatongji/meijia/postImg/"+post_id;
+    //点击转载按钮
+    $scope.editPost = function (post) {
+        $scope.initData.add.content = post.content;
+        $scope.initData.add.title   = post.content;
+
+        //初始化其他数据
+        $scope.initData.add.community_id = '';
+        $scope.initData.add.creator_id = '';
+        $scope.initData.add.is_hot = '';
+        $scope.initData.add.is_top = '';
+        $scope.initData.add.imgs = [];
+        $scope.initData.show.num = 1;
+
+        var url = "/svc/dakatongji/meijia/postImg/"+post.post_id;
         $http.get(url).success(function (data) {
             $scope.initData.show.imgs = data.result.images;
-            console.log($scope.initData.show.imgs);
         });
     }
    
-    //上传视频
+    //搜索圈子传参数
+    $scope.remoteUrlRequestFnC = function(str) {
+        return {key: str};
+    };
+
+    // 选择圈子
+    $scope.addCommunity = function (data) {
+        $scope.initData.add.community_id = data.originalObject.community_id;
+    }
+
+    //搜索作者传参数
+    $scope.remoteUrlRequestFn = function(str) {
+        return {param: str};
+    };
+
+    // 选择作者
+    $scope.addAuthor = function (data) {
+        $scope.initData.add.creator_id = data.originalObject.id;
+    }
+
+    //转载帖子top开关
+    $scope.chooseTop = function () {
+        if($scope.initData.add.is_top != 0){
+            $scope.initData.add.is_top = 0;
+            return;
+        }
+           $scope.initData.add.is_top = 1; 
+    }
+
+    //转载帖子hot开关
+    $scope.chooseHot = function () {
+        if($scope.initData.add.is_hot != 0){
+            $scope.initData.add.is_hot = 0;
+            return;
+        }
+           $scope.initData.add.is_hot = 1; 
+    }
+
+    //点击新建确定按钮
+    $scope.addPostOk = function () {
+        var url          = "/svc/dakatongji/meijia/addPost";
+        var creator_id   = $scope.initData.add.creator_id;
+        var community_id = $scope.initData.add.community_id;
+        var title        = $scope.initData.add.title;
+        var content      = $scope.initData.add.content;
+        var is_hot       = $scope.initData.add.is_hot;
+        var is_top       = $scope.initData.add.is_top;
+        var imgs         = $scope.initData.add.imgs;
+        if( creator_id && title && content){
+            $http.post(url,{community_id: community_id, title: title, content: content, is_hot: is_hot, is_top: is_top, imgs: imgs, creator_id: creator_id}).success(function (data) {
+                alert("转载成功！");
+                $(".editPost").modal('hide');
+            });
+            return;
+        }
+        alert("请将信息填写完整");
+    }
+
+    //上传图片
     $scope.addinitUploadWidget = function(){
         $('#fileupload').fileupload({
             url: '/svc/picture/upload',
@@ -264,12 +340,19 @@ app.controller('meijiaCtrl', ['$rootScope', '$scope', '$http', 'utilsService','$
                 return [];
             }
         }).bind('fileuploadfinished',function(e,data){
-                 // $(".uplpadimg").hide();
+                $(".uplpadimg").hide();
             })
             .addClass('fileupload-processing');
 
         function getThumb_pic_urlFromResponse(data){
-            console.log(data.result.result.files[0].url); 
+            var img = {
+                id:'',
+                pic_url:data.result.result.files[0].url,
+                serial_number:$scope.initData.show.num
+            };
+
+            $scope.initData.add.imgs.push(img);
+            $scope.initData.show.num++;
             $scope.digestScope();
             return data.result.result.files;
         }       
@@ -286,6 +369,7 @@ app.controller('meijiaCtrl', ['$rootScope', '$scope', '$http', 'utilsService','$
             }
         });
     };
+
 
 
 }]);

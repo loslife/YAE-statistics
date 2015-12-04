@@ -4,6 +4,10 @@ var dbHelper             = require(FRAMEWORKPATH + "/utils/dbHelper");
 var ossClient = require(FRAMEWORKPATH + "/utils/ossClient");
 var materialDao = require("./materialDao");
 var fs = require('fs');
+var uuid              = require('node-uuid');
+var sizeOf            = require('image-size');
+var url               = require('url');
+var http              = require('http');
 
 exports.getCates         = getCates;
 exports.getPostsWithCate = getPostsWithCate;
@@ -11,6 +15,8 @@ exports.getPostsWithKey  = getPostsWithKey;
 exports.getPostsWithDate = getPostsWithDate;
 exports.getPostImg		 = getPostImg;
 exports.uploadPicture	 = uploadPicture;
+exports.communityList = communityList;
+exports.addPost = addPost;
 
 //获取类别列表
 function getCates (req,res,next) {
@@ -236,4 +242,135 @@ function uploadPicture(req, res, next){
             });
         }
     });
+}
+
+//搜索可以创建帖子的圈子
+function communityList (req, res, next) {
+	var key = req.query.key;
+
+	var sql = "select id 'community_id', name 'name' from "+
+	"communities where (name like '%"+key+"%' or attr like '%"+key+"%') and status <> 2 and is_container=0"+
+	" order by abs(length(name)-length(:key)),abs(length(attr)-length(:key))";
+
+	dbHelper.execSql(sql, {key: key}, function (err, data) {
+		if(err){
+			callback(err);
+			return;
+		}
+		doResponse(req, res, data);
+	});
+}
+
+//添加帖子
+function addPost (req, res, next) {
+	var data = {
+		id           : uuid.v1(),
+		creator_id	 : req.body.creator_id, 
+		community_id : req.body.community_id, 
+		create_date  : (new Date()).getTime(), 
+		title        : req.body.title, 
+		content      : req.body.content, 
+		is_hot       : req.body.is_hot, 
+		is_top       : req.body.is_top,
+		imgs 		 : req.body.imgs
+	};
+
+	//获取图片高度和宽度
+	async.each(data.imgs, function(item, nextOne){
+		http.get(url.parse(item.pic_url), function (response) {
+            var chunks = [];
+            response.on('data', function (chunk) {
+
+                chunks.push(chunk);
+
+            }).on('end', function() {
+
+                var buffer = Buffer.concat(chunks);
+                
+                item.id = uuid.v1();
+				item.serial_number = item.serial_number-1;
+				item.width = sizeOf(buffer).width;
+				item.height = sizeOf(buffer).height;
+                nextOne(null);
+
+            }).on("error", function(err){
+                nextOne(err);
+            });
+        });
+
+	}, function (err) {
+		if(err){
+			logger.error(err);
+			return next(err);
+		}
+		addPosteData(data, function (err,result) {
+			if(err){
+				logger.error(err);
+				next(err);
+				return;
+			}
+			doResponse(req, res, result);
+		});
+	});
+}
+
+//新建帖子
+function addPosteData (data, callback) {
+
+	var result = {
+		post:'',
+		imgs:''
+	};
+
+	async.parallel([addPost, addPic], function (err) {
+		if(err){
+            callback(err);
+            return;
+        }
+        callback(null,result);
+	});
+
+	//存到posts表
+	function addPost (callback) {
+		var sql = 'insert into posts (id, community_id, create_date, title, content, is_hot, is_top, account_id,ready,latest_reply_time) '+
+		'values (:id, :community_id, :create_date, :title, :content, :is_hot, :is_top, :account_id, :ready, :latest_reply_time)';
+
+		dbHelper.execSql(sql, {id: data.id, community_id: data.community_id, create_date: data.create_date, title: data.title, content: data.content, is_hot: data.is_hot, is_top: data.is_top, account_id: data.creator_id,ready:1,latest_reply_time: data.create_date}, function (err, data) {
+			if(err){
+				callback(err);
+				return;
+			}
+			result.post = 'ok';
+			callback(null);
+		});
+	}
+
+	//将pic_url存到post_picture中
+	function addPic (callback) {
+
+		var sql = 'insert into post_pictures (id, post_id, pic_url, serial_number, width, height)'+
+			'values (:id, :post_id, :pic_url, :serial_number, :width, :height)';
+		var sqlArray = [];
+		for (var i = 0; i < data.imgs.length; i++) {
+			sqlArray.push({
+				statement: sql,
+				value: {
+					id: data.imgs[i].id,
+					post_id: data.id, 
+					pic_url: data.imgs[i].pic_url, 
+					serial_number: data.imgs[i].serial_number,
+					width:  data.imgs[i].width,
+					height: data.imgs[i].height
+				}
+			});
+		}
+		dbHelper.bacthExecSql(sqlArray, function(err){
+			if(err){
+				callback(err);
+				return;
+			}
+			result.imgs = 'ok';
+			callback(null);
+		});
+	}
 }

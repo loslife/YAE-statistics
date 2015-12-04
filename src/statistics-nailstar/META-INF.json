@@ -563,6 +563,22 @@
             "auth": "nailstar-cms",
             "impl": "meijia.uploadPicture",
             "comment": "上传图片"
+        },
+        {
+            "name"   : "communityList",
+            "path"   : "/dakatongji/meijia/communityList",
+            "method" : "get",
+            "auth"   : "nailstar-cms",
+            "impl"   : "meijia.communityList",
+            "comment": "获取搜索的圈子列表"
+        },
+        {
+            "name"   : "addPost",
+            "path"   : "/dakatongji/meijia/addPost",
+            "method" : "post",
+            "auth"   : "nailstar-cms",
+            "impl"   : "meijia.addPost",
+            "comment": "新建帖子"
         }
     ],
     "ejsviews": [
