@@ -28,4 +28,3 @@ node_modules
 
 # webstorm
 .idea
-src/framework/static/js/modules/angular-modal-service/dst/angular-modal-service.min.js
