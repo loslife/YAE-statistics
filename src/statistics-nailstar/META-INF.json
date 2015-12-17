@@ -523,6 +523,70 @@
             "auth": "nailstar-cms",
             "impl": "common.getPicAndTxt",
             "comment": "获取主题图文"
+        },
+        {
+            "name": "getCates",
+            "path": "/dakatongji/meijia/getCates",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "meijia.getCates",
+            "comment": "获取美甲分类"
+        },
+        {
+            "name": "getPostsWithCate",
+            "path": "/dakatongji/meijia/getPostsWithCate",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "meijia.getPostsWithCate",
+            "comment": "根据类别获取美甲帖子"
+        },
+        {
+            "name": "getPostsWithKey",
+            "path": "/dakatongji/meijia/getPostsWithKey",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "meijia.getPostsWithKey",
+            "comment": "根据关键字获取美甲帖子"
+        },
+        {
+            "name": "getPostsWithDate",
+            "path": "/dakatongji/meijia/getPostsWithDate",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "meijia.getPostsWithDate",
+            "comment": "根据日期获取美甲帖子"
+        },
+        {
+            "name": "getPostImg",
+            "path": "/dakatongji/meijia/postImg/:post_id",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "meijia.getPostImg",
+            "comment": "根据美甲帖子获取图片"
+        },
+        {
+            "name": "pictureUpload",
+            "path": "/picture/upload",
+            "method": "post",
+            "auth": "nailstar-cms",
+            "impl": "meijia.uploadPicture",
+            "comment": "上传图片"
+        },
+        {
+            "name"   : "communityList",
+            "path"   : "/dakatongji/meijia/communityList",
+            "method" : "get",
+            "auth"   : "nailstar-cms",
+            "impl"   : "meijia.communityList",
+            "comment": "获取搜索的圈子列表"
+        },
+        {
+            "name"   : "addPost",
+            "path"   : "/dakatongji/meijia/addPost",
+            "method" : "post",
+            "auth"   : "nailstar-cms",
+            "impl"   : "meijia.addPost",
+            "comment": "新建帖子"
         }
     ],
     "ejsviews": [

@@ -1,0 +1,248 @@
+<div class="hbox hbox-auto-xs bg-light col-md-8 " ng-init="
+    app.settings.asideFixed = true;
+    app.settings.asideDock = false;
+    app.settings.container = false;
+    app.hideAside = false;
+    app.hideFooter = true;" ng-controller="meijiaCtrl">
+        
+        <div style="margin-bottom: 25px; margin-top: 25px;">
+            <div style="margin-top: 2px;padding-left: 20px;padding-right: 20px;">
+                <span style="font-size: 18px;">选择数据类别:</span>
+                <div class="btn-group dropdown" style="margin-bottom: 2px;">
+                    <div style="width: 300px;">
+                        <select class="form-control" ng-model="initData.show.cate_id" ng-options="cate.cate_id as cate.cate_name for cate in initData.cates" required ng-change="selectCate(initData.show.cate_id)">
+                            <option value="">--选择数据类别--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-2">
+                        <label>选择起始日期：</label>
+                        <p class="input-group">
+                          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="sdt" is-open="sopened" datepicker-options="sdateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="sopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <label>选择截止日期：</label>
+                        <p class="input-group">
+                          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="edt" is-open="eopened" datepicker-options="edateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="eopen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                    </div>
+                    <div class="col-md-1">
+                         <button type="button" style="margin-top:25px;" class="btn btn-primary" ng-click="getsearchDate(1,20)">日期搜索</button>   
+                    </div>
+                    <div class="col-md-5"></div>
+                    <div class="input-group col-md-2" style="padding-right: 15px;padding-top: 30px;">
+                        <input type="text"  class="form-control input-sm no-border rounded padder ng-pristine ng-valid" placeholder="输入标题、描述、内容" ng-model="initData.show.key">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-sm rounded" ng-click="gosearch(initData.show.key,1,20)"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper-md">
+            <div class="panel panel-default">
+                <div class="panel-heading">美甲数据统计</div>
+                <div class="table-responsive">
+                    <div ng-grid="gridOptions" style="text-align: center;font-size: 14px;"></div>
+                </div>
+             </div>
+        </div>
+
+        <!-- 新建帖子 -->
+        <div class="modal fade editPost" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">添加帖子</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-6">
+                                <label>搜索圈子</label>
+                                <div class="input-group">
+                                    <div>
+                                        <angucomplete-alt id="ex1"
+                                        placeholder="输入圈子名称、类别"
+                                        text-searching="正在搜索..."
+                                        text-no-results="没有此圈子"
+                                        pause="200"
+                                        selected-object="addCommunity"
+                                        remote-url="/svc/dakatongji/meijia/communityList"
+                                        remote-url-request-formatter="remoteUrlRequestFnC"
+                                        remote-url-data-field="result"
+                                        title-field="name"
+                                        minlength="2"
+                                        input-class="form-control form-control-small"/>
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-sm bg-light rounded" style="height: 34px;"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>搜索作者</label>
+                                <div class="input-group">
+                                    <div>
+                                        <angucomplete-alt id="ex1"
+                                        placeholder="输入用户昵称、用户名"
+                                        text-searching="正在搜索..."
+                                        text-no-results="没有此用户"
+                                        pause="200"
+                                        selected-object="addAuthor"
+                                        remote-url="/svc/dakatongji/findUserByParam"
+                                        remote-url-request-formatter="remoteUrlRequestFn"
+                                        remote-url-data-field="result"
+                                        title-field="nickname"
+                                        minlength="2"
+                                        input-class="form-control form-control-small"/>
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-sm bg-light rounded" style="height: 34px;"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-6">
+                                <label>标题</label>
+                                <input type="text" placeholder="标题" class="form-control" ng-model="initData.add.title">   
+                            </div>
+                            <div class="col-sm-6">
+                                <label>操作</label>
+                                <div class="input-group">
+                                    <span style="display: inline-block;width: 45px;">置顶</span>
+                                    <label class="i-switch m-r" style="position: relative;top: 5px;">
+                                        <input id="showparentbtn" type="checkbox" checked ng-checked="initData.add.is_top != 0" ng-click="chooseTop()">
+                                        <i></i>
+                                    </label> 
+                                    <span style="display: inline-block;width: 45px;">推荐</span>
+                                    <label class="i-switch m-r" style="position: relative;top: 5px;">
+                                        <input id="showparentbtn" type="checkbox" checked ng-checked="initData.add.is_hot != 0" ng-click="chooseHot()">
+                                        <i></i>
+                                    </label> 
+                                </div>
+                            </div>
+                        </div>
+                        <h4>添加帖子内容</h4>
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-12">
+                                <textarea class="form-control ng-pristine ng-valid" placeholder="内容" rows="2" ng-model="initData.add.content" name="" style="margin: 0px -64px 0px 0px; width: 100%; height: 90px;"></textarea> 
+                            </div>                       
+                        </div>
+                        <h4>图片地址</h4>
+                        <div class="form-group pull-in clearfix">
+                            <div class="wrapper-md">
+                                <p>复制新窗口的网址粘贴在地址栏，刷新即可看到图片！</p>
+                                <div class="row">
+                                    <div class="col-lg-2" ng-repeat="img in initData.show.imgs"><a class="btn btn-primary" target="_blank" href="{{img.url}}">图片地址-{{$index+1}}</a></div>
+                                </div>       
+                            </div>                                            
+                        </div>
+                        <div class="wrapper-md ng-scope">
+                            <div class="row" id="editpostimg">
+                                <div class="col-lg-3" ng-repeat="img in initData.add.imgs">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body"><img class="img-full" src="{{img.pic_url}}" alt=""></div>
+                                        <p class="text-center">
+                                            <label class="label bg-info m-l-xs">{{img.serial_number}}</label> 
+                                            <label class="label bg-danger m-l-xs" ng-click="deletepostimg($index)">删除</label> 
+                                        </p> 
+                                        <p class="text-center">序号 <input type="text" style="width:65%;display: inline-block;" placeholder="序号" class="form-control" ng-model="img.serial_number"></p>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-8">
+                                <div id="fileupload">
+                                    <noscript>
+                                        <input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/">
+                                    </noscript>
+                                    <div class="row fileupload-buttonbar">
+                                        <div class="col-lg-7">
+                                            <span class="btn btn-default fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span>选择图片文件</span>
+                                                <input type="file" name="files[]" multiple>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <table role="presentation" class="table table-striped">
+                                        <tbody class="files"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" ng-click="addPostOk()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<!--图片上传模板-->
+<script id="template-upload" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade" style="height:150px">
+        <td>
+            <div>
+                <ul style="list-style:none;height:100px;width:auto" class="col-sm-6">
+                    <li><span class="preview"></span></li>
+                    <li><div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-success" style="width:0%;"></div></div></li>
+                </ul>
+                <ul style="list-style:none" class="col-sm-6">
+                    <li >
+                        {% if (!i && !o.options.autoUpload) { %}
+                        <button class="btn btn-primary start col-sm-12" disabled>
+                            <i class="glyphicon glyphicon-upload"></i>
+                            <span>上传</span>
+                        </button>
+                        {% } %}
+                        {% if (!i) { %}
+                        <button class="btn btn-default cancel col-sm-12" style="margin-top:12px">
+                            <i class="glyphicon glyphicon-ban-circle"></i>
+                            <span>取消上传</span>
+                        </button>
+                        {% } %}
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    {% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-download fade uplpadimg">
+            <td>
+            {%=file.upload_date%}
+                <span class="preview">
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                </span>
+                <input type="hidden" name="pictureId" value={%=file.id%}/>
+                <input type="hidden" name="pictureId" value={%=file.url%}/>
+            </td>
+            <td>
+                <button class="btn btn-default cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>删除</span>
+                </button>
+            </td>
+        </tr>
+        {% } %}
+</script>
