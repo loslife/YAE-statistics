@@ -152,6 +152,18 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //用户交作业统计
+                    .state('app.userhomeworkCount', {
+                        url: '/userhomeworkCount',
+                        templateUrl: '/statistics-nailstar/html/video/userhomeworkCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/userhomeworkCount.js']);
+                                }]
+                        }
+                    })
+
                     //用户交作业排行榜
                     .state('app.userhomeworkranking', {
                         url: '/userhomeworkranking',

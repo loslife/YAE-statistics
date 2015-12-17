@@ -157,6 +157,14 @@
             "comment": "用户交作业分页查询"
         },
         {
+            "name": "userHomeworkCount",
+            "path": "/dakatongji/userHomeworkCount",
+            "method": "get",
+            "auth": "nailstar-cms",
+            "impl": "comments.userHomeworkCount",
+            "comment": "交作业统计"
+        },
+        {
             "name": "homeworkRanking",
             "path": "/dakatongji/homeworkRanking",
             "method": "get",
