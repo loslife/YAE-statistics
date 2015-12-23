@@ -26,7 +26,7 @@ var app = angular.module('app', [
 
     ])
         .run(
-        [          '$rootScope', '$state', '$stateParams',
+        ['$rootScope', '$state', '$stateParams',
             function ($rootScope,   $state,   $stateParams) {
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
@@ -35,7 +35,7 @@ var app = angular.module('app', [
         ]
     )
         .config(
-        [          '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
+        [ '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
             function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide) {
 
                 // lazy controller, directive and service
@@ -96,6 +96,38 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //首页滚屏次数统计
+                    .state('app.indexRollTimes', {
+                        url: '/indexRollTimes',
+                        templateUrl: '/statistics-nailstar/html/index/indexRollTimes.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/index/indexRollTimes.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
+                    //首页平均停留时长统计
+                    .state('app.indexStayTime', {
+                        url: '/indexStayTime',
+                        templateUrl: '/statistics-nailstar/html/index/indexStayTime.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/index/indexStayTime.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
                     //用户帖子评论排行榜
                     .state('app.userpostcommentsranking', {
                         url: '/userpostcommentsranking',
@@ -116,6 +148,18 @@ var app = angular.module('app', [
                             deps: ['uiLoad',
                                 function (uiLoad) {
                                     return uiLoad.load(['/statistics-nailstar/js/users/userTopicCommentRanking.js']);
+                                }]
+                        }
+                    })
+
+                    //用户交作业统计
+                    .state('app.userhomeworkCount', {
+                        url: '/userhomeworkCount',
+                        templateUrl: '/statistics-nailstar/html/video/userhomeworkCount.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/video/userhomeworkCount.js']);
                                 }]
                         }
                     })
@@ -480,6 +524,18 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //圈子平均停留时长
+                    .state('app.communitiesStayTime', {
+                        url: '/communitiesStayTime',
+                        templateUrl: '/statistics-nailstar/html/communities/communitiesStayTime.html',
+                        resolve: {
+                            deps: ['uiLoad',
+                                function (uiLoad) {
+                                    return uiLoad.load(['/statistics-nailstar/js/communities/communitiesStayTime.js']);
+                                }]
+                        }
+                    })
+
                     //视频系列评论统计
                     .state('app.videoCommentsCates', {
                         url: '/videoCommentsCates',
@@ -624,6 +680,68 @@ var app = angular.module('app', [
                         }
                     })
 
+                    //商城中商品点击数
+                    .state('app.commodityStayTime', {
+                        url: '/commodityStayTime',
+                        templateUrl: '/statistics-nailstar/html/commodity/commodityStayTime.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/commodity/commodityStayTime.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
+                    //获取主题中的图文
+                    .state('app.showPicAndTx', {
+                        url: '/showPicAndTx/:topicId',
+                        templateUrl: '/statistics-nailstar/html/video/showPicAndTxt.html',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function( $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return $ocLazyLoad.load('/statistics-nailstar/js/video/showPicAndTxt.js');
+                                        }
+                                    );
+                                }]
+                        }
+                    })
+
+                    //搜索美甲帮数据
+                    .state('app.meijia', {
+                        url: '/meijia',
+                        templateUrl: '/statistics-nailstar/html/meijia/meijia.html',
+                        resolve: {
+                            deps: ['uiLoad','$ocLazyLoad',
+                                function(uiLoad, $ocLazyLoad ){
+                                    return $ocLazyLoad.load('ngGrid').then(
+                                        function(){
+                                            return uiLoad.load(['/statistics-nailstar/js/meijia/meijia.js',
+                                                'js/jquery/fileupload/tmpl.min.js',
+                                                'js/jquery/fileupload/jquery.ui.widget.js',
+                                                'js/jquery/fileupload/load-image.all.min.js',
+                                                'js/jquery/fileupload/canvas-to-blob.min.js',
+                                                'js/jquery/fileupload/jquery.iframe-transport.js',
+                                                'js/jquery/fileupload/jquery.fileupload.js',
+                                                'js/jquery/fileupload/jquery.fileupload-process.js',
+                                                'js/jquery/fileupload/jquery.fileupload-image.js',
+                                                'js/jquery/fileupload/jquery.fileupload-audio.js',
+                                                'js/jquery/fileupload/jquery.fileupload-video.js',
+                                                'js/jquery/fileupload/jquery.fileupload-validate.js',
+                                                'js/jquery/fileupload/jquery.fileupload-ui.js',
+                                                'js/jquery/fileupload/jquery.fileupload.css',
+                                                'js/jquery/fileupload/jquery.fileupload-ui.css'
+                                        ]);}
+                                    );
+                                }]
+                        }
+                    })
+
                     .state('login', {
                         url: '/login',
                         template: '<div ui-view class="fade-in-right-big smooth"></div>'
@@ -704,8 +822,22 @@ var app = angular.module('app', [
                 'js/jquery/jvectormap/jquery-jvectormap.css'],
             footable:       ['js/jquery/footable/footable.all.min.js',
                 'js/jquery/footable/footable.core.css'],
-            daterangepicker: ['js/jquery/bootstrap-daterangepicker/daterangepicker.js',
-                'js/jquery/bootstrap-daterangepicker/daterangepicker-bs3.css']
+            daterangepicker:['js/jquery/bootstrap-daterangepicker/daterangepicker.js',
+                'js/jquery/bootstrap-daterangepicker/daterangepicker-bs3.css'],
+            filepuload:     ['js/jquery/fileupload/tmpl.min.js',
+                'js/jquery/fileupload/jquery.ui.widget.js',
+                'js/jquery/fileupload/load-image.all.min.js',
+                'js/jquery/fileupload/canvas-to-blob.min.js',
+                'js/jquery/fileupload/jquery.iframe-transport.js',
+                'js/jquery/fileupload/jquery.fileupload.js',
+                'js/jquery/fileupload/jquery.fileupload-process.js',
+                'js/jquery/fileupload/jquery.fileupload-image.js',
+                'js/jquery/fileupload/jquery.fileupload-audio.js',
+                'js/jquery/fileupload/jquery.fileupload-video.js',
+                'js/jquery/fileupload/jquery.fileupload-validate.js',
+                'js/jquery/fileupload/jquery.fileupload-ui.js',
+                'js/jquery/fileupload/jquery.fileupload.css',
+                'js/jquery/fileupload/jquery.fileupload-ui.css']
         }
     )
 

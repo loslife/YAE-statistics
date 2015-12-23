@@ -5,6 +5,7 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 exports.getCommentsAll = getCommentsAll;
 exports.getCommentsByCate = getCommentsByCate;
 exports.getCommentsByTopic = getCommentsByTopic;
+exports.userHomeworkCount = userHomeworkCount;
 
 //美甲大咖总评论数
 function getCommentsAll(req, res, next) {
@@ -285,6 +286,24 @@ function getCommentsByTopic(req, res, next){
                 return [sql_total_by_day, sql_order_by_day];
         }
     }
+}
+
+//交作业统计
+function userHomeworkCount(req, res, next){
+
+    var num = (parseInt(req.query["num"]) || 10) - 1;
+
+    var sql = "select count(id) 'count',from_unixtime(create_date/1000, '%Y%m%d') 'time' from comments " +
+        "where content_pic is not null and content_pic <> '' and from_unixtime(create_date/1000, '%Y%m%d') " +
+        "between date_format(date_add(now(), interval -" + num + " day), '%Y%m%d') and date_format(now(), '%Y%m%d') " +
+        "group by time order by time desc";
+
+    dbHelper.execSql(sql, {}, function(err, result){
+        if(err){
+            return next(err);
+        }
+        doResponse(req, res, result);
+    });
 }
 
 
